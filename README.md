@@ -4,6 +4,6 @@
 
 ## Jeux avec Pygame
 
-  - 🐍 [Le snake](tps/games/README-snake.html)
+  - 🐍 [Le snake](https://boisgera.github.io/python-advanced-companion/tps/games/README-snake.html)
 
-  - 🐦 [Flappy bird](tps/games/README-flappybird.html)
+  - 🐦 [Flappy bird](https://boisgera.github.io/python-advanced-companion/tps/games/README-flappybird.html)
