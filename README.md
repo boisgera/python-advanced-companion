@@ -1,6 +1,6 @@
-# Python Advanced Companion
+# Compagnon à Python Avancé
 
-## Games
+## Jeux avec Pygame
 
   - 🐍 [Le snake](tps/games/README-snake.html)
 
