@@ -1,6 +1,6 @@
 # Compagnon à Python Avancé
 
-🏠 [Python avancé](https://github.com/ue12-p21/python-advanced) / ☁️ [nbhosting](https://nbhosting.inria.fr/)
+🏠 [Python avancé](https://github.com/ue12-p21/python-advanced) / ☁️ [nbhosting](https://nbhosting.inria.fr/) (🔒 accès restreint)
 
 ## Jeux avec Pygame
 
