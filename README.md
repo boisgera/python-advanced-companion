@@ -4,7 +4,7 @@
   
   - ☁️ [nbhosting](https://nbhosting.inria.fr/) (🔒 accès restreint)
 
-## Jeux avec Pygame
+## Jeux avec pygame
 
 🎮 [Documentation pygame](https://www.pygame.org/docs/)
 
