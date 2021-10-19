@@ -6,6 +6,8 @@
 
 ## Jeux avec Pygame
 
-  - 🐍 [Le snake](https://boisgera.github.io/python-advanced-companion/tps/games/README-snake.html)
+🎮 [Documentation pygame](https://www.pygame.org/docs/)
 
-  - 🐦 [Flappy bird](https://boisgera.github.io/python-advanced-companion/tps/games/README-flappybird.html)
+ 1. 🐍 [Le snake](https://boisgera.github.io/python-advanced-companion/tps/games/README-snake.html)
+
+ 2. 🐦 [Flappy bird](https://boisgera.github.io/python-advanced-companion/tps/games/README-flappybird.html)
