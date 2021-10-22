@@ -47,13 +47,13 @@ sa configuration par défaut. Il est possible de la rendre durable en modifiant
 un fichier de configuration `.bashrc` qui est présent dans votre répertoire
 racine (le contenu de la variable $HOME)
 
---------------------------------------------------------------------------------
-⚠️ **Fichiers cachés.** Par convention, les fichiers dont le nom commence par un
-point sont souvent cachés par défaut par les explorateurs de fichiers. Il vous
-sera peut-être nécessaire de lui demander explicitement de les afficher pour
-trouver votre fichier `.bashrc`.
 
---------------------------------------------------------------------------------
+> ⚠️ **Fichiers cachés.** Par convention, les fichiers dont le nom commence par 
+> un point sont souvent cachés par défaut par les explorateurs de fichiers. 
+> Il vous sera peut-être nécessaire de lui demander explicitement de les afficher 
+> pour trouver votre fichier `.bashrc`.
+
+
 
 --------------------------------------------------------------------------------
 ⚠️ **Quel langage de shell?** Il est possible que le langage de shell que vous 
