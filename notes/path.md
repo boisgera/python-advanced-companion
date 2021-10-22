@@ -104,7 +104,7 @@ rechercher un fichier exécutable `git` dans le répertoire
 contraire, il va faire la même chose dans le répertoire `/usr/local/bin`
 et à nouveau en cas d'échec, essayer dans `/usr/bin`.
 
-## Conda
+## Environnements conda
 
 Conda manipule la variable d'environnement `PATH` pour isoler les environnements
 conda que vous créez. Dans l'environnement de base conda vous pouvez ainsi avoir :
