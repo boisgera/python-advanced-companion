@@ -29,8 +29,10 @@ le *prompt* (ou "invite de commande") qui jusqu'à présent était `"$ "` et
 le faire indiquer en plus le nom de l'utilisateur entre parenthèses :
 
     $ PS1="($USER)$ "
-    (boisgera) $ echo "$USER"
-    (boisgera)$
+    (boisgera)$ echo "$USER"
+    boisgera
+    (boisgera)$ echo "$HOME"
+    /home/boisgera
     (boisgera)$ echo "the prompt is: $PS1"
     the prompt is: (boisgera)> 
 
