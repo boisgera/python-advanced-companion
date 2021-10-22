@@ -30,7 +30,7 @@ Des variables d'environnement sont définies dans votre terminal :
     $ echo "$DESKTOP_SESSION"
     ubuntu
 
-Leur valeurs conditionnent son fonctionnement. Par exemple, pour changer
+Leur valeurs peuvent conditionner son fonctionnement. Par exemple, pour changer
 le *prompt* (ou "invite de commande") qui dans l'exemple ci-dessus est `"$ "` et
 le faire indiquer en plus le nom de l'utilisateur entre crochets, on peut
 modifier la variable `PS1` :
