@@ -27,4 +27,5 @@ La variable d'environnement `SHELL` devrait vous renseigner à ce sujet:
 
 Si vous utilisez zsh, le fichier de configuration exécuté au démarrage d'un
 terminal sera `.zshrc` et non `.bashrc`.
+
 --------------------------------------------------------------------------------
