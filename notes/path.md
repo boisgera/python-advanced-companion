@@ -45,7 +45,7 @@ La modification que nous avons faite de l'invite de commande n'est pas définiti
 dès que nous allons ouvrir un nouveau terminal, l'invite de commande reviendra à
 sa configuration par défaut. Il est possible de la rendre durable en modifiant
 un fichier de configuration `.bashrc` qui est présent dans votre répertoire
-racine (le contenu de la variable `HOME`)
+racine (le contenu de la variable `HOME`).
 
 
 > ⚠️ **Fichiers cachés.** Par convention, les fichiers dont le nom commence par 
