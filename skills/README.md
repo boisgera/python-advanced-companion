@@ -22,15 +22,15 @@
 
   - Conda et pip: 
 
-    - création d'un environnement conda
+    - création d'un environnement conda (`conda create`)
 
-    - activation d'un environnement conda
+    - activation d'un environnement conda (`conda activate`)
 
-    - installation d'un package avec conda (python)
+    - installation d'un package avec conda (`conda install`)
 
-    - installation d'un package avec pip (pygame)
+    - installation d'un package avec pip (`pip install`)
 
-    - initialisation de conda pour langage de shell (`conda init`)
+    - initialisation de conda pour bash (`conda init`)
 
   - Python: 
   
