@@ -63,7 +63,7 @@ Ce mécanisme repose sur la variable d'environnement `PATH`
     $ echo "$PATH"
     /home/boisgera/miniconda3/bin:/usr/local/bin:/usr/bin
 
-Voilà comment interpréter cette variable `PATH` :  
+Voilà comment interpréter cette variable `PATH` :
 quand j'invoque la commande `git`, le système va d'abord
 rechercher un fichier exécutable `git` dans le répertoire 
 `/home/boisgera/miniconda3/bin` et l'exécuter s'il s'y trouve. Dans le cas
