@@ -132,7 +132,7 @@ alors l'activer va changer la valeur de `PATH` :
     (my_project) $ echo $PATH
     /home/boisgera/miniconda3/envs/my_project/bin:/usr/local/bin:/usr/bin
 
-Cela permet, une fois que l'on aura installer un nouveau python dans cet
+Cela permet, une fois que l'on aura installé un nouveau python dans cet
 environnement, d'accéder facilement à cette version et non à celle qui
 était dans l'environnement de base (ou déjà installée ailleurs).
 
