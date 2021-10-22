@@ -56,10 +56,10 @@ racine (le contenu de la variable `HOME`).
 > ⚠️ **Quel langage de shell?** Il est possible que le langage de shell que vous 
 > utilisiez ne soit pas `bash` (le Bourne-again shell), mais par exemple `zsh` 
 > (le Z shell). 
-> La variable d'environnement `SHELL` devrait vous renseigner à ce sujet:
+> La variable d'environnement `SHELL` devrait vous renseigner à ce sujet :
 >
->    (base) $ echo "$SHELL"
->    /bin/bash
+>     (base) $ echo "$SHELL"
+>     /bin/bash
 >
 > Si vous utilisez `zsh`, le fichier de configuration exécuté au démarrage d'un
 > terminal sera `.zshrc` et non `.bashrc`.
