@@ -41,6 +41,35 @@ sont définies.
 
 ## Commandes et `PATH`
 
+En général, vous allez invoquer des commandes dans le terminal par leur nom,
+sans spécifier où se situe le fichier qui doit être exécuté. Par exemple,
+vous allez faire
+
+    $ git commit -m "initial commit"
+
+plutôt que 
+
+    $ /usr/bin/git commit -m "initial commit"
+
+Vous laissez alors au terminal le soin de découvrir que le fichier exécutable
+`git` est dans le répertoire `/usr/bin`. D'ailleurs si vous avez un doute,
+vous pouvez demander quel est le résultat de cette résolution :
+
+    $ which git
+    /usr/bin/git
+
+Ce mécanisme repose sur la variable d'environnement `PATH`
+
+    $ echo "$PATH"
+    /home/boisgera/miniconda3/bin:/usr/local/bin:/usr/bin
+
+Voilà comment interpréter cette variable `PATH` :  
+quand j'invoque la commande `git`, le système va d'abord
+rechercher un fichier exécutable `git` dans le répertoire 
+`/home/boisgera/miniconda3/bin` et l'exécuter s'il s'y trouve. Dans le cas
+contraire, il va faire la même chose dans le répertoire `/usr/local/bin`
+et à nouveau en cas d'échec, essayer dans `/usr/bin`.
+
 ## Configuration du terminal
 
 
