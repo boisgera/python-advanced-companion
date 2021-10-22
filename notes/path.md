@@ -106,6 +106,52 @@ et à nouveau en cas d'échec, essayer dans `/usr/bin`.
 
 ## Conda
 
+Conda joue avec la variable d'environement `PATH` pour isoler les environnements
+conda que vous créez. Dans l'environnement de base conda vous pouvez ainsi avoir :
+
+    (base) $ echo $PATH
+    /home/boisgera/miniconda3/bin:/usr/local/bin:/usr/bin
+    (base) $ which python
+    /home/boisgera/miniconda3/bin/python
+    (base) boisgera@oddball:~$ python
+    Python 3.8.8 (default, Feb 24 2021, 21:46:12) 
+    [GCC 7.3.0] :: Anaconda, Inc. on linux
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>> 
+
+.Vous pouvez créer un nouvel environnement conda `my_project` :
+
+    (base) boisgera@oddball:~$ conda create --name my_project 
+    ...
+
+Activer l'environnement `my_project` va changer la valeur de `PATH` :
+
+    (base) $ echo $PATH
+    /home/boisgera/miniconda3/envs/bin:/usr/local/bin:/usr/bin
+    (base) $ conda activate my_project
+    (my_project) $ echo $PATH
+    /home/boisgera/miniconda3/envs/my_project/bin:/usr/local/bin:/usr/bin
+
+Cela permet, une fois que l'on aura installer un nouveau python dans cet
+environnement, d'accéder facilement à cette version et non à celle qui
+était dans l'environnement de base (ou déjà installée ailleurs).
+
+    (my_project) $ conda install python=3.9
+    ...
+    (my_project) $ which python
+    /home/boisgera/miniconda3/envs/my_project/bin/python
+    (my_project) boisgera@oddball:~$ python
+    Python 3.9.7 (default, Sep 16 2021, 13:09:58) 
+    [GCC 7.5.0] :: Anaconda, Inc. on linux
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>> 
+
+
+    
+
+
+
+
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
     __conda_setup="$('/home/boisgera/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
