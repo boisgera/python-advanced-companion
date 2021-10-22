@@ -1,9 +1,10 @@
 # Mais qu'est-ce qui se PATH ?
 
-**TL;DR.** Le fonctionnement des environnements conda repose en grande partie 
-sur la manipulation d'une variable d'environnement appelée `PATH` qui sélectionne
-quel fichier sera executé quand vous invoquer une commande dans un terminal.
-Cette manipulation est permise par l'insertion par conda d'un bout de code
+**TL;DR.** Le fonctionnement des environnements conda repose sur la manipulation 
+de la variable d'environnement `PATH` 
+qui sélectionne quel fichier sera executé quand vous invoquer une commande dans 
+un terminal.
+Cette manipulation est permise par l'insertion par conda de code
 dans un fichier de configuration qui est executé à chaque démarrage d'un 
 nouveau terminal. Comme ce fichier peut également être modifié par d'autres
 outils logiciels, ou édité manuellement, il est possible que le fonctionnement
