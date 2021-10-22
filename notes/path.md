@@ -151,11 +151,8 @@ environnement, d'accéder facilement à cette version et non à celle qui
     Type "help", "copyright", "credits" or "license" for more information.
     >>> 
 
-
-    
-
-
-
+Pour permettre cela, conda insère dans votre fichier `.bashrc` un fragment de
+code, qui doit ressembler à :
 
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
@@ -171,3 +168,16 @@ environnement, d'accéder facilement à cette version et non à celle qui
     fi
     unset __conda_setup
     # <<< conda initialize <<<
+
+Ce fragment va notamment modifier le `PATH` pour que les commandes
+soient recherchés en priorité dans les fichiers installés par conda.
+
+Mais cela est relativement fragile ! Ainsi si quelqu'un rajoute **après** ce
+fragment de code quelque chose comme
+
+    PATH="/home/boisgera/.local/bin:$PATH"
+
+et qu'il existe un fichier exécutable `python` dans le repértoire 
+`/home/boisgera/.local/bin`, c'est ce qui sera exécuté
+lorsque vous invoquerez la commande `python`, même si vous êtes
+dans un environnement conda ...
