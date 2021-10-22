@@ -1,8 +1,10 @@
 # Mais qu'est-ce qui se PATH ?
 
+⏲: 15 min.
+
 **TL;DR.** Le fonctionnement des environnements conda repose sur la manipulation 
 de la variable d'environnement `PATH` 
-qui sélectionne quel fichier sera executé quand vous invoquer une commande dans 
+qui sélectionne quel fichier sera exécuté quand vous invoquer une commande dans 
 un terminal.
 Cette manipulation est permise par l'insertion par conda de code
 dans un fichier de configuration qui est executé à chaque démarrage d'un 
@@ -29,9 +31,10 @@ terminal.
     $ echo "$DESKTOP_SESSION"
     ubuntu
 
-Leur valeurs conditionnent sont fonctionnement. Par exemple, pour changer
+Leur valeurs conditionnent son fonctionnement. Par exemple, pour changer
 le *prompt* (ou "invite de commande") qui dans l'exemple ci-dessus est `"$ "` et
-le faire indiquer en plus le nom de l'utilisateur entre crochets :
+le faire indiquer en plus le nom de l'utilisateur entre crochets, on peut
+modifier la variable `PS1` :
 
     $ PS1="[$USER]$ "
     [boisgera]$ echo "$USER"
@@ -170,14 +173,15 @@ code, qui doit ressembler à :
     # <<< conda initialize <<<
 
 Ce fragment va notamment modifier le `PATH` pour que les commandes
-soient recherchés en priorité dans les fichiers installés par conda.
+soient recherchées en priorité dans les fichiers installés par conda.
 
-Mais cela est relativement fragile ! Ainsi si quelqu'un rajoute **après** ce
-fragment de code quelque chose comme
+Mais ce système est relativement fragile ! Ainsi, si quelqu'un modifie ce
+fichier de configuration et rajoute **après** le fragment de code 
+conda quelque chose comme
 
     PATH="/home/boisgera/.local/bin:$PATH"
 
-et qu'il existe un fichier exécutable `python` dans le repértoire 
-`/home/boisgera/.local/bin`, c'est ce qui sera exécuté
+et qu'il existe un fichier exécutable `python` dans le repertoire 
+`/home/boisgera/.local/bin`, c'est lui qui sera exécuté
 lorsque vous invoquerez la commande `python`, même si vous êtes
 dans un environnement conda ...
