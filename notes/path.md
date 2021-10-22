@@ -25,7 +25,7 @@ terminal.
     ubuntu
 
 Leur valeurs conditionnent sont fonctionnement. Par exemple, pour changer
-le *prompt* (ou "invite de commande") qui jusqu'à présent était `"$ "` et
+le *prompt* (ou "invite de commande") qui dans l'exemple ci-dessus est `"$ "` et
 le faire indiquer en plus le nom de l'utilisateur entre parenthèses :
 
     $ PS1="($USER)$ "
