@@ -12,6 +12,31 @@ de conda soit altéré et nécessite votre intervention.
 
 ## Variables d'environnements
 
+Un certain nombre de variables d'environnements sont définies dans votre
+terminal. 
+
+    $ echo "$USER"
+    boisgera
+    $ echo "$HOME"
+    /home/boisgera
+    $ echo $CONDA_EXE
+    /home/boisgera/miniconda3/bin/conda
+    $ echo "$DESKTOP_SESSION"
+    ubuntu
+
+Leur valeurs conditionnennent sont fonctionnement. Par exemple, pour changer
+le *prompt* (ou "invite de commande") qui jusqu'à présent était `"$ "` et
+le faire indiquer en plus le nom de l'utilisateur entre parenthèses :
+
+    $ PS1="($USER)$ "
+    (boisgera) $ echo "$USER"
+    (boisgera)$
+    (boisgera)$ echo "the prompt is: $PS1"
+    the prompt is: (boisgera)> 
+
+La commande `env` permet de lister toutes les variables d'environnements qui
+sont définies.
+
 ## Commandes et `PATH`
 
 ## Configuration du terminal
