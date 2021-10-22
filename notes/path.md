@@ -26,18 +26,55 @@ terminal.
 
 Leur valeurs conditionnent sont fonctionnement. Par exemple, pour changer
 le *prompt* (ou "invite de commande") qui dans l'exemple ci-dessus est `"$ "` et
-le faire indiquer en plus le nom de l'utilisateur entre parenthèses :
+le faire indiquer en plus le nom de l'utilisateur entre crochets :
 
-    $ PS1="($USER)$ "
-    (boisgera)$ echo "$USER"
+    $ PS1="[$USER]$ "
+    [boisgera]$ echo "$USER"
     boisgera
-    (boisgera)$ echo "$HOME"
+    [boisgera]$ echo "$HOME"
     /home/boisgera
-    (boisgera)$ echo "the prompt is: $PS1"
-    the prompt is: (boisgera)$
+    [boisgera]$ echo "the prompt is: $PS1"
+    the prompt is: [boisgera]$
 
 La commande `env` permet de lister toutes les variables d'environnements qui
 sont définies.
+
+## Configuration du terminal
+
+La modification que nous avons faite de l'invite de commande n'est pas définitive :
+dès que nous allons ouvrir un nouveau terminal, l'invite de commande reviendra à
+sa configuration par défaut. Il est possible de la rendre durable en modifiant
+un fichier de configuration `.bashrc` qui est présent dans votre répertoire
+racine (le contenu de la variable $HOME)
+
+--------------------------------------------------------------------------------
+⚠️ **Fichiers cachés.** Par convention, les fichiers dont le nom commence par un
+point sont souvent cachés par défaut par les explorateurs de fichiers. Il vous
+sera peut-être nécessaire de lui demander explicitement de les afficher pour
+trouver votre fichier `.bashrc`.
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+⚠️ **Quel langage de shell?** Il est possible que le langage de shell que vous 
+utilisiez ne soit pas `bash` (le Bourne-again shell), mais par exemple `zsh` 
+(le Z shell). 
+La variable d'environnement `SHELL` devrait vous renseigner à ce sujet:
+
+    (base) $ echo "$SHELL"
+    /bin/bash
+
+Si vous utilisez `zsh`, le fichier de configuration exécuté au démarrage d'un
+terminal sera `.zshrc` et non `.bashrc`.
+
+--------------------------------------------------------------------------------
+
+Si j'édite ce fichier `.bashrc` pour rajouter à la fin du fichier la ligne 
+
+    PS1="[$USER]$ "
+
+j'aurais l'invite de commande que je souhaite dès le démarrage d'un nouveau
+terminal.
 
 ## Commandes et `PATH`
 
@@ -70,19 +107,19 @@ rechercher un fichier exécutable `git` dans le répertoire
 contraire, il va faire la même chose dans le répertoire `/usr/local/bin`
 et à nouveau en cas d'échec, essayer dans `/usr/bin`.
 
-## Configuration du terminal
+## Conda
 
-
---------------------------------------------------------------------------------
-⚠️ **Quel langage de shell?** Il est possible que le langage de shell que vous 
-utilisiez ne soit pas `bash` (le Bourne-again shell), mais par exemple `zsh` 
-(le Z shell). 
-La variable d'environnement `SHELL` devrait vous renseigner à ce sujet:
-
-    (base) $ echo "$SHELL"
-    /bin/bash
-
-Si vous utilisez `zsh`, le fichier de configuration exécuté au démarrage d'un
-terminal sera `.zshrc` et non `.bashrc`.
-
---------------------------------------------------------------------------------
+    # >>> conda initialize >>>
+    # !! Contents within this block are managed by 'conda init' !!
+    __conda_setup="$('/home/boisgera/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
+    else
+        if [ -f "/home/boisgera/miniconda3/etc/profile.d/conda.sh" ]; then
+            . "/home/boisgera/miniconda3/etc/profile.d/conda.sh"
+        else
+            export PATH="/home/boisgera/miniconda3/bin:$PATH"
+        fi
+    fi
+    unset __conda_setup
+    # <<< conda initialize <<<
