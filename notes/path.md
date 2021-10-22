@@ -19,8 +19,7 @@ de conda soit altéré et nécessite votre intervention.
 
 ## Variables d'environnement
 
-Un certain nombre de variables d'environnements sont définies dans votre
-terminal. 
+Des variables d'environnement sont définies dans votre terminal :
 
     $ echo "$USER"
     boisgera
