@@ -43,8 +43,7 @@ modifier la variable `PS1` :
     [boisgera]$ echo "the prompt is: $PS1"
     the prompt is: [boisgera]$
 
-La commande `env` permet de lister toutes les variables d'environnements qui
-sont définies.
+La commande `env` permet de lister toutes les variables d'environnements.
 
 ## Configuration du terminal
 
