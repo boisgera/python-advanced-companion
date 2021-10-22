@@ -119,12 +119,12 @@ conda que vous créez. Dans l'environnement de base conda vous pouvez ainsi avoi
     Type "help", "copyright", "credits" or "license" for more information.
     >>> 
 
-Vous pouvez créer un nouvel environnement conda `my_project` :
+Mais si vous créez un environnement conda `my_project` :
 
     (base) boisgera@oddball:~$ conda create --name my_project 
     ...
 
-Activer l'environnement `my_project` va changer la valeur de `PATH` :
+alors l'activer va changer la valeur de `PATH` :
 
     (base) $ echo $PATH
     /home/boisgera/miniconda3/envs/bin:/usr/local/bin:/usr/bin
