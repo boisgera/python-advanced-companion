@@ -34,7 +34,7 @@ le faire indiquer en plus le nom de l'utilisateur entre parenthèses :
     (boisgera)$ echo "$HOME"
     /home/boisgera
     (boisgera)$ echo "the prompt is: $PS1"
-    the prompt is: (boisgera)> 
+    the prompt is: (boisgera)$
 
 La commande `env` permet de lister toutes les variables d'environnements qui
 sont définies.
