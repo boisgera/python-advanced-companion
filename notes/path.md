@@ -49,9 +49,9 @@ La commande `env` permet de lister toutes les variables d'environnements.
 
 La modification que nous avons faite de l'invite de commande n'est pas définitive :
 dès que nous allons ouvrir un nouveau terminal, l'invite de commande reviendra à
-sa configuration par défaut. Il est possible de la rendre durable en modifiant
-un fichier de configuration `.bashrc` qui est présent dans votre répertoire
-racine (le contenu de la variable `HOME`).
+sa configuration par défaut. Il est possible de rendre la modification durable 
+en modifiant un fichier de configuration `.bashrc` qui est présent dans votre 
+répertoire racine (la valeur de la variable `HOME`).
 
 
 > ⚠️ **Fichiers cachés.** Par convention, les fichiers dont le nom commence par 
