@@ -18,8 +18,9 @@ de conda soit altéré et nécessite votre intervention.
 
 
 --------------------------------------------------------------------------------
-⚠️ Il est possible que le langage de shell que vous utilisiez ne soit pas
-bash, le Bourne-again shell, mais par exemple zsh, le Z shell. 
+⚠️ **Quel langage de shell?** Il est possible que le langage de shell que vous 
+utilisiez ne soit pas bash, le Bourne-again shell, mais par exemple zsh, 
+le Z shell. 
 La variable d'environnement `SHELL` devrait vous renseigner à ce sujet:
 
     (base) $ echo "$SHELL"
