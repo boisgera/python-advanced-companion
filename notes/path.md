@@ -10,7 +10,7 @@ nouveau terminal. Comme ce fichier peut également être modifié par d'autres
 outils logiciels, ou édité manuellement, il est possible que le fonctionnement
 de conda soit altéré et nécessite votre intervention.
 
-## Variables d'environnements
+## Variables d'environnement
 
 Un certain nombre de variables d'environnements sont définies dans votre
 terminal. 
