@@ -10,6 +10,11 @@ nouveau terminal. Comme ce fichier peut également être modifié par d'autres
 outils logiciels, ou édité manuellement, il est possible que le fonctionnement
 de conda soit altéré et nécessite votre intervention.
 
+> ℹ️ **Le terminal.** Les informations contenues dans ce document sont applicables
+> au terminal Linux et Mac OS et sous Windows,
+> au terminal git-bash (MinGW) ou au terminal bash associé à WSL (Windows
+> Subsystem for Linux).
+
 ## Variables d'environnement
 
 Un certain nombre de variables d'environnements sont définies dans votre
