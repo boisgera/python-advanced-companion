@@ -1,6 +1,6 @@
 # Compétences
 
-### Environnement de développement intégré (VS Code)
+### Environnement de développement intégré : VS Code
 
   - Gestionnaire d'extensions : installation extension Python (Microsoft)
 
@@ -10,27 +10,27 @@
 
   - Palette de commandes : 
   
-      - raccourci : `⇧ ⌘ P` Shift-Command-P (mac) ou Shift-Control-P (windows),
+      - raccourci : `⇧ ⌘ P` Shift-Command-P (mac) ou `⇧ ⌃ P` Shift-Control-P (windows),
 
       - choix de l'environnement Python associé à l'éditeur de texte
 
-  - Terminal : création et choix du langage associé (bash)
+  - Terminal intégré : création et choix du langage associé (bash)
 
 ### Terminal
 
-  - Exécution de commandes : `conda`, `pip` `python`
+  - Exécution de commandes (`conda`, `pip` `python`, etc.)
 
-  - Conda et pip: 
+  - Conda et pip : 
 
-    - création d'un environnement conda (`conda create`)
+    - création d'un environnement conda: `conda create`
 
-    - activation d'un environnement conda (`conda activate`)
+    - activation d'un environnement conda: `conda activate`
 
-    - installation d'un package avec conda (`conda install`)
+    - installation d'un package avec conda: `conda install`
 
-    - installation d'un package avec pip (`pip install`)
+    - installation d'un package avec pip: `pip install`
 
-    - initialisation de conda pour bash (`conda init`)
+    - initialisation de conda pour bash: `conda init`
 
   - Python: 
   
@@ -62,7 +62,7 @@
 
     - `pygame.event`: fonction `get`
 
-    - `pygame.time`: type `Clock`, méthode `Clock.tick`
+    - `pygame.time`: type `Clock`, méthode `clock.tick`
 
 
 ### Python
