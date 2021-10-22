@@ -24,7 +24,7 @@ terminal.
     $ echo "$DESKTOP_SESSION"
     ubuntu
 
-Leur valeurs conditionnennent sont fonctionnement. Par exemple, pour changer
+Leur valeurs conditionnent sont fonctionnement. Par exemple, pour changer
 le *prompt* (ou "invite de commande") qui jusqu'à présent était `"$ "` et
 le faire indiquer en plus le nom de l'utilisateur entre parenthèses :
 
