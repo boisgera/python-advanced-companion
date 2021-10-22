@@ -53,19 +53,16 @@ racine (le contenu de la variable $HOME)
 > Il vous sera peut-être nécessaire de lui demander explicitement de les afficher 
 > pour trouver votre fichier `.bashrc`.
 
-
-
---------------------------------------------------------------------------------
-⚠️ **Quel langage de shell?** Il est possible que le langage de shell que vous 
-utilisiez ne soit pas `bash` (le Bourne-again shell), mais par exemple `zsh` 
-(le Z shell). 
-La variable d'environnement `SHELL` devrait vous renseigner à ce sujet:
-
-    (base) $ echo "$SHELL"
-    /bin/bash
-
-Si vous utilisez `zsh`, le fichier de configuration exécuté au démarrage d'un
-terminal sera `.zshrc` et non `.bashrc`.
+> ⚠️ **Quel langage de shell?** Il est possible que le langage de shell que vous 
+> utilisiez ne soit pas `bash` (le Bourne-again shell), mais par exemple `zsh` 
+> (le Z shell). 
+> La variable d'environnement `SHELL` devrait vous renseigner à ce sujet:
+>
+>    (base) $ echo "$SHELL"
+>    /bin/bash
+>
+> Si vous utilisez `zsh`, le fichier de configuration exécuté au démarrage d'un
+> terminal sera `.zshrc` et non `.bashrc`.
 
 --------------------------------------------------------------------------------
 
