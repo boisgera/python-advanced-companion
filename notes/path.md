@@ -58,7 +58,7 @@ racine (le contenu de la variable `HOME`).
 > (le Z shell). 
 > La variable d'environnement `SHELL` devrait vous renseigner à ce sujet :
 >
->     (base) $ echo "$SHELL"
+>     $ echo "$SHELL"
 >     /bin/bash
 >
 > Si vous utilisez `zsh`, le fichier de configuration exécuté au démarrage d'un
