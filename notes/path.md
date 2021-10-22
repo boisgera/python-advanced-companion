@@ -64,14 +64,14 @@ racine (le contenu de la variable `HOME`).
 > Si vous utilisez `zsh`, le fichier de configuration exécuté au démarrage d'un
 > terminal sera `.zshrc` et non `.bashrc`.
 
---------------------------------------------------------------------------------
 
-Si j'édite ce fichier `.bashrc` pour rajouter à la fin du fichier la ligne 
+Si j'édite mon fichier `.bashrc` en rajoutant à la fin la ligne 
 
     PS1="[$USER]$ "
 
 j'aurais l'invite de commande que je souhaite dès le démarrage d'un nouveau
-terminal.
+terminal. Faire cet ajout à la fin du fichier m'assure qu'il n'y aura pas
+un bout de code qui va modifier ultérieurement la variable `PS1`.
 
 ## Commandes et `PATH`
 
