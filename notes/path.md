@@ -106,7 +106,7 @@ et à nouveau en cas d'échec, essayer dans `/usr/bin`.
 
 ## Conda
 
-Conda joue avec la variable d'environement `PATH` pour isoler les environnements
+Conda manipule la variable d'environnement `PATH` pour isoler les environnements
 conda que vous créez. Dans l'environnement de base conda vous pouvez ainsi avoir :
 
     (base) $ echo $PATH
@@ -119,7 +119,7 @@ conda que vous créez. Dans l'environnement de base conda vous pouvez ainsi avoi
     Type "help", "copyright", "credits" or "license" for more information.
     >>> 
 
-.Vous pouvez créer un nouvel environnement conda `my_project` :
+Vous pouvez créer un nouvel environnement conda `my_project` :
 
     (base) boisgera@oddball:~$ conda create --name my_project 
     ...
