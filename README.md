@@ -11,3 +11,6 @@
  1. 🐍 [Le snake](https://boisgera.github.io/python-advanced-companion/tps/games/README-snake.html)
 
  2. 🐦 [Flappy bird](https://boisgera.github.io/python-advanced-companion/tps/games/README-flappybird.html)
+
+# Types de données
+
