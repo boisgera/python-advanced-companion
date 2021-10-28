@@ -14,4 +14,4 @@
 
 ## Types de données
 
-[📓 Notebook élaboré en cours](https://github.com/boisgera/python-advanced-companion/blob/master/notebooks/02-types%20de%20donn%C3%A9es.ipynb)
+  - [📓 Notebook élaboré en cours](https://github.com/boisgera/python-advanced-companion/blob/master/notebooks/02-types%20de%20donn%C3%A9es.ipynb)
