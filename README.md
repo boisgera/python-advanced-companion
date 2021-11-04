@@ -18,6 +18,18 @@
 
 [📓 Notebook élaboré en cours](https://github.com/boisgera/python-advanced-companion/blob/master/notebooks/02-types%20de%20donn%C3%A9es.ipynb)
 
+## Egalités
+
+[📓 Notebook élaboré en cours](https://github.com/boisgera/python-advanced-companion/blob/master/notebooks/03-Egalités structurelles et référentielles.ipynb)
+
+## Eval
+
+[📓 Notebook élaboré en cours](https://github.com/boisgera/python-advanced-companion/blob/master/notebooks/03-Repr et eval.ipynb)
+
+## Dictionnaires et ensembles
+
+[📓 Notebook élaboré en cours](https://github.com/boisgera/python-advanced-companion/blob/master/notebooks/03-Dictionnaires et ensembles.ipynb)
+
 ## Graphes
 
 [📄 Visualisation de labyrinthes](https://github.com/boisgera/python-advanced-companion/blob/master/tps/graphs/solutions/mazes.py)
