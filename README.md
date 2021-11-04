@@ -20,15 +20,15 @@
 
 ## Egalités
 
-[📓 Notebook élaboré en cours](https://github.com/boisgera/python-advanced-companion/blob/master/notebooks/03-Egalités structurelles et référentielles.ipynb)
+[📓 Notebook élaboré en cours](https://github.com/boisgera/python-advanced-companion/blob/master/notebooks/03-Egalités%20structurelles%20et%20référentielles.ipynb)
 
 ## Eval
 
-[📓 Notebook élaboré en cours](https://github.com/boisgera/python-advanced-companion/blob/master/notebooks/03-Repr et eval.ipynb)
+[📓 Notebook élaboré en cours](https://github.com/boisgera/python-advanced-companion/blob/master/notebooks/03-Repr%20et%20eval.ipynb)
 
 ## Dictionnaires et ensembles
 
-[📓 Notebook élaboré en cours](https://github.com/boisgera/python-advanced-companion/blob/master/notebooks/03-Dictionnaires et ensembles.ipynb)
+[📓 Notebook élaboré en cours](https://github.com/boisgera/python-advanced-companion/blob/master/notebooks/03-Dictionnaires%20et%20ensembles.ipynb)
 
 ## Graphes
 
