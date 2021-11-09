@@ -62,6 +62,12 @@ ce document pour visualisez vos labyrinthes, par exemple :
 
 ### Autres labyrinthes
 
+Chargez et visualiser les labyrinthes disponible dans le dossier :
+<https://github.com/boisgera/python-advanced-companion/tree/master/tps/graphs/mazes>
+
+Le format de ces fichier est simplement la représentation `repr` du graphe
+associé à un labyrinthe.
+
 
 
 Chemins
