@@ -1,6 +1,16 @@
 Labyrinthes
 ================================================================================
 
+Un labyrinthe de taille 50 x 25 :
+
+![Un labyrinthe dense de taille 50 x 25](images/dense_random_maze.png)
+
+Ce labyrinthe est généré aléatoirement en respectant deux propriétés :
+
+  - on explorer tout le labyrinthe quel que soit son point de départ
+
+  - si l'on rajoute un mur où que ce soit cette propriété disparaît.
+
 Graphes
 --------------------------------------------------------------------------------
 
@@ -12,11 +22,17 @@ Un graphe orienté et pondéré est représenté par le triplet composé :
 
   - d'un dictionnaire `weights` associant à chaque arête une valeur numérique.
 
-
 Labyrinthes
 --------------------------------------------------------------------------------
 
-![Un labyrinthe dense de taille 50 x 25](images/dense_random_maze.png)
+Un labyrinthe est une collection de cellules caractérisées par leurs coordonnées
+`i` et `j` (des entiers positifs ou nuls) ainsi qu'une collection de murs entre
+les cellules adjacentes (au nord, à l'est, au sud ou à l'ouest d'une cellule 
+donnée). En plus des murs séparant l'intérieur du labyrinthe de son extérieur,
+des murs peuvent séparer deux cellules adjacentes, ce qui interdit de se
+déplacer d'une cellule à l'autre.
+
+
 
 ### Labyrinthes élémentaires
 
