@@ -7,7 +7,7 @@ Un labyrinthe de taille 50 x 25 :
 
 Ce labyrinthe est généré aléatoirement en respectant deux propriétés :
 
-  - on explorer tout le labyrinthe quel que soit son point de départ
+  - on peut explorer tout le labyrinthe quel que soit son point de départ
 
   - si l'on rajoute un mur où que ce soit cette propriété disparaît.
 
