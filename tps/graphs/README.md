@@ -117,7 +117,7 @@ Vous pourrez tester votre résultat graphiquement de la façon suivante :
 Par exemple dans le labyrinthe ci-dessous, le chemin représenté en rouge joint
 la cellule en bas à gauche et la cellule en haut à droite du labyrinthe :
 
-![Un labyrinthe dense de taille 50 x 25](images/dense_random_maze-path.png)
+![Un labyrinthe dense de taille 50 x 25](images/dense_random_maze-path.png) 
 
 Performance
 --------------------------------------------------------------------------------
