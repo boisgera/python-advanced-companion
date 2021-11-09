@@ -109,7 +109,7 @@ Un chemin `path` sera représentés par une liste de cellules telles que
 Vous pourrez tester votre résultat graphiquement de la façon suivante :
 
 ``` pycon
->>> paths = reachable_set(maze, origin)
+>>> paths = reachable_path(maze, origin)
 >>> destination = (???, ???) # a cell reachable from origin
 >>> display_maze(maze, path=paths[destination])
 ```
@@ -118,6 +118,16 @@ Par exemple dans le labyrinthe ci-dessous, le chemin représenté en rouge joint
 la cellule en bas à gauche et la cellule en haut à droite du labyrinthe :
 
 ![Un labyrinthe dense de taille 50 x 25](images/dense_random_maze-path.png) 
+
+### Chemin optimal associé
+
+Implémentez une fonction `optimal_path(maze, origin)` qui renvoie un 
+dictionnaire dont les clés sont les cellules atteignables depuis l'origine
+et les valeurs un des chemins associés le plus courts (nécessitant le moins
+de déplacements) qui joignent l'origine et la destination.
+
+Vous pourrez tester votre résultat graphiquement en invoquant `display_maze`
+comme à la question précédente.
 
 Performance
 --------------------------------------------------------------------------------
