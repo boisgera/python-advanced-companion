@@ -7,7 +7,7 @@ Un labyrinthe de taille 50 x 25 :
 
 Ce labyrinthe est généré aléatoirement en respectant deux propriétés :
 
-  - on peut explorer tout le labyrinthe quel que soit son point de départ
+  - on peut explorer tout le labyrinthe quel que soit son point de départ,
 
   - si l'on rajoute un mur où que ce soit cette propriété disparaît.
 
@@ -26,19 +26,43 @@ Labyrinthes
 --------------------------------------------------------------------------------
 
 Un labyrinthe est une collection de cellules caractérisées par leurs coordonnées
-`i` et `j` (des entiers positifs ou nuls) ainsi qu'une collection de murs entre
+(deux entiers positifs ou nuls) ainsi qu'une collection de murs entre
 les cellules adjacentes (au nord, à l'est, au sud ou à l'ouest d'une cellule 
-donnée). En plus des murs séparant l'intérieur du labyrinthe de son extérieur,
-des murs peuvent séparer deux cellules adjacentes, ce qui interdit de se
-déplacer d'une cellule à l'autre.
+donnée) qui s'ajoutent aux murs entre l'intérieur et l'extérieur du labyrinthe.
 
+Le graphe associé :
 
+  - représente les cellules par la paire de leur coordonnées,
+
+  - considère qu'une arête est présente dans le graphe si les deux cellules
+    sont adjacentes, dans le labyrinthe et qu'aucun mur ne les sépare.
+
+  - associe à chaque arête le poids 1 : le coût de l'action qui consiste à
+    se déplacer d'une cellule à une cellule adjacente.
 
 ### Labyrinthes élémentaires
 
-### Créez votre labyrinthe
+Développez une fonction `full_maze(width, height)` qui produit le graphe
+d'un labyrinthe rectangulaire contenant la cellule `(0, 0)`, large de 
+`width` cellules, haut de `height` cellules et contenant un mur entre
+chaque paire de cellules adjacentes.
 
-### Echanges
+Puis, développez une fonction `empty_maze(width, height)` qui produit le
+graphe rectangulaire similaire mais sans aucun mur interne.
+
+### Visualisation
+
+Utilisez la fonction `display_maze` dont le code est fourni en annexe de
+ce document pour visualisez vos labyrinthes, par exemple :
+
+``` pycon
+>>> maze = full_maze(50, 25)
+>>> display_maze(maze)
+```
+
+### Autres labyrinthes
+
+
 
 Chemins
 --------------------------------------------------------------------------------
@@ -58,6 +82,14 @@ import matplotlib.patches as patches
 
 # Visualization
 # ------------------------------------------------------------------------------
+def wall(x1y1, x2y2):
+    x1, y1 = x1y1
+    x2, y2 = x2y2
+    cx, cy = 0.5 * (x1 + x2), 0.5 * (y1 + y2)
+    x3y3 = cx - (y1 - cy) + 0.5, cy + (x1 - cx) + 0.5
+    x4y4 = cx - (y2 - cy) + 0.5, cy + (x2 - cx) + 0.5
+    return x3y3, x4y4
+
 def display_maze(graph, path=None, map=None):
     vertices, edges, weights = graph
     width = max(w for (w, h) in vertices) + 1
@@ -67,15 +99,16 @@ def display_maze(graph, path=None, map=None):
     fig_height = fig_width / wh_ratio
     fig, axes = plt.subplots(figsize=(fig_width, fig_height))
     axes.axis("equal")
-    axes.plot([0, width, width, 0, 0], [0, 0, height, height, 0], "k")
     for x in range(width):
         for y in range(height):
-            axes.plot([x + 1, x + 1], [y, y + 1], "k:")
-            if ((x, y), (x + 1, y)) not in edges:
-                axes.plot([x + 1, x + 1], [y, y + 1], "k")
-            axes.plot([x, x + 1], [y + 1, y + 1], "k:")            
-            if ((x, y), (x, y + 1)) not in edges:
-                axes.plot([x, x + 1], [y + 1, y + 1], "k")
+            for (dx, dy) in [(-1, 0), (0, -1), (1, 0), (0, 1)]:
+                xn, yn = x+dx, y+dy
+                if ((x, y), (xn, yn)) in edges:
+                    style = {"color": "grey", "linestyle": ":"}
+                else:
+                    style = {"color": "black", "linestyle": "-"}
+                w1, w2 = wall((x, y), (xn, yn)) # wall segment                    
+                axes.plot([w1[0], w2[0]], [w1[1], w2[1]], **style)
     axes.axis("off")
 
     if path:
