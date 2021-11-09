@@ -62,13 +62,17 @@ ce document pour visualisez vos labyrinthes, par exemple :
 
 ### Autres labyrinthes
 
-Chargez et visualiser les labyrinthes disponible dans le dossier :
+Chargez et visualiser les labyrinthes disponibles dans le dossier :
 
   - 📁 <https://github.com/boisgera/python-advanced-companion/tree/master/tps/graphs/mazes>
 
 Le format de ces fichier est simplement la représentation `repr` du graphe
 associé à un labyrinthe.
 
+Essayez de créer vos propres labyrinthes rectangulaires (en forme de
+serpent, de spirale, etc.) ; éventuellement, essayez de déterminer une
+méthode pour créer un labyrinthe "dense" similaire à celui représenté 
+[ici](images/dense_random_maze.png).
 
 
 Chemins
@@ -89,12 +93,13 @@ import matplotlib.patches as patches
 
 # Visualization
 # ------------------------------------------------------------------------------
-def wall(x1y1, x2y2):
+def rotate(x1y1, x2y2):
+    "Rotate a segment +90° with respect to its center"
     x1, y1 = x1y1
     x2, y2 = x2y2
     cx, cy = 0.5 * (x1 + x2), 0.5 * (y1 + y2)
-    x3y3 = cx - (y1 - cy) + 0.5, cy + (x1 - cx) + 0.5
-    x4y4 = cx - (y2 - cy) + 0.5, cy + (x2 - cx) + 0.5
+    x3y3 = cx - (y1 - cy), cy + (x1 - cx)
+    x4y4 = cx - (y2 - cy), cy + (x2 - cx)
     return x3y3, x4y4
 
 def display_maze(graph, path=None, map=None):
@@ -114,7 +119,7 @@ def display_maze(graph, path=None, map=None):
                     style = {"color": "grey", "linestyle": ":"}
                 else:
                     style = {"color": "black", "linestyle": "-"}
-                w1, w2 = wall((x, y), (xn, yn)) # wall segment                    
+                w1, w2 = rotate((x + 0.5, y + 0.5), (xn + 0.5, yn + 0.5)) # wall segment                    
                 axes.plot([w1[0], w2[0]], [w1[1], w2[1]], **style)
     axes.axis("off")
 
