@@ -99,7 +99,7 @@ cellules du labyrinthe :
 
 ### Chemins associés
 
-Implémentez une fonction `reachable_path(maze, origin)` qui renvoie un 
+Implémentez une fonction `reachable_paths(maze, origin)` qui renvoie un 
 dictionnaire dont les clés sont les cellules atteignables depuis l'origine
 et les valeurs des chemins associés qui joignent l'origine et la destination.
 Un chemin `path` sera représentés par une liste de cellules telles que
@@ -109,7 +109,7 @@ Un chemin `path` sera représentés par une liste de cellules telles que
 Vous pourrez tester votre résultat graphiquement de la façon suivante :
 
 ``` pycon
->>> paths = reachable_path(maze, origin)
+>>> paths = reachable_paths(maze, origin)
 >>> destination = (???, ???) # a cell reachable from origin
 >>> display_maze(maze, path=paths[destination])
 ```
@@ -121,7 +121,7 @@ la cellule en bas à gauche et la cellule en haut à droite du labyrinthe :
 
 ### Chemin optimal associé
 
-Implémentez une fonction `optimal_path(maze, origin)` qui renvoie un 
+Implémentez une fonction `shortest_paths(maze, origin)` qui renvoie un 
 dictionnaire dont les clés sont les cellules atteignables depuis l'origine
 et les valeurs un des chemins associés le plus courts (nécessitant le moins
 de déplacements) qui joignent l'origine et la destination.
@@ -131,6 +131,44 @@ comme à la question précédente.
 
 Performance
 --------------------------------------------------------------------------------
+
+Plusieurs stratégies permettent d'améliorer les performances de la recherche
+des plus courts chemins, un point qui devient critique quand la taille des
+labirynthes augmente ; notamment le choix de structures de données plus 
+efficaces, et choix d'algorithmes plus efficaces.
+
+### Mesure de la performance
+
+Dans tous les cas, pour mesurer les (éventuels) progrès réalisés,
+nous pourrons afficher le temps passé à déterminer les chemins optimaux ;
+par exemple :
+
+``` python
+start = time.time()
+paths = shortest_paths(maze, origin)
+stop = time.time()
+print(f"elapsed time (secs): {stop - start}")
+```
+
+Pour obtenir une image plus précise de ce qui se passe, et savoir dans quelle 
+partie du code le temps est passé, on pourra utiliser le projet
+
+  - 🐍 <https://github.com/pyutils/line_profiler>
+
+### Structure de données
+
+La structure de données choisie initialement pour représenter les graphes
+n'est pas nécessairement la mieux choisie. Déterminez dans votre algorithme
+quelles sont les opérations les plus fréquemment utilisées ; adaptez 
+votre représentation des graphes en conséquence et mesure le résultat.
+
+### Algorithmes
+
+Améliorez ensuite l'algorithme lui-même. On pourra notamment étudier le
+classique : 
+
+  - 🎓 <https://fr.wikipedia.org/wiki/Algorithme_de_Dijkstra>
+
 
 Annexe - Visualisation
 --------------------------------------------------------------------------------
