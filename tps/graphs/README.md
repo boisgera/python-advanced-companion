@@ -4,7 +4,7 @@ Labyrinthes
 Graphes
 --------------------------------------------------------------------------------
 
-Nous représenton  un graphe orienté et pondéré par le triplet composé :
+Un graphe orienté et pondéré est représenté par le triplet composé :
 
   - d'un ensemble `vertices` de sommets,
 
@@ -15,6 +15,8 @@ Nous représenton  un graphe orienté et pondéré par le triplet composé :
 
 Labyrinthes
 --------------------------------------------------------------------------------
+
+![Un labyrinthe dense de taille 50 x 25](images/dense_random_maze.png)
 
 ### Labyrinthes élémentaires
 
