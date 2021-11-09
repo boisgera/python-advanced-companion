@@ -62,7 +62,7 @@ ce document pour visualisez vos labyrinthes, par exemple :
 
 ### Autres labyrinthes
 
-Chargez et visualiser les labyrinthes disponibles dans le dossier :
+Chargez et visualisez les labyrinthes disponibles dans le dossier :
 
   - 📁 <https://github.com/boisgera/python-advanced-companion/tree/master/tps/graphs/mazes>
 
@@ -77,6 +77,47 @@ méthode pour créer un labyrinthe "dense" similaire à celui représenté
 
 Chemins
 --------------------------------------------------------------------------------
+
+### Ensemble atteignable
+
+Implémentez une fonction `reachable_set(maze, origin)` qui renvoie l'ensemble
+des cellules d'un labyrinthes accessible depuis la cellule `origin`.
+
+Vous pourrez tester votre résultat graphiquement de la façon suivante :
+
+``` pycon
+>>> cells = reachable_set(maze, origin)
+>>> display_maze(maze, map=cells)
+```
+
+Par exemple dans le labyrinthe ci-dessous, les cellules accessibles
+depuis le coin en bas à gauche, représentées en jaune, sont toutes les
+cellules du labyrinthe :
+
+![Un labyrinthe dense de taille 50 x 25](images/dense_random_maze-reachable.png)
+
+
+### Chemins associés
+
+Implémentez une fonction `reachable_path(maze, origin)` qui renvoie un 
+dictionnaire dont les clés sont les cellules atteignables depuis l'origine
+et les valeurs des chemins associés qui joignent l'origine et la destination.
+Un chemin `path` sera représentés par une liste de cellules telles que
+`path[0]` est l'origine, `path[i]` et `path[i+1]` sont adjacentes pour tout
+`i` et `path[-1]` est la destination.
+
+Vous pourrez tester votre résultat graphiquement de la façon suivante :
+
+``` pycon
+>>> paths = reachable_set(maze, origin)
+>>> destination = (???, ???) # a cell reachable from origin
+>>> display_maze(maze, path=paths[destination])
+```
+
+Par exemple dans le labyrinthe ci-dessous, le chemin représenté en rouge joint
+la cellule en bas à gauche et la cellule en haut à droite du labyrinthe :
+
+![Un labyrinthe dense de taille 50 x 25](images/dense_random_maze-path.png)
 
 Performance
 --------------------------------------------------------------------------------
