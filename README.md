@@ -32,4 +32,4 @@
 
 ## Graphes
 
-[📄 Visualisation de labyrinthes](https://github.com/boisgera/python-advanced-companion/blob/master/tps/graphs/solutions/mazes.py)
+[🗎 Labyrinthes](https://github.com/boisgera/python-advanced-companion/tree/master/tps/graphs)
