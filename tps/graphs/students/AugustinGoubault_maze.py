@@ -78,5 +78,23 @@ def empty_maze(width, height):
 #print (display_maze(empty_maze(3,2)))
 
 def reachable_set(maze, origin):
+    vertices,edges,heights=maze
     todo=set()
-    todo.add (origin)
+    todo.add ({origin})
+    done=set()
+    while todo:
+        x,y=todo.pop()
+        verticesnext={(x-1,y),(x+1,y),(x,y-1),(x,y+1)}
+        for i in verticesnext:
+            if (i,(x,y)) in edges and i not in done:
+                todo.add(i)
+        done.add((x,y))
+    return done 
+
+
+            
+cells= reachable_set(full_maze,(0,0))
+display_maze(full_maze,cmpap=cells)
+
+
+
