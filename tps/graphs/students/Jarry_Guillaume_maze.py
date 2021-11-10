@@ -67,10 +67,14 @@ def empty_maze(L, l):
     for i in range(L): 
         for j in range(l):
             noeuds.add( (i,j) )
-            edges.add( ((i, j),(i+1,j)) ) 
-            edges.add( ((i,j), (i, j+1)) ) 
-            edges.add( ((i, j), (i-1, j)) ) 
-            edges.add( ((i, j), (i, j-1)) )
+            if i+1 <= L: 
+                edges.add( ((i, j),(i+1,j)) ) 
+            if j+1 <= l: 
+                edges.add( ((i,j), (i, j+1)) ) 
+            if i-1 >= 0:
+                edges.add( ((i, j), (i-1, j)) ) 
+            if j-1 >= 0:
+                edges.add( ((i, j), (i, j-1)) )
             poids[ ((i,j),(i+1,j))] = 1
             poids[ ((i,j),(i,j+1))] = 1
             poids[ ((i,j),(i-1,j))] = 1
@@ -85,15 +89,19 @@ def reachable_maze(maze, origin):
     todo.add( origin)
     vertices, edges, weights = maze 
     while todo : 
-        
+        cell = todo.pop()
+        x, y = cell
         for i in [-1, 1]: 
             if ( cell, (x,y+i) ) in edges :
-                cells.append( (x, y+i))
+                cells.add( (x, y+i))
+            if ( cell, (x+i, y)) in edges : 
+                cells.add( (x, y))
+        cells.add(cell)
     
     return cells
 
 
-maze = empty_maze(20, 20)
+maze = empty_maze(10, 10)
 vertices, edges, weights = maze 
 origin = (0, 0)
 
