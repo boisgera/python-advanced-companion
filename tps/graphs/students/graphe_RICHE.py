@@ -1,3 +1,5 @@
+# %%
+# Python standard library
 import math
 import random
 
@@ -7,6 +9,14 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
+def rotate(x1y1, x2y2):
+    "Rotate a segment +90° with respect to its center"
+    x1, y1 = x1y1
+    x2, y2 = x2y2
+    cx, cy = 0.5 * (x1 + x2), 0.5 * (y1 + y2)
+    x3y3 = cx - (y1 - cy), cy + (x1 - cx)
+    x4y4 = cx - (y2 - cy), cy + (x2 - cx)
+    return x3y3, x4y4
 # Visualization
 # ------------------------------------------------------------------------------
 def display_maze(graph, path=None, map=None):
@@ -42,3 +52,4 @@ def display_maze(graph, path=None, map=None):
             dx, dy = 1, 1
             rect = patches.Rectangle(v, dx, dy, facecolor=cmap(d / d_max))
             axes.add_patch(rect)
+# %%
