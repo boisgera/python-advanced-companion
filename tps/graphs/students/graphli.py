@@ -116,7 +116,7 @@ def reachable_neighbors(maze,vertice):
 
 def reachable_set(maze,origin):
     Maze = maze
-    S= set(origin)   # elems atteignables
+    S= {origin}   # elems atteignables
     nouveaux = [origin] # cells venant d'être atteintes
     dlength = 1 # variation nb cells atteignable, algo s'arrête si nulle
     length = 1  #nb cells atteignables
@@ -126,11 +126,13 @@ def reachable_set(maze,origin):
             reachneighb = reachable_neighbors(Maze,elem)
             prochains= prochains|(reachneighb-S)
             S = S|reachneighb
-        dlength = len(S)- length
+        dlength = len(S) - length
         length = len(S)
         nouveaux = prochains
     return S
 
-Maze = eval(open('dense_maze-50x25.py').read())
+Maze = eval(open('walled_maze-50x25.py').read())
 cells = reachable_set(Maze,(0,0))
-display_maze(Maze,cells)
+print(cells)
+display_maze(Maze,map=cells)
+plt.show()
