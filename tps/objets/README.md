@@ -19,9 +19,9 @@ De même, toutes les listes de n-uplets représentant la géométrie du serpent
 ne sont pas valides. Faire la liste des toutes les conditions qui rendent 
 la géométrie du serpent invalide ; on distinguera les
 
-  - 🐛 **bugs** qui résultent d'erreurs de programmation,
+  - 🐛 **bugs** qui résultent d'erreurs de programmation et ne devraient pas exister,
 
-  - 💀 **game over** qui doivent entrainer la fin immédiate du jeu.
+  - 💀 **game over** qui peuvent arriver doivent entrainer la fin immédiate du jeu.
 
 Mettre en correspondance ces catégories avec un type d'exception (soit
 `TypeError`, soit `ValueError`, soit `SystemExit`), puis
