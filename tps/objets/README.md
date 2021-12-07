@@ -26,7 +26,7 @@ la géométrie du serpent invalide ; on distinguera les
 
 Mettre en correspondance ces catégories avec un type d'exception (soit
 `TypeError`, soit `ValueError`, soit `SystemExit`), puis
-implémenter une fonction `check_snake` qui prennent en argument une 
+implémenter une fonction `check_geometry` qui prenne en argument une 
 géométrie de serpent, ne renvoie rien si elle est valide et lève 
 l'exception appropriée dans le cas contraire.
 
