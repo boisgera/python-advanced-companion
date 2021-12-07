@@ -2,7 +2,7 @@ Conception orientée objet
 ================================================================================
 
 Nous allons à nouveau remanier le programme [🐍 snake.py](../games/solutions/snake.py)
-mais cette fois sans lui ajouter de fonctionnalités du point de vue du jeu.
+mais cette fois sans lui ajouter de fonctionnalités.
 Nous nous contenterons de revisiter son organisation et de tenter de le rendre 
 plus robuste / réutilisable / compréhensible.
 
@@ -10,11 +10,10 @@ plus robuste / réutilisable / compréhensible.
 Validation
 --------------------------------------------------------------------------------
 
-Quelles sont les valeurs admissible pour la direction du serpent ?
-
+Quelles sont les valeurs admissibles pour la direction du serpent ?
 Implémenter une fonction `check_direction` qui prenne en argument une
 direction, ne renvoie rien si la direction est admissible et lève une
-exception (de type `ValueError` ou `TypeError`) dans le cas contraire.
+exception (de type `ValueError` ou `TypeError`, à déterminer) dans le cas contraire.
 
 De même, toutes les listes de n-uplets représentant la géométrie du serpent 
 ne sont pas valides. Faire la liste des toutes les conditions qui rendent 
