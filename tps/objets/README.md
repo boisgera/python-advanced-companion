@@ -63,7 +63,8 @@ méthodes `get_direction` et `set_direction` permettant d'accéder à l'attribut
     (0, -1)
 
 La même stratégie peut-être s'appliquer au cas de l'attribut `_geometry` ou 
-doit-elle être modifiée ? Si c'est le cas, comment ?
+doit-elle être modifiée pour garantir la validité de cet attribut privé dans
+le temps ? Si c'est le cas, comment ?
 
 En mouvement
 --------------------------------------------------------------------------------
@@ -72,6 +73,6 @@ Introduire une méthode `move` dans la classe `Snake` qui va mettre à jour
 la géométrie du serpent en tenant compte de la direction courante et de la
 position des fruits (à remettre à jour le cas échéant).
 
-Remanier le code de [🐍 snake.py](../games/solutions/snake.py) pour intégrer
-la class `Snake` et vérifier en y jouant que le comportement du jeu reste
-identique.
+Adapter la boucle générale du programme  [🐍 snake.py](../games/solutions/snake.py) 
+pour intégrer la class `Snake` et vérifier en y jouant que le comportement du jeu 
+reste identique.
