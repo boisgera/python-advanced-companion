@@ -3,8 +3,8 @@ Conception orientée objet
 
 Nous allons à nouveau remanier le programme [🐍 snake.py](../games/solutions/snake.py)
 mais cette fois sans lui ajouter de fonctionnalités du point de vue du jeu.
-Nous nous contenterons de revisiter son organisation et de le rendre plus
-lisible et robuste.
+Nous nous contenterons de revisiter son organisation et de tenter de le rendre 
+plus robuste / réutilisable / compréhensible.
 
 
 Validation
