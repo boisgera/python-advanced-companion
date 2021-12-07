@@ -32,7 +32,7 @@ l'exception appropriée dans le cas contraire.
 Un type `Snake`
 --------------------------------------------------------------------------------
 
-Implémenter une class `Snake` encapsulant la géométrie et la direction du
+Implémenter une classe `Snake` encapsulant la géométrie et la direction du
 serpent:
 
     >>> geometry = [(10, 15), (11, 15), (12, 15)]
