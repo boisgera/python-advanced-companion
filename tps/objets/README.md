@@ -39,7 +39,7 @@ serpent :
     >>> direction = (0, 1)
     >>> snake = Snake(geometry, direction)
 
-Le constructeur de `Snake` doit valider de la géométrie et de la direction
+Le constructeur de `Snake` doit valider la géométrie et la direction
 (ou lever une exception). Stocker les arguments `geometry` et `direction` 
 comme les attributs de même nom de l'instance snake.
 
