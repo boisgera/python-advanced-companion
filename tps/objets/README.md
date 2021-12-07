@@ -54,7 +54,7 @@ que le programmeur fasse de l'instance `snake` dans son code ? Faire
 disparaître les attributs publics `geometry` et `direction` au profit
 d'attributs privés `_geometry` et `_direction`, puis développer des
 méthodes `get_direction` et `set_direction` permettant d'accéder à l'attribut
-`_direction` en assurant la validité 
+`_direction` en assurant sa validité 
 
     >>> snake.get_direction()
     (0, 1)
