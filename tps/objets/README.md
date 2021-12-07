@@ -33,7 +33,7 @@ Un type `Snake`
 --------------------------------------------------------------------------------
 
 Implémenter une classe `Snake` encapsulant la géométrie et la direction du
-serpent:
+serpent :
 
     >>> geometry = [(10, 15), (11, 15), (12, 15)]
     >>> direction = (0, 1)
