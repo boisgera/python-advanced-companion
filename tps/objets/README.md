@@ -70,9 +70,8 @@ En mouvement
 --------------------------------------------------------------------------------
 
 Introduire une méthode `move` dans la classe `Snake` qui va mettre à jour
-la géométrie du serpent en tenant compte de la direction courante et de la
-position des fruits (à remettre à jour le cas échéant).
+la géométrie du serpent en tenant compte de la direction courante du serpent
+et de la position des fruits (à remettre à jour le cas échéant).
 
 Adapter la boucle générale du programme  [🐍 snake.py](../games/solutions/snake.py) 
-pour intégrer la class `Snake` et vérifier en y jouant que le comportement du jeu 
-reste identique.
+pour intégrer les développements de la classe `Snake`. Vérifier en y jouant que le comportement du jeu reste identique.
