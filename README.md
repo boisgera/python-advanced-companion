@@ -37,3 +37,7 @@
 ## Itération et Compréhension
 
 [📓 Notebook élaboré en cours](https://github.com/boisgera/python-advanced-companion/blob/master/notebooks/04-Itération%20et%20Compréhension.ipynb)
+
+## Programmation orientée objet
+
+[🗎 Le snalke (est de retour !)](tps/objets/README.md)
