@@ -40,4 +40,4 @@
 
 ## Programmation orientée objet
 
-[🗎 Le snalke (est de retour !)](tps/objets/README.md)
+[🗎 Le snake (est de retour !)](tps/objets/README.md)
