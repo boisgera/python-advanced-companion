@@ -65,6 +65,9 @@ La même stratégie peut-être s'appliquer au cas de l'attribut `_geometry` ou
 doit-elle être modifiée pour garantir la validité de cet attribut privé dans
 le temps ? Si c'est le cas, comment ?
 
+Compléter les accesseurs `get_XXX` et `set_XXX` par des propriétés nommées `XXX`
+et adapter le code client en conséquence.
+
 En mouvement
 --------------------------------------------------------------------------------
 
@@ -74,3 +77,9 @@ et de la position des fruits (à remettre à jour le cas échéant).
 
 Adapter la boucle générale du programme  [🐍 snake.py](../games/solutions/snake.py) 
 pour intégrer les développements de la classe `Snake`. Vérifier en y jouant que le comportement du jeu reste identique.
+
+Options supplémentaires
+--------------------------------------------------------------------------------
+
+
+  - 

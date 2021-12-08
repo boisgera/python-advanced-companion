@@ -40,4 +40,7 @@
 
 ## Programmation orientée objet
 
+[📓 Notebook élaboré en cours](https://github.com/boisgera/python-advanced-companion/blob/master/notebooks/05-Objets%20et%20Classes.ipynb).ipynb)
+
 [🗎 Le snake (est de retour !)](tps/objets/README.md)
+
