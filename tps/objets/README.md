@@ -97,19 +97,22 @@ et en écriture).
 Adapter le reste du code en conséquence. A-t'on encore besoin du mot-clé `global` ?
 Pourquoi ?
 
+Quelle autre type de fonctionnalité pourrait être prise en charge par la class
+`State` ?
+
 Moteur de jeu
 --------------------------------------------------------------------------------
 
 On souhaite désormais séparer aussi nettement que possible le code qui relève 
-spécifiquement de notre jeu et le code générique, commun à (presque tous) les
-jeux. Ce dernier type de code formera les bases d'un moteur de jeu, sera
-développé dans le fichier `game.py` à travers une classe `Game` qui prendra
-en charge l'initialisation de `pygame`, la gestion des fps, la récupération
-des évènements, etc.
+spécifiquement de notre jeu et le code générique, commun à (presque) tous les
+jeux. Ce dernier type de code formera les bases d'un moteur de jeu et sera
+développé dans le fichier `game.py` dans une classe `Game`. Cette classe 
+devra prendre en charge l'initialisation de `pygame`, la gestion des fps, 
+la récupération des évènements, etc.
 
-On souhaite pouvoir exploiter cette classe en faisait hériter notre 
-class `SnakeGame` régissant le jeu du serpent de cette classe générique
-`Game`, de la façon suivante:
+On souhaite pouvoir exploiter cette classe en définissant une
+classe `SnakeGame` qui hérite de la classe générique `Game` et qui régit 
+le jeu du serpent. `SnakeGame` sera définie de la façon suivante :
 
 ``` python
 from game import Game
@@ -149,7 +152,7 @@ class SnakeGame(Game):
         draw_tile(self.screen, fruit_x, fruit_y, FRUIT_COLOR)
 ```
 
-puis en lançant le jeu comme suit:
+et le jeu sera lancé par :
 
 ``` python
 snake_game = SnakeGame(size=(X * W, Y * H), fps=FPS)
@@ -161,7 +164,7 @@ Développer la classe `Game` en conséquence.
 Intelligence Artificielle
 --------------------------------------------------------------------------------
 
-On souhaite faciliter la vie du joeur: lorsque celui-ci ne presse aucune touche
+On souhaite faciliter la vie du joueur: lorsque celui-ci ne presse aucune touche
 pendant une frame, votre programme devra prendre une décision à sa place pour
 le rapprocher du fruit, en évitant de créer trop de collisions (au minimum:
 en ne faisant jamais un demi-tour).
