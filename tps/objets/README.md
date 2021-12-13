@@ -101,7 +101,7 @@ et en écriture).
 Adapter le reste du code en conséquence. A-t'on encore besoin du mot-clé `global` ?
 Pourquoi ?
 
-Quelle autre type de fonctionnalité pourrait être prise en charge par la class
+Quelle autre type de fonctionnalité pourrait être prise en charge par la classe
 `State` ?
 
 ⚙️ Moteur de jeu
