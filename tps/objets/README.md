@@ -7,7 +7,7 @@ Nous nous contenterons de revisiter son organisation et de tenter de le rendre
 plus robuste / réutilisable / compréhensible.
 
 
-Validation
+✔️ Validation
 --------------------------------------------------------------------------------
 
 Quelles sont les valeurs admissibles pour la direction du serpent ?
@@ -29,7 +29,7 @@ implémenter une fonction `check_geometry` qui prenne en argument une
 géométrie de serpent, ne renvoie rien si elle est valide et lève 
 l'exception appropriée dans le cas contraire.
 
-Un type `Snake`
+🐍 Un type `Snake`
 --------------------------------------------------------------------------------
 
 Implémenter une classe `Snake` encapsulant la géométrie et la direction du
@@ -68,7 +68,7 @@ le temps ? Si c'est le cas, comment ?
 Compléter les accesseurs `get_XXX` et `set_XXX` par des propriétés nommées `XXX`
 et adapter le code client en conséquence.
 
-En mouvement
+🏃 En mouvement
 --------------------------------------------------------------------------------
 
 Introduire une méthode `move` dans la classe `Snake` qui va mettre à jour
@@ -78,7 +78,7 @@ et de la position des fruits (à remettre à jour le cas échéant).
 Adapter la boucle générale du programme  [🐍 snake.py](../games/solutions/snake.py) 
 pour intégrer les développements de la classe `Snake`. Vérifier en y jouant que le comportement du jeu reste identique.
 
-Etat du jeu
+🗃️ Etat du jeu
 --------------------------------------------------------------------------------
 
 Définir une class `State` représentant l'état à un instant donné du programme.
@@ -100,7 +100,7 @@ Pourquoi ?
 Quelle autre type de fonctionnalité pourrait être prise en charge par la class
 `State` ?
 
-Moteur de jeu
+⚙️ Moteur de jeu
 --------------------------------------------------------------------------------
 
 On souhaite désormais séparer aussi nettement que possible le code qui relève 
@@ -161,7 +161,7 @@ snake_game.start()
 
 Développer la classe `Game` en conséquence.
 
-Intelligence Artificielle
+🧠 Intelligence Artificielle
 --------------------------------------------------------------------------------
 
 On souhaite faciliter la vie du joueur: lorsque celui-ci ne presse aucune touche
