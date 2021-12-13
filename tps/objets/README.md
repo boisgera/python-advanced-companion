@@ -83,7 +83,7 @@ pour intégrer les développements de la classe `Snake`. Vérifier en y jouant q
 🗃️ Etat du jeu
 --------------------------------------------------------------------------------
 
-Définir une class `State` représentant l'état à un instant donné du programme.
+Définir une classe `State` représentant l'état à un instant donné du programme.
 On souhaite pouvoir initialiser cet état par un code de la forme
 
 ``` python
