@@ -174,7 +174,7 @@ le rapprocher du fruit, en évitant de créer trop de collisions (au minimum:
 en ne faisant jamais un demi-tour).
 
 Développer une classe 🤖 `AssistedSnakeGame` qui prenne en charge cette 
-fonctionnalité quand on lance le code de la façon suivante:
+fonctionnalité quand on lance le jeu de la façon suivante:
 
 ``` python
 snake_game = AssistedSnakeGame(size=(X * W, Y * H), fps=FPS)
