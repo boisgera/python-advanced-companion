@@ -34,7 +34,7 @@
 
 [🗎 Labyrinthes](tps/graphs)
 
-[📄 Solution](graphs/solutions/mazes.py)
+[📄 Solution](tps/graphs/solutions/mazes.py)
 
 ## Itération et Compréhension
 
