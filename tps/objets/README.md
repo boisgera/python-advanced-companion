@@ -114,9 +114,9 @@ développé dans une classe `Game` du fichier `game.py`. Cette classe
 devra prendre en charge l'initialisation de `pygame`, la gestion des fps, 
 la récupération des évènements, etc.
 
-On souhaite pouvoir exploiter cette classe en définissant une
-classe `SnakeGame` qui hérite de la classe générique `Game` et qui régit 
-le jeu du serpent. `SnakeGame` sera définie de la façon suivante :
+On souhaite pouvoir exploiter cette classe générique en définissant une
+classe `SnakeGame` qui en dérivé et qui régit le jeu du serpent. 
+`SnakeGame` sera définie de la façon suivante :
 
 ``` python
 from game import Game
