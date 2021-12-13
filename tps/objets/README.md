@@ -6,7 +6,7 @@ mais dans une premier temps sans lui ajouter de fonctionnalités.
 Nous nous contenterons de revisiter son organisation et de tenter de le rendre 
 plus robuste / réutilisable / compréhensible. Nous tacherons ensuite de tirer
 les bénéfices de cette réorganisation en développant un 🤖 bot qui assistera
-le joueur avec le minimum d'efforts.
+le joueur avec le minimum d'efforts de développement.
 
 
 ✔️ Validation
