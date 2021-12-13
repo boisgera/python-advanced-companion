@@ -67,7 +67,8 @@ La même stratégie peut-être s'appliquer au cas de l'attribut `_geometry` ou
 doit-elle être modifiée pour garantir la validité de cet attribut privé dans
 le temps ? Si c'est le cas, comment ?
 
-Compléter les accesseurs `get_XXX` et `set_XXX` par des propriétés nommées `XXX`
+Enfin, associer aux accesseurs `get_direction`, `set_direction`, 
+`get_geometry` et `set_geometry` des propriétés `geometry` et `direction`
 et adapter le code client en conséquence.
 
 🏃 En mouvement
