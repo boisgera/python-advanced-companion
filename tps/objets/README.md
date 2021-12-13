@@ -4,9 +4,10 @@
 Nous allons remanier le jeu [🐍 snake.py](../games/solutions/snake.py)
 mais dans une premier temps sans lui ajouter de fonctionnalités.
 Nous nous contenterons de revisiter son organisation et de tenter de le rendre 
-plus robuste / réutilisable / compréhensible. Nous tacherons ensuite de tirer
-les bénéfices de cette réorganisation en développant un 🤖 bot qui assistera
-le joueur avec le minimum d'efforts de développement.
+plus robuste / réutilisable / compréhensible / extensible. 
+Nous tâcherons ensuite de tirer les bénéfices de cette réorganisation 
+en développant – avec le minimum d'effort de développement – 
+un 🤖 bot qui assistera le joueur dans la poursuite du hi-score. 
 
 
 ✔️ Validation
