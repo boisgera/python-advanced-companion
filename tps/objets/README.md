@@ -110,7 +110,7 @@ Quelle autre type de fonctionnalité pourrait être prise en charge par la class
 On souhaite désormais séparer aussi nettement que possible le code qui relève 
 spécifiquement de notre jeu et le code générique, commun à (presque) tous les
 jeux. Ce dernier type de code formera les bases d'un moteur de jeu et sera
-développé dans le fichier `game.py` dans une classe `Game`. Cette classe 
+développé dans une classe `Game` du fichier `game.py`. Cette classe 
 devra prendre en charge l'initialisation de `pygame`, la gestion des fps, 
 la récupération des évènements, etc.
 
