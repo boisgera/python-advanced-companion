@@ -1,8 +1,8 @@
 🕹️ Conception orientée objet & Jeu vidéo
 ================================================================================
 
-Nous allons remanier le jeu [🐍 snake.py](../games/solutions/snake.py)
-mais dans une premier temps sans lui ajouter de fonctionnalités.
+Nous allons remanier le jeu [🐍 snake.py](../games/solutions/snake.py),
+dans une premier temps sans lui ajouter de fonctionnalités.
 Nous nous contenterons de revisiter son organisation et de tenter de le rendre 
 plus robuste / réutilisable / compréhensible / extensible. 
 Nous tâcherons ensuite de tirer les bénéfices de cette réorganisation 
