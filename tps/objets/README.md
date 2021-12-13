@@ -115,7 +115,7 @@ devra prendre en charge l'initialisation de `pygame`, la gestion des fps,
 la récupération des évènements, etc.
 
 On souhaite pouvoir exploiter cette classe générique en définissant une
-classe `SnakeGame` qui en dérivé et qui régit le jeu du serpent. 
+classe `SnakeGame` qui en dérive et qui régit le jeu du serpent. 
 `SnakeGame` sera définie de la façon suivante :
 
 ``` python
