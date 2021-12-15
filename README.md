@@ -46,3 +46,6 @@
 
 [🗎 Le snake (est de retour !)](tps/objets/README.md)
 
+## Projet
+
+[📒 Sujet du projet](https://github.com/boisgera/python-advanced-eval)
