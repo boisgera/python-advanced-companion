@@ -1,13 +1,16 @@
-Conception orientée objet
+🕹️ Conception orientée objet & Jeu vidéo
 ================================================================================
 
-Nous allons à nouveau remanier le programme [🐍 snake.py](../games/solutions/snake.py)
-mais cette fois sans lui ajouter de fonctionnalités.
+Nous allons remanier le jeu [🐍 snake.py](../games/solutions/snake.py),
+dans une premier temps sans lui ajouter de fonctionnalités.
 Nous nous contenterons de revisiter son organisation et de tenter de le rendre 
-plus robuste / réutilisable / compréhensible.
+plus robuste / réutilisable / compréhensible / extensible. 
+Nous tâcherons ensuite de tirer les bénéfices de cette réorganisation 
+en développant – avec le minimum d'effort de développement – 
+un 🤖 bot qui assistera le joueur dans la poursuite du hi-score. 
 
 
-Validation
+✔️ Validation
 --------------------------------------------------------------------------------
 
 Quelles sont les valeurs admissibles pour la direction du serpent ?
@@ -29,7 +32,7 @@ implémenter une fonction `check_geometry` qui prenne en argument une
 géométrie de serpent, ne renvoie rien si elle est valide et lève 
 l'exception appropriée dans le cas contraire.
 
-Un type `Snake`
+🐍 Un type `Snake`
 --------------------------------------------------------------------------------
 
 Implémenter une classe `Snake` encapsulant la géométrie et la direction du
@@ -65,10 +68,11 @@ La même stratégie peut-être s'appliquer au cas de l'attribut `_geometry` ou
 doit-elle être modifiée pour garantir la validité de cet attribut privé dans
 le temps ? Si c'est le cas, comment ?
 
-Compléter les accesseurs `get_XXX` et `set_XXX` par des propriétés nommées `XXX`
+Enfin, associer aux accesseurs `get_direction`, `set_direction`, 
+`get_geometry` et `set_geometry` des propriétés `geometry` et `direction`
 et adapter le code client en conséquence.
 
-En mouvement
+🏃 En mouvement
 --------------------------------------------------------------------------------
 
 Introduire une méthode `move` dans la classe `Snake` qui va mettre à jour
@@ -78,10 +82,10 @@ et de la position des fruits (à remettre à jour le cas échéant).
 Adapter la boucle générale du programme  [🐍 snake.py](../games/solutions/snake.py) 
 pour intégrer les développements de la classe `Snake`. Vérifier en y jouant que le comportement du jeu reste identique.
 
-Etat du jeu
+🗃️ Etat du jeu
 --------------------------------------------------------------------------------
 
-Définir une class `State` représentant l'état à un instant donné du programme.
+Définir une classe `State` représentant l'état à un instant donné du programme.
 On souhaite pouvoir initialiser cet état par un code de la forme
 
 ``` python
@@ -97,22 +101,22 @@ et en écriture).
 Adapter le reste du code en conséquence. A-t'on encore besoin du mot-clé `global` ?
 Pourquoi ?
 
-Quelle autre type de fonctionnalité pourrait être prise en charge par la class
+Quelle autre type de fonctionnalité pourrait être prise en charge par la classe
 `State` ?
 
-Moteur de jeu
+⚙️ Moteur de jeu
 --------------------------------------------------------------------------------
 
 On souhaite désormais séparer aussi nettement que possible le code qui relève 
 spécifiquement de notre jeu et le code générique, commun à (presque) tous les
 jeux. Ce dernier type de code formera les bases d'un moteur de jeu et sera
-développé dans le fichier `game.py` dans une classe `Game`. Cette classe 
+développé dans une classe `Game` du fichier `game.py`. Cette classe 
 devra prendre en charge l'initialisation de `pygame`, la gestion des fps, 
 la récupération des évènements, etc.
 
-On souhaite pouvoir exploiter cette classe en définissant une
-classe `SnakeGame` qui hérite de la classe générique `Game` et qui régit 
-le jeu du serpent. `SnakeGame` sera définie de la façon suivante :
+On souhaite pouvoir exploiter cette classe générique en définissant une
+classe `SnakeGame` qui en dérive et qui régit le jeu du serpent. 
+`SnakeGame` sera définie de la façon suivante :
 
 ``` python
 from game import Game
@@ -161,7 +165,7 @@ snake_game.start()
 
 Développer la classe `Game` en conséquence.
 
-Intelligence Artificielle
+🧠 Intelligence Artificielle
 --------------------------------------------------------------------------------
 
 On souhaite faciliter la vie du joueur: lorsque celui-ci ne presse aucune touche
@@ -169,8 +173,8 @@ pendant une frame, votre programme devra prendre une décision à sa place pour
 le rapprocher du fruit, en évitant de créer trop de collisions (au minimum:
 en ne faisant jamais un demi-tour).
 
-Développer une classe `AssistedSnakeGame` qui prenne en charge cette 
-fonctionnalité quand on lance le code de la façon suivante:
+Développer une classe 🤖 `AssistedSnakeGame` qui prenne en charge cette 
+fonctionnalité quand on lance le jeu de la façon suivante:
 
 ``` python
 snake_game = AssistedSnakeGame(size=(X * W, Y * H), fps=FPS)
