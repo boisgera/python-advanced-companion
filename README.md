@@ -46,6 +46,8 @@
 
 [🗎 Le snake (est de retour !)](tps/objets/README.md)
 
+[📓 Notebook élaboré en cours](notebooks/06-Objets%20et%20Classes.ipynb)
+
 ## Projet
 
-[📒 Sujet du projet](https://github.com/boisgera/python-advanced-eval)
+[📒 Sujet du projet](https://github.com/boisgera/python-advanced-eval#notebooks-jupyter)
