@@ -144,6 +144,15 @@ Fonctions génératrices
 
 Une fonction est génératrice si sa définition utilise le mot-clé `yield`.
 
+Appeler une fonction génératrice n'exécute pas son code immédiatement,
+mais fournit comme valeur de retour un itérateur. Demander le premier élément
+de cet itérateur exécute la fonction jusqu'à atteindre le premier 
+`yield`; la fonction pause alors son exécution et renvoie la valeur 
+fournie au `yield`. Demander le second objet reprend le fil de l'exécution
+à ce point, jusqu'à atteindre le second `yield`, etc.
+
+Ainsi, avec 
+
 ``` python
 def one_two_three():
     yield 1
@@ -151,31 +160,70 @@ def one_two_three():
     yield 3
 ```
 
-``` pycon
->>> iterator = one_two_three()
->>> next(iterator)
-1
->>> next(iterator)
-2
->>> next(iterator)
-3
->>> next(iterator)
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-StopIteration
-```
+on obtient
 
 ``` pycon
 >>> for i in one_two_three():
-...     print("i:", i) 
-i = 1
-i = 2
-i = 3
+...     print(i)
+1
+2
+3
 ```
+
+et
 
 ``` pycon
 >>> list(one_two_three())
 [1, 2, 3]
+```
+
+#### Exemples ([itertools])
+
+[itertools]: https://docs.python.org/3/library/itertools.html#module-itertools
+
+``` python
+def count(start=0, step=1):
+    value = start
+    while True:
+        yield value
+        value += step
+```
+
+``` pycon
+>>> odd_numbers = count(1, 2)
+>>> for number in odd_numbers:
+...     print(number, sep=" ")
+...     if number >= 20:
+...         break
+1 3 5 7 9 11 13 15 17 19 21
+```
+
+``` python
+def cycle(iterable):
+    saved = []
+    for element in iterable:
+        yield element
+        saved.append(element)
+    while saved:
+        for element in saved:
+              yield element
+```
+
+
+
+``` python
+def repeat(object, times=None):
+    if times is None:
+        while True:
+            yield object
+    else:
+        for i in range(times):
+            yield object
+```
+
+``` pycon
+>>> list(repeat(10, 3))
+[10, 10, 10]
 ```
 
 **TODO:**
