@@ -16,6 +16,8 @@ def f(x, y, z=0):
     return 42
 ```
 
+Mentionner type hints (ex avec Typer ?).
+
 ### Valeurs de retour
 
 $$
@@ -140,6 +142,59 @@ factories, etc.
 Fonctions génératrices
 --------------------------------------------------------------------------------
 
+Une fonction est génératrice si sa définition utilise le mot-clé `yield`.
+
+``` python
+def one_two_three():
+    yield 1
+    yield 2
+    yield 3
+```
+
+``` pycon
+>>> iterator = one_two_three()
+>>> next(iterator)
+1
+>>> next(iterator)
+2
+>>> next(iterator)
+3
+>>> next(iterator)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+StopIteration
+```
+
+``` pycon
+>>> for i in one_two_three():
+...     print("i:", i) 
+i = 1
+i = 2
+i = 3
+```
+
+``` pycon
+>>> list(one_two_three())
+[1, 2, 3]
+```
+
+**TODO:**
+
+  - expliquer analogie "return multiples" et flux d'exécution plus complexe
+    qu'une fonction classique
+
+  - arguments
+
+  - code entre yields
+
+  - exemple de flux d'exécution "complexes"
+
+  - qq uses cases: émulation fonctionnalités itertools (AVANT: range), etc.
+
+  - valeur de retours
+
+
+
 Higher-order Programming
 --------------------------------------------------------------------------------
 
@@ -158,5 +213,5 @@ math (ODEs, autograd), filters/maps, callbacks, etc.
 --------------------------------------------------------------------------------
 
 ``` pycon
-test ligatures: ->
+test ligatures: -> ==
 ```

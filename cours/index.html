@@ -133,6 +133,38 @@ TypeError: hash() takes exactly one argument (0 given)</code></pre>
 <h3 id="custom-classes">Custom classes</h3>
 <p><code>__call__</code></p>
 <h2 id="fonctions-génératrices">Fonctions génératrices</h2>
+<p>Une fonction est génératrice si sa définition utilise le mot-clé <code>yield</code>.</p>
+<pre class="python"><code>def one_two_three():
+    yield 1
+    yield 2
+    yield 3</code></pre>
+<pre class="pycon"><code>&gt;&gt;&gt; iterator = one_two_three()
+&gt;&gt;&gt; next(iterator)
+1
+&gt;&gt;&gt; next(iterator)
+2
+&gt;&gt;&gt; next(iterator)
+3
+&gt;&gt;&gt; next(iterator)
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+StopIteration</code></pre>
+<pre class="pycon"><code>&gt;&gt;&gt; for i in one_two_three():
+...     print(&quot;i:&quot;, i) 
+i = 1
+i = 2
+i = 3</code></pre>
+<pre class="pycon"><code>&gt;&gt;&gt; list(one_two_three())
+[1, 2, 3]</code></pre>
+<p><strong>TODO:</strong></p>
+<ul>
+<li><p>expliquer analogie “return multiples” et flux d’exécution plus complexe qu’une fonction classique</p></li>
+<li><p>arguments</p></li>
+<li><p>code entre yields</p></li>
+<li><p>exemple de flux d’exécution “complexes”</p></li>
+<li><p>qq uses cases: émulation fonctionnalités itertools (AVANT: range), etc.</p></li>
+<li><p>valeur de retours</p></li>
+</ul>
 <h2 id="higher-order-programming">Higher-order Programming</h2>
 <p>Fonctions comme “valeurs” ; lambda, decorateurs ; patterns d’usage: math (ODEs, autograd), filters/maps, callbacks, etc.</p>
 <h3 id="usages">Usages</h3>
@@ -140,6 +172,6 @@ TypeError: hash() takes exactly one argument (0 given)</code></pre>
 <h3 id="lambda">Lambda</h3>
 <h3 id="closures">Closures</h3>
 <hr />
-<pre class="pycon"><code>test ligatures: -&gt;</code></pre>
+<pre class="pycon"><code>test ligatures: -&gt; ==</code></pre>
 </body>
 </html>
