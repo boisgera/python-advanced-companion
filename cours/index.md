@@ -5,7 +5,7 @@ title: Fonctions
 Fonctions
 --------------------------------------------------------------------------------
 
-### Définitions
+### Définitions (TODO)
 
 `def` `return`, retour réifiés (tuple), arguments positionnels ou nommés,
 arguments par défaut.
@@ -18,13 +18,10 @@ def f(x, y, z=0):
 
 Mentionner type hints (ex avec Typer ?).
 
-### Valeurs de retour
+### Valeurs de retour (TODO)
 
-$$
-\int_0^1 f(x) \, dx
-$$
 
-### Espaces de nom
+### Espaces de nom (TODO: local)
 
 Portée / scope
 
@@ -32,7 +29,7 @@ Portée / scope
 
 (implicites)
 
-globals / locals (builtin module, read-only, etc.)
+globals / locals (builtin module ?, read-only, etc.)
 
 
 Invocables
@@ -541,6 +538,8 @@ $(\lambda x.x^2+1)$.
 
 ### Fermetures
 
+Ainsi parlait Wikipédia :
+
 > Dans un langage de programmation, une **fermeture** ou **clôture** 
 > (🇺🇸 : **closure**) est une fonction accompagnée de son environnement lexical.  
 >
@@ -554,21 +553,95 @@ $(\lambda x.x^2+1)$.
 > 
 > Source : [![](icons/Wikipedia.svg){style="height: 1em; display: inline; vertical-align: -0.175em;"} Fermeture (informatique)](https://fr.wikipedia.org/wiki/Fermeture_(informatique))
 
-**TODO.** Exemple (read-only), `nonlocal`.
+Essayons de donner un exemple concret illustrant cette définition.
 
-Transformer expressions en fonctions (arguments nommés uniquement).
+#### Evaluateur d'expression
+
+La fonction standard `eval` permet de calculer la valeur d'expressions
+représentées par des chaînes de caractères. Ainsi :
+
+``` python
+>>> x = 1 
+>>> y = 2
+>>> eval("x + y")
+3
+```
+
+Il est également possible d'ignorer l'espace de nom global et de spécifier 
+explicitement l'espace de nom que devra utiliser l'évaluateur :
+
+``` python
+>>> namespace = {"x": 3, "y": 4}
+>>> eval("x + y", namespace)
+```
+
+Nous aimerions disposer d'une fonction d'ordre supérieur -- disons `fun` --
+qui associe à une expression, comme `"x+y"`, une fonction qui acceptera les 
+arguments nommés nécessaires pour évaler l'expression -- ici `x` et `y` --
+et renverra la valeur associée de l'expression.
+
+Avec les fermetures de fonctions, rien de plus simple :
 
 ``` python
 def fun(expression):
-    def f(**kwargs):
+    def f(**kwargs): 
        return eval(expression, kwargs)
     return f
 ```
 
+On remarquera que `eval(expression, kwargs)` utilise la variable `kwargs` qui
+est locale à `f` (car passée en paramètre). Mais elle utilise également `expression`
+qui est une variable locale de `fun` ; elle appartient à l'environnement
+lexical de `f` qui est donc une fermeture.
+
+Voilà comment utiliser notre fonction `fun` :
+
+``` python
+>>> add_xy = fun("x + y")
+>>> add_xy(x=4, y=5)
+9
+```
+
 --------------------------------------------------------------------------------
 
-Les variables non-locales sont également capturées par référence en Python,
-ce qui peut dans certains cas rendre votre vie ... intéressante ! 😂
+Les variables non-locales d'une fermeture sont accessibles en lecture seule
+par défaut. Pour les modifier, il faut au préalable les déclarer explicitement
+comme non-locales à la fermeture. 
+(La situation est donc similaire celle des variables globales exploitées 
+dans les fonctions.)
+
+Par exemple, la fonction `make_get_set` génère deux fermetures qui accèdent
+à la même variable `x` (qui est locale à `make_get_set`) : `get` permet de
+lire la valeur de `x` et n'a donc pas besoin de la déclarer comme non-locale ;
+mais `set` doit permettre de changer la valeur de cette variable et la déclare
+donc comme non-locale :
+
+``` python
+def make_get_set(x):
+     def get():
+         return x
+     def set(value):
+         nonlocal x
+         x = value
+     return get, set
+```
+
+Exemple d'usage de ces fonctions :
+
+``` python
+>>> get, set = make_get_set(1)
+>>> get()
+1
+>>> set(5)
+>>> get()
+5
+```
+
+--------------------------------------------------------------------------------
+
+Il est bon de savoir que les variables non-locales sont capturées par référence 
+en Python, et non par valeur, ce qui peut dans certains cas rendre votre vie 
+... intéressante ! 😂
 
 Par exemple, le programmeur ayant écrit
 

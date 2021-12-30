@@ -7,6 +7,7 @@ html {
   }
 code:not(fuckcss){
     font-family: "Fira Code", monospace;
+    font-size: 90%;
 }
 
 pre:not(fuckcss) {

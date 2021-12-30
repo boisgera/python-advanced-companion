@@ -45,9 +45,9 @@
 <ul>
 <li><a href="#fonctions">Fonctions</a>
 <ul>
-<li><a href="#définitions">Définitions</a></li>
-<li><a href="#valeurs-de-retour">Valeurs de retour</a></li>
-<li><a href="#espaces-de-nom">Espaces de nom</a></li>
+<li><a href="#définitions-todo">Définitions (TODO)</a></li>
+<li><a href="#valeurs-de-retour-todo">Valeurs de retour (TODO)</a></li>
+<li><a href="#espaces-de-nom-todo-local">Espaces de nom (TODO: local)</a></li>
 </ul></li>
 <li><a href="#invocables">Invocables</a>
 <ul>
@@ -65,21 +65,18 @@
 </ul>
 </nav>
 <h2 id="fonctions">Fonctions</h2>
-<h3 id="définitions">Définitions</h3>
+<h3 id="définitions-todo">Définitions (TODO)</h3>
 <p><code>def</code> <code>return</code>, retour réifiés (tuple), arguments positionnels ou nommés, arguments par défaut.</p>
 <pre class="python"><code>def f(x, y, z=0):
     print(&quot;Please !&quot;)
     return 42</code></pre>
 <p>Mentionner type hints (ex avec Typer ?).</p>
-<h3 id="valeurs-de-retour">Valeurs de retour</h3>
-<p><span class="math display">\[
-\int_0^1 f(x) \, dx
-\]</span></p>
-<h3 id="espaces-de-nom">Espaces de nom</h3>
+<h3 id="valeurs-de-retour-todo">Valeurs de retour (TODO)</h3>
+<h3 id="espaces-de-nom-todo-local">Espaces de nom (TODO: local)</h3>
 <p>Portée / scope</p>
 <p>🇺🇸 → Namespace</p>
 <p>(implicites)</p>
-<p>globals / locals (builtin module, read-only, etc.)</p>
+<p>globals / locals (builtin module ?, read-only, etc.)</p>
 <h2 id="invocables">Invocables</h2>
 <p>On qualifie d’<strong>invocable</strong> (ou <strong>appelable</strong> ; 🇺🇸 : <strong>callable</strong>) tout objet se comportant comme une fonction, c’est-à-dire pouvant être appelé (invoqué) avec la même syntaxe que les fonctions.</p>
 <p>Ainsi, l’entier <code>0</code> n’est pas invocable :</p>
@@ -260,7 +257,7 @@ A B C D A B C D A B C D</code></pre>
 <p>Usage :</p>
 <pre class="python"><code>&gt;&gt;&gt; list(repeat(10, 3))
 [10, 10, 10]</code></pre>
-<h4 id="exercices">Exercices</h4>
+<h4 id="exercice">Exercice</h4>
 <p>Implémentez votre propre version des fonctions standards <code>range</code>, <code>enumerate</code> et <code>zip</code> en utilisant les fonctions génératrices.</p>
 <h2 id="programmation-fonctionnelle">Programmation fonctionnelle</h2>
 <p>Un des traits de la <a href="https://fr.wikipedia.org/wiki/Programmation_fonctionnelle"><strong>programmation fonctionelle</strong></a>, un style de programmation que supporte (en partie) Python, est de permettre de manipuler les fonctions comme des objets comme les autres, pouvant être désignés par des variables, stockés dans des conteneurs, passés comme arguments à d’autres fonctions, etc. Une fonction acceptant comme argument des fonctions et/ou en renvoyant est une <strong>fonction d’ordre supérieur</strong> (🇺🇸 : <strong>higher-order function</strong>).</p>
@@ -354,20 +351,53 @@ root.mainloop()</code></pre>
            root: 1.4142135623731364</code></pre>
 <p>Le mot-clé <code>lambda</code> fait référence à la notation traditionnelle du <a href="https://fr.wikipedia.org/wiki/Lambda-calcul"><span class="math inline">\(\lambda\)</span>-calcul</a> ; on y désignerait la fonction <span class="math inline">\(x \mapsto x^2+1\)</span> par la notation <span class="math inline">\((\lambda x.x^2+1)\)</span>.</p>
 <h3 id="fermetures">Fermetures</h3>
+<p>Ainsi parlait Wikipédia :</p>
 <blockquote>
 <p>Dans un langage de programmation, une <strong>fermeture</strong> ou <strong>clôture</strong> (🇺🇸 : <strong>closure</strong>) est une fonction accompagnée de son environnement lexical.</p>
 <p>L’<strong>environnement lexical</strong> d’une fonction est l’ensemble des variables non locales qu’elle a capturées, soit par valeur (c’est-à-dire par copie des valeurs des variables), soit par référence (c’est-à-dire par copie des adresses mémoires des variables).</p>
 <p>Une fermeture est donc créée, entre autres, lorsqu’une fonction est définie dans le corps d’une autre fonction et utilise des paramètres ou des variables locales de cette dernière.</p>
 <p>Source : <a href="https://fr.wikipedia.org/wiki/Fermeture_(informatique)"><img src="icons/Wikipedia.svg" style="height: 1em; display: inline; vertical-align: -0.175em;" /> Fermeture (informatique)</a></p>
 </blockquote>
-<p><strong>TODO.</strong> Exemple (read-only), <code>nonlocal</code>.</p>
-<p>Transformer expressions en fonctions (arguments nommés uniquement).</p>
+<p>Essayons de donner un exemple concret illustrant cette définition.</p>
+<h4 id="evaluateur-dexpression">Evaluateur d’expression</h4>
+<p>La fonction standard <code>eval</code> permet de calculer la valeur d’expressions représentées par des chaînes de caractères. Ainsi :</p>
+<pre class="python"><code>&gt;&gt;&gt; x = 1 
+&gt;&gt;&gt; y = 2
+&gt;&gt;&gt; eval(&quot;x + y&quot;)
+3</code></pre>
+<p>Il est également possible d’ignorer l’espace de nom global et de spécifier explicitement l’espace de nom que devra utiliser l’évaluateur :</p>
+<pre class="python"><code>&gt;&gt;&gt; namespace = {&quot;x&quot;: 3, &quot;y&quot;: 4}
+&gt;&gt;&gt; eval(&quot;x + y&quot;, namespace)</code></pre>
+<p>Nous aimerions disposer d’une fonction d’ordre supérieur – disons <code>fun</code> – qui associe à une expression, comme <code>"x+y"</code>, une fonction qui acceptera les arguments nommés nécessaires pour évaler l’expression – ici <code>x</code> et <code>y</code> – et renverra la valeur associée de l’expression.</p>
+<p>Avec les fermetures de fonctions, rien de plus simple :</p>
 <pre class="python"><code>def fun(expression):
-    def f(**kwargs):
+    def f(**kwargs): 
        return eval(expression, kwargs)
     return f</code></pre>
+<p>On remarquera que <code>eval(expression, kwargs)</code> utilise la variable <code>kwargs</code> qui est locale à <code>f</code> (car passée en paramètre). Mais elle utilise également <code>expression</code> qui est une variable locale de <code>fun</code> ; elle appartient à l’environnement lexical de <code>f</code> qui est donc une fermeture.</p>
+<p>Voilà comment utiliser notre fonction <code>fun</code> :</p>
+<pre class="python"><code>&gt;&gt;&gt; add_xy = fun(&quot;x + y&quot;)
+&gt;&gt;&gt; add_xy(x=4, y=5)
+9</code></pre>
 <hr />
-<p>Les variables non-locales sont également capturées par référence en Python, ce qui peut dans certains cas rendre votre vie … intéressante ! 😂</p>
+<p>Les variables non-locales d’une fermeture sont accessibles en lecture seule par défaut. Pour les modifier, il faut au préalable les déclarer explicitement comme non-locales à la fermeture. (La situation est donc similaire celle des variables globales exploitées dans les fonctions.)</p>
+<p>Par exemple, la fonction <code>make_get_set</code> génère deux fermetures qui accèdent à la même variable <code>x</code> (qui est locale à <code>make_get_set</code>) : <code>get</code> permet de lire la valeur de <code>x</code> et n’a donc pas besoin de la déclarer comme non-locale ; mais <code>set</code> doit permettre de changer la valeur de cette variable et la déclare donc comme non-locale :</p>
+<pre class="python"><code>def make_get_set(x):
+     def get():
+         return x
+     def set(value):
+         nonlocal x
+         x = value
+     return get, set</code></pre>
+<p>Exemple d’usage de ces fonctions :</p>
+<pre class="python"><code>&gt;&gt;&gt; get, set = make_get_set(1)
+&gt;&gt;&gt; get()
+1
+&gt;&gt;&gt; set(5)
+&gt;&gt;&gt; get()
+5</code></pre>
+<hr />
+<p>Il est bon de savoir que les variables non-locales sont capturées par référence en Python, et non par valeur, ce qui peut dans certains cas rendre votre vie … intéressante ! 😂</p>
 <p>Par exemple, le programmeur ayant écrit</p>
 <pre class="python"><code>def make_actions():
     actions = []
