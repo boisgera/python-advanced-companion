@@ -460,7 +460,7 @@ def calculate(*args):
         pass
 ```
 
-Puis nous créons un bouton qui rappelle cette fonction à chaque fois 
+Puis nous créons un bouton qui **rappelle** cette fonction à chaque fois 
 qu'il est pressé :
 
 ``` python
@@ -487,7 +487,7 @@ feet_entry.focus()
 root.mainloop()
 ```
 
-### Fonctions lambda (ou anonymes)
+### Lambda
 
 Les fonctions lambda en Python sont une construction qui n'augmente pas
 l'expressivité du langage -- on ne peut rien faire avec des fonctions
@@ -499,15 +499,15 @@ entre $0$ et $2$ avec `scipy`, après avoir importé une fonction de recherche
 de racines
 
 ``` python
->>> from scipy.optimize import root_scalar as find_root
+from scipy.optimize import root_scalar as find_root
 ```
 
 on peut définir la fonction qui nous intéresse, ce qui suppose de la nommer
 (par exemple `f`) :
 
 ``` python
->>> def f(x):
-...     return x*x - 2
+def f(x):
+    return x*x - 2
 ```
 
 puis appeler la routine de recherche de zéros de `scipy`
@@ -537,12 +537,10 @@ au moyen d'une fonction lambda :
 Le mot-clé `lambda` fait référence à la notation traditionnelle du [$\lambda$-calcul](https://fr.wikipedia.org/wiki/Lambda-calcul).
 
 
-### Fermetures (de fonctions)
+### Fermetures
 
-
-
-> Dans un langage de programmation, une fermeture ou clôture 
-> (🇺🇸 : *closure*) est une fonction accompagnée de son environnement lexical.  
+> Dans un langage de programmation, une **fermeture** ou **clôture** 
+> (🇺🇸 : **closure**) est une fonction accompagnée de son environnement lexical.  
 >
 > L'environnement lexical d'une fonction est l'ensemble des variables non locales 
 > qu'elle a capturées, soit par valeur (c'est-à-dire par copie des valeurs des variables), 
@@ -569,7 +567,7 @@ def plus_one(x):
 
 mais qu'en la testant dans un programme, nous trouvons son comportement mystérieux. 
 Pour comprendre ce qui se passe, nous modifions sa définition pour afficher 
-ses arguments et les valeurs qu'elle renvoie à chacun de ses appels.
+ses arguments et les valeurs qu'elle renvoie à chaque fois qu'elle est appelée.
 
 ``` python
 def plus_one(x):

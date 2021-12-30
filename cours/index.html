@@ -59,7 +59,7 @@
 <li><a href="#programmation-fonctionnelle">Programmation fonctionnelle</a>
 <ul>
 <li><a href="#fonctions-lambda-ou-anonymes">Fonctions lambda (ou anonymes)</a></li>
-<li><a href="#fermetures-de-fonctions">Fermetures (de fonctions)</a></li>
+<li><a href="#fermetures">Fermetures</a></li>
 <li><a href="#décorateurs">Décorateurs</a></li>
 </ul></li>
 </ul>
@@ -314,7 +314,7 @@ ttk.Label(mainframe, textvariable=meters).grid(column=2, row=2, sticky=(W, E))</
         meters.set(int(0.3048 * value * 10000.0 + 0.5)/10000.0)
     except ValueError:
         pass</code></pre>
-<p>Puis nous créons un bouton qui rappelle cette fonction à chaque fois qu’il est pressé :</p>
+<p>Puis nous créons un bouton qui <strong>rappelle</strong> cette fonction à chaque fois qu’il est pressé :</p>
 <pre class="python"><code>ttk.Button(
     mainframe, 
     text=&quot;Calculate&quot;, 
@@ -331,14 +331,13 @@ for child in mainframe.winfo_children():
 feet_entry.focus()
 
 root.mainloop()</code></pre>
-<pre class="python"><code>root.mainloop()</code></pre>
 <h3 id="fonctions-lambda-ou-anonymes">Fonctions lambda (ou anonymes)</h3>
 <p>Les fonctions lambda en Python sont une construction qui n’augmente pas l’expressivité du langage – on ne peut rien faire avec des fonctions lambda qu’on ne pouvait déjà faire avec les fonctions classiques – mais permet dans certains cas d’obtenir un code plus concis.</p>
 <p>Ainsi, pour trouver numériquement le zéro de la fonction <span class="math inline">\(x \mapsto x^2 - 2\)</span> entre <span class="math inline">\(0\)</span> et <span class="math inline">\(2\)</span> avec <code>scipy</code>, après avoir importé une fonction de recherche de racines</p>
-<pre class="python"><code>&gt;&gt;&gt; from scipy.optimize import root_scalar as find_root</code></pre>
+<pre class="python"><code>from scipy.optimize import root_scalar as find_root</code></pre>
 <p>on peut définir la fonction qui nous intéresse, ce qui suppose de la nommer (par exemple <code>f</code>) :</p>
-<pre class="python"><code>&gt;&gt;&gt; def f(x):
-...     return x*x - 2</code></pre>
+<pre class="python"><code>def f(x):
+    return x*x - 2</code></pre>
 <p>puis appeler la routine de recherche de zéros de <code>scipy</code></p>
 <pre class="python"><code>&gt;&gt;&gt; find_root(f, bracket=[0, 2])
       converged: True
@@ -354,9 +353,9 @@ root.mainloop()</code></pre>
      iterations: 8
            root: 1.4142135623731364</code></pre>
 <p>Le mot-clé <code>lambda</code> fait référence à la notation traditionnelle du <a href="https://fr.wikipedia.org/wiki/Lambda-calcul"><span class="math inline">\(\lambda\)</span>-calcul</a>.</p>
-<h3 id="fermetures-de-fonctions">Fermetures (de fonctions)</h3>
+<h3 id="fermetures">Fermetures</h3>
 <blockquote>
-<p>Dans un langage de programmation, une fermeture ou clôture (🇺🇸 : <em>closure</em>) est une fonction accompagnée de son environnement lexical.</p>
+<p>Dans un langage de programmation, une <strong>fermeture</strong> ou <strong>clôture</strong> (🇺🇸 : <strong>closure</strong>) est une fonction accompagnée de son environnement lexical.</p>
 <p>L’environnement lexical d’une fonction est l’ensemble des variables non locales qu’elle a capturées, soit par valeur (c’est-à-dire par copie des valeurs des variables), soit par référence (c’est-à-dire par copie des adresses mémoires des variables).</p>
 <p>Une fermeture est donc créée, entre autres, lorsqu’une fonction est définie dans le corps d’une autre fonction et utilise des paramètres ou des variables locales de cette dernière.</p>
 <p>Source : <a href="https://fr.wikipedia.org/wiki/Fermeture_(informatique)">Wikipedia</a></p>
@@ -366,7 +365,7 @@ root.mainloop()</code></pre>
 <p>Imaginons que nous ayons développé une fonction <code>plus_one</code></p>
 <pre class="python"><code>def plus_one(x):
     return x + 1</code></pre>
-<p>mais qu’en la testant dans un programme, nous trouvons son comportement mystérieux. Pour comprendre ce qui se passe, nous modifions sa définition pour afficher ses arguments et les valeurs qu’elle renvoie à chacun de ses appels.</p>
+<p>mais qu’en la testant dans un programme, nous trouvons son comportement mystérieux. Pour comprendre ce qui se passe, nous modifions sa définition pour afficher ses arguments et les valeurs qu’elle renvoie à chaque fois qu’elle est appelée.</p>
 <pre class="python"><code>def plus_one(x):
     print(&quot;input:&quot;, x)
     y = x + 1
