@@ -60,7 +60,6 @@
 <ul>
 <li><a href="#lambda">Lambda</a></li>
 <li><a href="#fermetures">Fermetures</a></li>
-<li><a href="#décorateurs">Décorateurs</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -360,10 +359,48 @@ root.mainloop()</code></pre>
 <p>Une fermeture est donc créée, entre autres, lorsqu’une fonction est définie dans le corps d’une autre fonction et utilise des paramètres ou des variables locales de cette dernière.</p>
 <p>Source : <a href="https://fr.wikipedia.org/wiki/Fermeture_(informatique)"><img src="icons/Wikipedia.svg" style="height: 1em; display: inline; vertical-align: -0.175em;" /> Fermeture (informatique)</a></p>
 </blockquote>
-<h3 id="décorateurs">Décorateurs</h3>
-<p>Les <strong>décorateurs</strong> sont un “sucre syntaxique” utilisant le symbole <code>@</code> et facilitant la mise en d’oeuvre d’un schéma assez courant que nous allons illustrer sur un exemple.</p>
-<p>Imaginons que nous ayons développé une fonction <code>plus_one</code></p>
-<pre class="python"><code>def plus_one(x):
+<p>Les variables non-locales sont également capturées par référence en Python, ce qui peut dans certains cas rendre votre vie … intéressante ! 😂</p>
+<p>Par exemple, le programmeur ayant écrit</p>
+<pre class="python"><code>def make_actions():
+    actions = []
+    for i in range(3):
+        def printer():
+            print(i)
+        actions.append(printer)
+    return actions</code></pre>
+<p>s’attend probablement à générer une liste de 3 actions qui afficheront respectivement 0, 1 et 2. Mais comme le <code>i</code> utilisé par la fonction <code>printer</code> est capturé par référence, sa valeur effective est obtenue uniquement au moment de l’appel <code>print(i)</code>. Hors à ce moment-là, la boucle <code>for</code> a déjà été exécutée, donc <code>i</code> vaut <code>2</code>. Par conséquent, on obtient en fait :</p>
+<pre class="python"><code>&gt;&gt;&gt; for action in make_actions():
+...     action()
+2
+2
+2</code></pre>
+<p>Le “hack” classique pour résoudre ce problème consiste à utiliser le fait que les arguments par défaut d’une fonction sont évalués lors de sa définition. Par conséquent, si l’on définit :</p>
+<pre class="python"><code>def make_actions():
+    actions = []
+    for i in range(3):
+        def printer(i=i):
+            print(i)
+        actions.append(printer)
+    return actions</code></pre>
+<p>on obtient comme souhaité</p>
+<pre class="python"><code>&gt;&gt;&gt; for action in make_actions():
+...     action()
+0
+1
+2
+
+
+
+### Décorateurs
+
+Les **décorateurs** sont un &quot;sucre syntaxique&quot; utilisant le symbole `@`
+et facilitant la mise en d&#39;oeuvre d&#39;un schéma assez courant 
+que nous allons illustrer sur un exemple.
+
+Imaginons que nous ayons développé une fonction `plus_one` 
+
+``` python
+def plus_one(x):
     return x + 1</code></pre>
 <p>mais qu’en la testant dans un programme, nous trouvons son comportement mystérieux. Pour comprendre ce qui se passe, nous modifions sa définition pour afficher ses arguments et les valeurs qu’elle renvoie à chaque fois qu’elle est appelée.</p>
 <pre class="python"><code>def plus_one(x):
