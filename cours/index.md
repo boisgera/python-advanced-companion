@@ -38,11 +38,9 @@ globals / locals (builtin module, read-only, etc.)
 Invocables
 --------------------------------------------------------------------------------
 
-🇫🇷 invocable (ou appelable)  → 🇺🇸 callable (or "function-like")
-
-On qualifie d'invocable tout objet se comportant comme une fonction,
-c'est-à-dire pouvant être appelé (invoqué) avec la même syntaxe que
-les fonctions.
+On qualifie d'invocable (ou appelable ; 🇺🇸 : callable) tout objet se 
+comportant comme une fonction, 
+c'est-à-dire pouvant être appelé (invoqué) avec la même syntaxe queles fonctions.
 
 Ainsi, l'entier `0` n'est pas invocable :
 
@@ -52,7 +50,7 @@ Ainsi, l'entier `0` n'est pas invocable :
 TypeError: 'int' object is not callable
 ```
 
-La fonction sans argument qui renvoie `0` est invocable :
+mais la fonction sans argument qui renvoie `0` est invocable :
 
 ``` python
 >>> def zero_fun():
@@ -70,33 +68,12 @@ ce qui n'est pas une surprise puisque c'est une fonction !
 >>> isinstance(zero_fun, types.FunctionType)
 True
 ```
-
-L'objet `int` est également invocable :
-
-``` python
->>> int()
-0
-```
-
-Pourtant, ce n'est pas une function, mais un type (c'est-à-dire une classe) :
-
-``` python
->>> type(int)
-<class 'type'>
->>> type(int) is type
-True
->>> isinstance(int, types.FunctionType)
-False
-```
-
 L'invocabilité des objets Python peut être testée avec la fonction `callable` :
 
 ``` python
 >>> callable(zero)
 False
 >>> callable(zero_fun)
-True
->>> callable(int)
 True
 ```
 
@@ -127,17 +104,151 @@ Pour en savoir plus sur les arguments attendus, il faudra se reporter
 à la documentation de l'objet considéré.
 
 
-### Classes
+### Types
 
-Des fois difficile de distinguer classes de fonction (ex: `np.array`) ;
-factories, etc.
+Un objet comme `int` est également invocable :
+
+``` python
+>>> callable(int)
+True
+```
+
+ce que l'on peut rapidement confirmer expérimentalement :
+
+``` python
+>>> int()
+0
+>>> int(0.0)
+0
+>>> int("0")
+0
+```
+
+Pourtant, ce n'est pas une function, mais un type :
+
+``` python
+>>> type(int)
+<class 'type'>
+>>> type(int) is type
+True
+>>> isinstance(int, types.FunctionType)
+False
+```
+
+Rappelons que les types (ou classes) ont vocation, quand on les appelle,
+à créer des instances du type considéré :
+
+``` python
+>>> isinstance(int(), int)
+True
+>>> isinstance(int(0.0), int)
+True
+>>> isinstance(int("0"), int)
+True
+```
+
+Les classes que vous définissez sont également invocables :
+
+``` python
+class Transmogrifier:
+    pass
+```
+
+``` python
+>>> callable(Transmogriphier)
+True
+>>> transmogriphier = Transmogriphier()
+>>> isinstance(transmogriphier, Transmogrifier)
+True
+```
 
 ### Méthodes
 
-### Custom classes
 
-`__call__`
 
+Un [transmogriphieur](https://calvinandhobbes.fandom.com/wiki/Transmogrifier) 
+peut transformer son utilisateur en ce qu'il souhaite (par défaut, un tigre 🐯 ;
+mais on n'a pas spécifié sa taille !).
+
+![[Calvin transformé en tigre](https://calvinandhobbes.fandom.com/wiki/Calvin_in_Tiger_Form_(Transmogrifier_alter_ego))](https://static.wikia.nocookie.net/candh/images/6/60/Tigercalvin.png/revision/latest?cb=20111208210956)
+
+
+``` python
+class Transmogriphier:
+    def __init__(self, turn_into="tiger"):
+        self.turn_into = turn_into
+    def activate(self, user):
+        return self.turn_into
+```
+
+``` python
+>>> transmogriphier = Transmogriphier()
+>>> transmogriphier.activate("calvin")
+'tiger'
+```
+
+L'opération `transmogriphier.activate("calvin")` n'est pas "atomique" : elle
+consiste d'abord à obtenir l'attribut `activate` de l'objet `transmogriphier`,
+puis à l'invoquer avec l'argument `"calvin"`.
+
+``` python
+>>> transmogriphy = transmogriphier.activate
+>>> callable(transmogriphy)
+True
+>>> transmogriphy("calvin")
+'tiger'
+```
+
+Cela est possible car `activate` est une méthode (liée à l'instance
+`transmogriphier` de `Transmogriphier`) et est donc invocable.
+
+``` python
+>>> transmogriphy
+<bound method Transmogriphier.activate ...>
+>>> type(transmogriphy)
+<class 'method'>
+>>> import types
+>>> type(transmogriphy) is types.MethodType
+True
+```
+
+### Instances
+
+Notons qu'à ce stade `Transmogriphier` est invocable et la méthode `activate`
+des transmogriphieurs également. Mais les transmogriphieurs eux-même ne le sont
+pas :
+
+``` python
+>>> callable(transmogriphier)
+False
+```
+
+Si nous estimons que c'est préférable, nous pouvons faire en sorte qu'ils le
+deviennent. Il semble assez raisonnable de faire en sorte qu'invoquer un
+transmogriphieur l'active :
+
+``` python
+class Transmogriphier:
+    def __init__(self, turn_into="tiger")
+        self.turn_into = turn_into
+    def activate(self, user):
+        return self.turn_into
+    def __call__(self, user):
+        return self.activate(user)
+```
+
+``` python
+>>> transmogriphier = Transmogriphier()
+>>> callable(transmogriphier)
+True
+```
+
+Nous pouvons alors simplifier l'usage du transmogriphieur de la façon suivante :
+
+``` python
+>>> transmogriphier("calvin")
+'tiger'
+```
 
 Fonctions génératrices
 --------------------------------------------------------------------------------

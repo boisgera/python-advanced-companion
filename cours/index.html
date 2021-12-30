@@ -51,9 +51,9 @@
 </ul></li>
 <li><a href="#invocables">Invocables</a>
 <ul>
-<li><a href="#classes">Classes</a></li>
+<li><a href="#types">Types</a></li>
 <li><a href="#méthodes">Méthodes</a></li>
-<li><a href="#custom-classes">Custom classes</a></li>
+<li><a href="#instances">Instances</a></li>
 </ul></li>
 <li><a href="#fonctions-génératrices">Fonctions génératrices</a></li>
 <li><a href="#programmation-fonctionnelle-dordre-supérieur">Programmation fonctionnelle / d’ordre supérieur</a>
@@ -81,13 +81,12 @@
 <p>(implicites)</p>
 <p>globals / locals (builtin module, read-only, etc.)</p>
 <h2 id="invocables">Invocables</h2>
-<p>🇫🇷 invocable (ou appelable) → 🇺🇸 callable (or “function-like”)</p>
-<p>On qualifie d’invocable tout objet se comportant comme une fonction, c’est-à-dire pouvant être appelé (invoqué) avec la même syntaxe que les fonctions.</p>
+<p>On qualifie d’invocable (ou appelable ; 🇺🇸 : callable) tout objet se comportant comme une fonction, c’est-à-dire pouvant être appelé (invoqué) avec la même syntaxe queles fonctions.</p>
 <p>Ainsi, l’entier <code>0</code> n’est pas invocable :</p>
 <pre class="python"><code>&gt;&gt;&gt; zero = 0
 &gt;&gt;&gt; zero()
 TypeError: &#39;int&#39; object is not callable</code></pre>
-<p>La fonction sans argument qui renvoie <code>0</code> est invocable :</p>
+<p>mais la fonction sans argument qui renvoie <code>0</code> est invocable :</p>
 <pre class="python"><code>&gt;&gt;&gt; def zero_fun():
 ...     return 0
 &gt;&gt;&gt; zero_fun()
@@ -98,22 +97,10 @@ TypeError: &#39;int&#39; object is not callable</code></pre>
 &gt;&gt;&gt; import types
 &gt;&gt;&gt; isinstance(zero_fun, types.FunctionType)
 True</code></pre>
-<p>L’objet <code>int</code> est également invocable :</p>
-<pre class="python"><code>&gt;&gt;&gt; int()
-0</code></pre>
-<p>Pourtant, ce n’est pas une function, mais un type (c’est-à-dire une classe) :</p>
-<pre class="python"><code>&gt;&gt;&gt; type(int)
-&lt;class &#39;type&#39;&gt;
-&gt;&gt;&gt; type(int) is type
-True
-&gt;&gt;&gt; isinstance(int, types.FunctionType)
-False</code></pre>
 <p>L’invocabilité des objets Python peut être testée avec la fonction <code>callable</code> :</p>
 <pre class="python"><code>&gt;&gt;&gt; callable(zero)
 False
 &gt;&gt;&gt; callable(zero_fun)
-True
-&gt;&gt;&gt; callable(int)
 True</code></pre>
 <p>Notons que ce test permet de dire si un objet est invocable, mais pas si on peut l’invoquer sans arguments (ni combien d’arguments sont nécessaires, de quel type, etc.). Ainsi :</p>
 <pre class="python"><code>&gt;&gt;&gt; callable(hash)
@@ -127,11 +114,84 @@ TypeError: hash() takes exactly one argument (0 given)</code></pre>
 <pre class="python"><code>&gt;&gt;&gt; hash(2**100)
 549755813888</code></pre>
 <p>Pour en savoir plus sur les arguments attendus, il faudra se reporter à la documentation de l’objet considéré.</p>
-<h3 id="classes">Classes</h3>
-<p>Des fois difficile de distinguer classes de fonction (ex: <code>np.array</code>) ; factories, etc.</p>
+<h3 id="types">Types</h3>
+<p>Un objet comme <code>int</code> est également invocable :</p>
+<pre class="python"><code>&gt;&gt;&gt; callable(int)
+True</code></pre>
+<p>ce que l’on peut rapidement confirmer expérimentalement :</p>
+<pre class="python"><code>&gt;&gt;&gt; int()
+0
+&gt;&gt;&gt; int(0.0)
+0
+&gt;&gt;&gt; int(&quot;0&quot;)
+0</code></pre>
+<p>Pourtant, ce n’est pas une function, mais un type :</p>
+<pre class="python"><code>&gt;&gt;&gt; type(int)
+&lt;class &#39;type&#39;&gt;
+&gt;&gt;&gt; type(int) is type
+True
+&gt;&gt;&gt; isinstance(int, types.FunctionType)
+False</code></pre>
+<p>Rappelons que les types (ou classes) ont vocation, quand on les appelle, à créer des instances du type considéré :</p>
+<pre class="python"><code>&gt;&gt;&gt; isinstance(int(), int)
+True
+&gt;&gt;&gt; isinstance(int(0.0), int)
+True
+&gt;&gt;&gt; isinstance(int(&quot;0&quot;), int)
+True</code></pre>
+<p>Les classes que vous définissez sont également invocables :</p>
+<pre class="python"><code>class Transmogrifier:
+    pass</code></pre>
+<pre class="python"><code>&gt;&gt;&gt; callable(Transmogriphier)
+True
+&gt;&gt;&gt; transmogriphier = Transmogriphier()
+&gt;&gt;&gt; isinstance(transmogriphier, Transmogrifier)
+True</code></pre>
 <h3 id="méthodes">Méthodes</h3>
-<h3 id="custom-classes">Custom classes</h3>
-<p><code>__call__</code></p>
+<p>Un <a href="https://calvinandhobbes.fandom.com/wiki/Transmogrifier">transmogriphieur</a> peut transformer son utilisateur en ce qu’il souhaite (par défaut, un tigre 🐯 ; mais on n’a pas spécifié sa taille !).</p>
+<figure>
+<img src="https://static.wikia.nocookie.net/candh/images/6/60/Tigercalvin.png/revision/latest?cb=20111208210956" alt="Calvin transformé en tigre" /><figcaption aria-hidden="true"><a href="https://calvinandhobbes.fandom.com/wiki/Calvin_in_Tiger_Form_(Transmogrifier_alter_ego)">Calvin transformé en tigre</a></figcaption>
+</figure>
+<pre class="python"><code>class Transmogriphier:
+    def __init__(self, turn_into=&quot;tiger&quot;):
+        self.turn_into = turn_into
+    def activate(self, user):
+        return self.turn_into</code></pre>
+<pre class="python"><code>&gt;&gt;&gt; transmogriphier = Transmogriphier()
+&gt;&gt;&gt; transmogriphier.activate(&quot;calvin&quot;)
+&#39;tiger&#39;</code></pre>
+<p>L’opération <code>transmogriphier.activate("calvin")</code> n’est pas “atomique” : elle consiste d’abord à obtenir l’attribut <code>activate</code> de l’objet <code>transmogriphier</code>, puis à l’invoquer avec l’argument <code>"calvin"</code>.</p>
+<pre class="python"><code>&gt;&gt;&gt; transmogriphy = transmogriphier.activate
+&gt;&gt;&gt; callable(transmogriphy)
+True
+&gt;&gt;&gt; transmogriphy(&quot;calvin&quot;)
+&#39;tiger&#39;</code></pre>
+<p>Cela est possible car <code>activate</code> est une méthode (liée à l’instance <code>transmogriphier</code> de <code>Transmogriphier</code>) et est donc invocable.</p>
+<pre class="python"><code>&gt;&gt;&gt; transmogriphy
+&lt;bound method Transmogriphier.activate ...&gt;
+&gt;&gt;&gt; type(transmogriphy)
+&lt;class &#39;method&#39;&gt;
+&gt;&gt;&gt; import types
+&gt;&gt;&gt; type(transmogriphy) is types.MethodType
+True</code></pre>
+<h3 id="instances">Instances</h3>
+<p>Notons qu’à ce stade <code>Transmogriphier</code> est invocable et la méthode <code>activate</code> des transmogriphieurs également. Mais les transmogriphieurs eux-même ne le sont pas :</p>
+<pre class="python"><code>&gt;&gt;&gt; callable(transmogriphier)
+False</code></pre>
+<p>Si nous estimons que c’est préférable, nous pouvons faire en sorte qu’ils le deviennent. Il semble assez raisonnable de faire en sorte qu’invoquer un transmogriphieur l’active :</p>
+<pre class="python"><code>class Transmogriphier:
+    def __init__(self, turn_into=&quot;tiger&quot;)
+        self.turn_into = turn_into
+    def activate(self, user):
+        return self.turn_into
+    def __call__(self, user):
+        return self.activate(user)</code></pre>
+<pre class="python"><code>&gt;&gt;&gt; transmogriphier = Transmogriphier()
+&gt;&gt;&gt; callable(transmogriphier)
+True</code></pre>
+<p>Nous pouvons alors simplifier l’usage du transmogriphieur de la façon suivante :</p>
+<pre class="python"><code>&gt;&gt;&gt; transmogriphier(&quot;calvin&quot;)
+&#39;tiger&#39;</code></pre>
 <h2 id="fonctions-génératrices">Fonctions génératrices</h2>
 <p>Une fonction est génératrice si sa définition utilise le mot-clé <code>yield</code>.</p>
 <ul>
