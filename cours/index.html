@@ -360,6 +360,13 @@ root.mainloop()</code></pre>
 <p>Une fermeture est donc créée, entre autres, lorsqu’une fonction est définie dans le corps d’une autre fonction et utilise des paramètres ou des variables locales de cette dernière.</p>
 <p>Source : <a href="https://fr.wikipedia.org/wiki/Fermeture_(informatique)"><img src="icons/Wikipedia.svg" style="height: 1em; display: inline; vertical-align: -0.175em;" /> Fermeture (informatique)</a></p>
 </blockquote>
+<p><strong>TODO.</strong> Exemple (read-only), <code>nonlocal</code>.</p>
+<p>Transformer expressions en fonctions (arguments nommés uniquement).</p>
+<pre class="python"><code>def fun(expression):
+    def f(**kwargs):
+       return eval(expression, kwargs)
+    return f</code></pre>
+<hr />
 <p>Les variables non-locales sont également capturées par référence en Python, ce qui peut dans certains cas rendre votre vie … intéressante ! 😂</p>
 <p>Par exemple, le programmeur ayant écrit</p>
 <pre class="python"><code>def make_actions():

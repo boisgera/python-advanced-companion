@@ -552,6 +552,19 @@ Le mot-clé `lambda` fait référence à la notation traditionnelle du [$\lambda
 > 
 > Source : [![](icons/Wikipedia.svg){style="height: 1em; display: inline; vertical-align: -0.175em;"} Fermeture (informatique)](https://fr.wikipedia.org/wiki/Fermeture_(informatique))
 
+**TODO.** Exemple (read-only), `nonlocal`.
+
+Transformer expressions en fonctions (arguments nommés uniquement).
+
+``` python
+def fun(expression):
+    def f(**kwargs):
+       return eval(expression, kwargs)
+    return f
+```
+
+--------------------------------------------------------------------------------
+
 Les variables non-locales sont également capturées par référence en Python,
 ce qui peut dans certains cas rendre votre vie ... intéressante ! 😂
 
