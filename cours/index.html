@@ -263,8 +263,8 @@ A B C D A B C D A B C D</code></pre>
 <h4 id="exercices">Exercices</h4>
 <p>Implémentez votre propre version des fonctions standards <code>range</code>, <code>enumerate</code> et <code>zip</code> en utilisant les fonctions génératrices.</p>
 <h2 id="programmation-fonctionnelle">Programmation fonctionnelle</h2>
-<p>Un des traits de la <a href="https://fr.wikipedia.org/wiki/Programmation_fonctionnelle"><strong>programmation fonctionelle</strong></a>, un style de programmation que supporte (en partie) Python, est de permettre de manipuler les fonctions comme des objets comme les autres, pouvant être désignés par des variables, stockés dans des conteneurs, passés comme arguments à d’autres fonctions, etc. Une fonction acceptant comme argument des fonctions et/ou en renvoyant est une <strong>fonction d’ordre supérieur</strong>.</p>
-<p>Les librairies mathématiques exploitent souvent avec profit ces fonctions d’ordre supérieures. Ainsi, la librairie de différentiation automatique <a href="https://github.com/HIPS/autograd#autograd---">Autograd</a> définit une fonction d’ordre supérieure <code>grad</code> qui associe à une fonction d’un argument réel sa dérivée :</p>
+<p>Un des traits de la <a href="https://fr.wikipedia.org/wiki/Programmation_fonctionnelle"><strong>programmation fonctionelle</strong></a>, un style de programmation que supporte (en partie) Python, est de permettre de manipuler les fonctions comme des objets comme les autres, pouvant être désignés par des variables, stockés dans des conteneurs, passés comme arguments à d’autres fonctions, etc. Une fonction acceptant comme argument des fonctions et/ou en renvoyant est une <strong>fonction d’ordre supérieur</strong> (🇺🇸 : <strong>higher-order function</strong>).</p>
+<p>Les librairies mathématiques exploitent souvent avec profit ces fonctions d’ordre supérieures. Ainsi, la librairie de différentiation automatique <a href="https://github.com/HIPS/autograd#autograd---">Autograd</a> définit une fonction d’ordre supérieur <code>grad</code> qui associe à une fonction d’un argument réel sa dérivée :</p>
 <p>Sa documentation donne l’exemple suivant d’usage :</p>
 <pre class="python"><code>&gt;&gt;&gt; # Thinly-wrapped numpy
 &gt;&gt;&gt; import autograd.numpy as np 
@@ -275,7 +275,7 @@ A B C D A B C D A B C D</code></pre>
 ...     y = np.exp(-2.0 * x)
 ...     return (1.0 - y) / (1.0 + y)
 ...
-&gt;&gt;&gt; # Define a function
+&gt;&gt;&gt; # Obtain its gradient function
 &gt;&gt;&gt; grad_tanh = grad(tanh)       
 &gt;&gt;&gt; # Evaluate the gradient at x = 1.0
 &gt;&gt;&gt; grad_tanh(1.0)               
@@ -355,10 +355,10 @@ root.mainloop()</code></pre>
 <p>Le mot-clé <code>lambda</code> fait référence à la notation traditionnelle du <a href="https://fr.wikipedia.org/wiki/Lambda-calcul"><span class="math inline">\(\lambda\)</span>-calcul</a>.</p>
 <h3 id="fermetures">Fermetures</h3>
 <blockquote>
-<p>Dans un langage de programmation, une <strong>fermeture</strong> ou <strong>clôture</strong> (🇺🇸 : <strong>closure</strong>) est une fonction accompagnée de son <strong>environnement lexical</strong>.</p>
-<p>L’environnement lexical d’une fonction est l’ensemble des variables non locales qu’elle a capturées, soit par valeur (c’est-à-dire par copie des valeurs des variables), soit par référence (c’est-à-dire par copie des adresses mémoires des variables).</p>
+<p>Dans un langage de programmation, une <strong>fermeture</strong> ou <strong>clôture</strong> (🇺🇸 : <strong>closure</strong>) est une fonction accompagnée de son environnement lexical.</p>
+<p>L’<strong>environnement lexical</strong> d’une fonction est l’ensemble des variables non locales qu’elle a capturées, soit par valeur (c’est-à-dire par copie des valeurs des variables), soit par référence (c’est-à-dire par copie des adresses mémoires des variables).</p>
 <p>Une fermeture est donc créée, entre autres, lorsqu’une fonction est définie dans le corps d’une autre fonction et utilise des paramètres ou des variables locales de cette dernière.</p>
-<p>Source : <a href="https://fr.wikipedia.org/wiki/Fermeture_(informatique)">Wikipedia</a></p>
+<p>Source : <a href="https://fr.wikipedia.org/wiki/Fermeture_(informatique)"><img src="icons/Wikipedia.svg" style="height: 1em; display: inline; vertical-align: -0.175em;" /> Fermeture (informatique)</a></p>
 </blockquote>
 <h3 id="décorateurs">Décorateurs</h3>
 <p>Les <strong>décorateurs</strong> sont un “sucre syntaxique” utilisant le symbole <code>@</code> et facilitant la mise en d’oeuvre d’un schéma assez courant que nous allons illustrer sur un exemple.</p>

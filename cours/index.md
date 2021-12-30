@@ -378,13 +378,13 @@ supporte (en partie) Python, est de permettre de manipuler les fonctions comme
 des objets comme les autres, pouvant être désignés par des variables, 
 stockés dans des conteneurs, passés comme arguments à d'autres fonctions, etc.
 Une fonction acceptant comme argument des fonctions et/ou en renvoyant
-est une **fonction d'ordre supérieur**.
+est une **fonction d'ordre supérieur** (🇺🇸 : **higher-order function**).
 
 [pf]: https://fr.wikipedia.org/wiki/Programmation_fonctionnelle
 
 Les librairies mathématiques exploitent souvent avec profit ces fonctions
 d'ordre supérieures. Ainsi, la librairie de différentiation automatique
-[Autograd] définit une fonction d'ordre supérieure `grad` qui associe à 
+[Autograd] définit une fonction d'ordre supérieur `grad` qui associe à 
 une fonction d'un argument réel sa dérivée :
 
 [Autograd]: https://github.com/HIPS/autograd#autograd---
@@ -401,7 +401,7 @@ Sa documentation donne l'exemple suivant d'usage :
 ...     y = np.exp(-2.0 * x)
 ...     return (1.0 - y) / (1.0 + y)
 ...
->>> # Define a function
+>>> # Obtain its gradient function
 >>> grad_tanh = grad(tanh)       
 >>> # Evaluate the gradient at x = 1.0
 >>> grad_tanh(1.0)               
@@ -540,9 +540,9 @@ Le mot-clé `lambda` fait référence à la notation traditionnelle du [$\lambda
 ### Fermetures
 
 > Dans un langage de programmation, une **fermeture** ou **clôture** 
-> (🇺🇸 : **closure**) est une fonction accompagnée de son **environnement lexical**.  
+> (🇺🇸 : **closure**) est une fonction accompagnée de son environnement lexical.  
 >
-> L'environnement lexical d'une fonction est l'ensemble des variables non locales 
+> L'**environnement lexical** d'une fonction est l'ensemble des variables non locales 
 > qu'elle a capturées, soit par valeur (c'est-à-dire par copie des valeurs des variables), 
 > soit par référence (c'est-à-dire par copie des adresses mémoires des variables).   
 >
@@ -550,7 +550,62 @@ Le mot-clé `lambda` fait référence à la notation traditionnelle du [$\lambda
 > dans le corps d'une autre fonction et utilise des paramètres ou des variables 
 > locales de cette dernière.
 > 
-> Source : [Wikipedia](https://fr.wikipedia.org/wiki/Fermeture_(informatique))
+> Source : [![](icons/Wikipedia.svg){style="height: 1em; display: inline; vertical-align: -0.175em;"} Fermeture (informatique)](https://fr.wikipedia.org/wiki/Fermeture_(informatique))
+
+Les variables non-locales sont également capturées par référence en Python,
+ce qui peut dans certains cas rendre votre vie ... intéressante ! 😂
+
+Par exemple, le programmeur ayant écrit
+
+``` python
+def make_actions():
+    actions = []
+    for i in range(3):
+        def printer():
+            print(i)
+        actions.append(printer)
+    return actions
+```
+
+s'attend probablement à générer une liste de 3 actions qui afficheront
+respectivement 0, 1 et 2. Mais comme le `i` utilisé par la fonction 
+`printer` est capturé par référence, sa valeur effective est obtenue
+uniquement au moment de l'appel `print(i)`. Hors à ce moment-là, la boucle
+`for` a déjà été exécutée, donc `i` vaut `2`. Par conséquent, on obtient
+en fait :
+
+``` python
+>>> for action in make_actions():
+...     action()
+2
+2
+2
+```
+
+Le "hack" classique pour résoudre ce problème consiste à utiliser le fait
+que les arguments par défaut d'une fonction sont évalués lors de sa définition.
+Par conséquent, si l'on définit :
+
+``` python
+def make_actions():
+    actions = []
+    for i in range(3):
+        def printer(i=i):
+            print(i)
+        actions.append(printer)
+    return actions
+```
+
+on obtient comme souhaité
+
+``` python
+>>> for action in make_actions():
+...     action()
+0
+1
+2
+
+
 
 ### Décorateurs
 
