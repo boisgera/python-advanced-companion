@@ -38,7 +38,7 @@ globals / locals (builtin module, read-only, etc.)
 Invocables
 --------------------------------------------------------------------------------
 
-On qualifie d'invocable (ou appelable ; 🇺🇸 : callable) tout objet se 
+On qualifie d'**invocable** (ou **appelable** ; 🇺🇸 : **callable**) tout objet se 
 comportant comme une fonction, 
 c'est-à-dire pouvant être appelé (invoqué) avec la même syntaxe que les fonctions.
 
@@ -254,7 +254,7 @@ Nous pouvons alors simplifier l'usage du transmogriphieur de la façon suivante 
 Fonctions génératrices
 --------------------------------------------------------------------------------
 
-Une fonction est génératrice si sa définition utilise le mot-clé `yield`.
+Une fonction est **génératrice** si sa définition utilise le mot-clé `yield`.
 
   - Appeler une fonction génératrice n'exécute pas son code immédiatement,
     mais fournit comme valeur de retour un itérateur. 
@@ -373,14 +373,14 @@ et `zip` en utilisant les fonctions génératrices.
 Programmation fonctionnelle 
 --------------------------------------------------------------------------------
 
-Un des traits de la [programmation fonctionelle], un style de programmation que
+Un des traits de la [**programmation fonctionelle**][pf], un style de programmation que
 supporte (en partie) Python, est de permettre de manipuler les fonctions comme 
-des objets comme les autres, pouvant être désigné par une variable, 
-stockés dans des conteneurs, passé comme arguments à des fonctions, etc.
+des objets comme les autres, pouvant être désignés par des variables, 
+stockés dans des conteneurs, passés comme arguments à d'autres fonctions, etc.
 Une fonction acceptant comme argument des fonctions et/ou en renvoyant
-est une fonction d'ordre supérieur.
+est une **fonction d'ordre supérieur**.
 
-[programmation fonctionnelle]: https://fr.wikipedia.org/wiki/Programmation_fonctionnelle
+[pf]: https://fr.wikipedia.org/wiki/Programmation_fonctionnelle
 
 Les librairies mathématiques exploitent souvent avec profit ces fonctions
 d'ordre supérieures. Ainsi, la librairie de différentiation automatique
@@ -412,11 +412,11 @@ Sa documentation donne l'exemple suivant d'usage :
 ```
 
 Un autre usage important des fonctions d'ordre supérieur est l'exploitation 
-de **fonctions de rappels** (🇺🇸 : callbacks), notamment dans les interfaces
+de **fonctions de rappels** (🇺🇸 : **callbacks**), notamment dans les interfaces
 graphiques.
 
 Par exemple, regardons comment est programmé l'application graphique 
-donnée comme example dans [le tutoriel de la bibliothèque Tk](http://tkdocs.com/tutorial/firstexample.html#design).
+donnée comme example dans [le tutoriel de la bibliothèque Tk](http://tkdocs.com/tutorial/firstexample.html#design) :
 
 ![Convertisseur de pieds en mètres](images/converter.png)
 
@@ -449,7 +449,7 @@ afficher la longueur équivalent en mètres.
 
 Pour que l'application se comporte comme voulu, 
 nous définissons une fonction `calculate` qui a chaque fois qu'elle
-est invoquée, lit la longueur en pied et affiche la longeur en mètres :
+est invoquée, lit la longueur en pied et écrit la longeur en mètres :
 
 ``` python
 def calculate(*args):
@@ -460,8 +460,8 @@ def calculate(*args):
         pass
 ```
 
-Puis nous créons un bouton qui **rappelle** cette fonction à chaque fois 
-qu'il est pressé :
+Puis nous créons un bouton qui **rappelle** cette fonction (de rappel)
+à chaque fois qu'il est pressé :
 
 ``` python
 ttk.Button(
@@ -489,7 +489,7 @@ root.mainloop()
 
 ### Lambda
 
-Les fonctions lambda en Python sont une construction qui n'augmente pas
+Les **fonctions lambda** en Python sont une construction qui n'augmente pas
 l'expressivité du langage -- on ne peut rien faire avec des fonctions
 lambda qu'on ne pouvait déjà faire avec les fonctions classiques -- 
 mais permet dans certains cas d'obtenir un code plus concis.
@@ -540,7 +540,7 @@ Le mot-clé `lambda` fait référence à la notation traditionnelle du [$\lambda
 ### Fermetures
 
 > Dans un langage de programmation, une **fermeture** ou **clôture** 
-> (🇺🇸 : **closure**) est une fonction accompagnée de son environnement lexical.  
+> (🇺🇸 : **closure**) est une fonction accompagnée de son **environnement lexical**.  
 >
 > L'environnement lexical d'une fonction est l'ensemble des variables non locales 
 > qu'elle a capturées, soit par valeur (c'est-à-dire par copie des valeurs des variables), 
@@ -554,7 +554,7 @@ Le mot-clé `lambda` fait référence à la notation traditionnelle du [$\lambda
 
 ### Décorateurs
 
-Les décorateurs sont un "sucre syntaxique" utilisant le symbole `@`
+Les **décorateurs** sont un "sucre syntaxique" utilisant le symbole `@`
 et facilitant la mise en d'oeuvre d'un schéma assez courant 
 que nous allons illustrer sur un exemple.
 
@@ -624,10 +624,11 @@ def plus_one(x):
 
 On pourra trouver cette seconde notation plus agréable et lisible !
 
-#### Exemples
+#### Exemple
 
-Le décorateur `count` ci-dessous peut être utilisé pour enregistrer le nombre
-de fois où une fonction a été invoquée (le nombre d'appels de la fonction
+La fonction d'ordre supérieur `count` ci-dessous peut être utilisée 
+en conjonction avec un décorateur pour enregistrer le nombre de fois
+ où une fonction a été invoquée (le nombre d'appels de la fonction
 est stocké dans l'attribut `count` de la fonction).
 
 ``` python
@@ -641,7 +642,7 @@ def count(f):
 
 Par exemple, si l'on recherche à localiser l'unique zéro de la fonction 
 $x \mapsto x^2 - 2$, qui est $\sqrt{2}$, on peut la définir en la décorant 
-avec la fonction d'ordre supérieur `count` :
+avec `@count` :
 
 ``` python
 @count

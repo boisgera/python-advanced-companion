@@ -58,7 +58,7 @@
 <li><a href="#fonctions-génératrices">Fonctions génératrices</a></li>
 <li><a href="#programmation-fonctionnelle">Programmation fonctionnelle</a>
 <ul>
-<li><a href="#fonctions-lambda-ou-anonymes">Fonctions lambda (ou anonymes)</a></li>
+<li><a href="#lambda">Lambda</a></li>
 <li><a href="#fermetures">Fermetures</a></li>
 <li><a href="#décorateurs">Décorateurs</a></li>
 </ul></li>
@@ -81,7 +81,7 @@
 <p>(implicites)</p>
 <p>globals / locals (builtin module, read-only, etc.)</p>
 <h2 id="invocables">Invocables</h2>
-<p>On qualifie d’invocable (ou appelable ; 🇺🇸 : callable) tout objet se comportant comme une fonction, c’est-à-dire pouvant être appelé (invoqué) avec la même syntaxe que les fonctions.</p>
+<p>On qualifie d’<strong>invocable</strong> (ou <strong>appelable</strong> ; 🇺🇸 : <strong>callable</strong>) tout objet se comportant comme une fonction, c’est-à-dire pouvant être appelé (invoqué) avec la même syntaxe que les fonctions.</p>
 <p>Ainsi, l’entier <code>0</code> n’est pas invocable :</p>
 <pre class="python"><code>&gt;&gt;&gt; zero = 0
 &gt;&gt;&gt; zero()
@@ -193,7 +193,7 @@ True</code></pre>
 <pre class="python"><code>&gt;&gt;&gt; transmogriphier(&quot;calvin&quot;)
 &#39;tiger&#39;</code></pre>
 <h2 id="fonctions-génératrices">Fonctions génératrices</h2>
-<p>Une fonction est génératrice si sa définition utilise le mot-clé <code>yield</code>.</p>
+<p>Une fonction est <strong>génératrice</strong> si sa définition utilise le mot-clé <code>yield</code>.</p>
 <ul>
 <li><p>Appeler une fonction génératrice n’exécute pas son code immédiatement, mais fournit comme valeur de retour un itérateur.</p></li>
 <li><p>Accéder au premier élément de cet itérateur exécute la fonction jusqu’à atteindre le premier <code>yield</code> ; la fonction renvoie alors la valeur fournie au <code>yield</code>, puis pause son exécution.</p></li>
@@ -263,7 +263,7 @@ A B C D A B C D A B C D</code></pre>
 <h4 id="exercices">Exercices</h4>
 <p>Implémentez votre propre version des fonctions standards <code>range</code>, <code>enumerate</code> et <code>zip</code> en utilisant les fonctions génératrices.</p>
 <h2 id="programmation-fonctionnelle">Programmation fonctionnelle</h2>
-<p>Un des traits de la [programmation fonctionelle], un style de programmation que supporte (en partie) Python, est de permettre de manipuler les fonctions comme des objets comme les autres, pouvant être désigné par une variable, stockés dans des conteneurs, passé comme arguments à des fonctions, etc. Une fonction acceptant comme argument des fonctions et/ou en renvoyant est une fonction d’ordre supérieur.</p>
+<p>Un des traits de la <a href="https://fr.wikipedia.org/wiki/Programmation_fonctionnelle"><strong>programmation fonctionelle</strong></a>, un style de programmation que supporte (en partie) Python, est de permettre de manipuler les fonctions comme des objets comme les autres, pouvant être désignés par des variables, stockés dans des conteneurs, passés comme arguments à d’autres fonctions, etc. Une fonction acceptant comme argument des fonctions et/ou en renvoyant est une <strong>fonction d’ordre supérieur</strong>.</p>
 <p>Les librairies mathématiques exploitent souvent avec profit ces fonctions d’ordre supérieures. Ainsi, la librairie de différentiation automatique <a href="https://github.com/HIPS/autograd#autograd---">Autograd</a> définit une fonction d’ordre supérieure <code>grad</code> qui associe à une fonction d’un argument réel sa dérivée :</p>
 <p>Sa documentation donne l’exemple suivant d’usage :</p>
 <pre class="python"><code>&gt;&gt;&gt; # Thinly-wrapped numpy
@@ -283,8 +283,8 @@ A B C D A B C D A B C D</code></pre>
 &gt;&gt;&gt; # Compare to finite differences
 &gt;&gt;&gt; (tanh(1.0001) - tanh(0.9999)) / 0.0002
 0.41997434264973155</code></pre>
-<p>Un autre usage important des fonctions d’ordre supérieur est l’exploitation de <strong>fonctions de rappels</strong> (🇺🇸 : callbacks), notamment dans les interfaces graphiques.</p>
-<p>Par exemple, regardons comment est programmé l’application graphique donnée comme example dans <a href="http://tkdocs.com/tutorial/firstexample.html#design">le tutoriel de la bibliothèque Tk</a>.</p>
+<p>Un autre usage important des fonctions d’ordre supérieur est l’exploitation de <strong>fonctions de rappels</strong> (🇺🇸 : <strong>callbacks</strong>), notamment dans les interfaces graphiques.</p>
+<p>Par exemple, regardons comment est programmé l’application graphique donnée comme example dans <a href="http://tkdocs.com/tutorial/firstexample.html#design">le tutoriel de la bibliothèque Tk</a> :</p>
 <figure>
 <img src="images/converter.png" alt="Convertisseur de pieds en mètres" /><figcaption aria-hidden="true">Convertisseur de pieds en mètres</figcaption>
 </figure>
@@ -307,14 +307,14 @@ feet_entry.grid(column=2, row=1, sticky=(W, E))
 meters = StringVar()
 ttk.Label(mainframe, textvariable=meters).grid(column=2, row=2, sticky=(W, E))</code></pre>
 <p>Retenons simplement à ce stade que <code>root</code> est la fenêtre principale de l’application, <code>feet</code> le champ de texte où nous rentrons la valeur de la longueur en pieds et <code>meters</code> le champ de texte qui devra afficher la longueur équivalent en mètres.</p>
-<p>Pour que l’application se comporte comme voulu, nous définissons une fonction <code>calculate</code> qui a chaque fois qu’elle est invoquée, lit la longueur en pied et affiche la longeur en mètres :</p>
+<p>Pour que l’application se comporte comme voulu, nous définissons une fonction <code>calculate</code> qui a chaque fois qu’elle est invoquée, lit la longueur en pied et écrit la longeur en mètres :</p>
 <pre class="python"><code>def calculate(*args):
     try:
         value = float(feet.get())
         meters.set(int(0.3048 * value * 10000.0 + 0.5)/10000.0)
     except ValueError:
         pass</code></pre>
-<p>Puis nous créons un bouton qui <strong>rappelle</strong> cette fonction à chaque fois qu’il est pressé :</p>
+<p>Puis nous créons un bouton qui <strong>rappelle</strong> cette fonction (de rappel) à chaque fois qu’il est pressé :</p>
 <pre class="python"><code>ttk.Button(
     mainframe, 
     text=&quot;Calculate&quot;, 
@@ -331,8 +331,8 @@ for child in mainframe.winfo_children():
 feet_entry.focus()
 
 root.mainloop()</code></pre>
-<h3 id="fonctions-lambda-ou-anonymes">Fonctions lambda (ou anonymes)</h3>
-<p>Les fonctions lambda en Python sont une construction qui n’augmente pas l’expressivité du langage – on ne peut rien faire avec des fonctions lambda qu’on ne pouvait déjà faire avec les fonctions classiques – mais permet dans certains cas d’obtenir un code plus concis.</p>
+<h3 id="lambda">Lambda</h3>
+<p>Les <strong>fonctions lambda</strong> en Python sont une construction qui n’augmente pas l’expressivité du langage – on ne peut rien faire avec des fonctions lambda qu’on ne pouvait déjà faire avec les fonctions classiques – mais permet dans certains cas d’obtenir un code plus concis.</p>
 <p>Ainsi, pour trouver numériquement le zéro de la fonction <span class="math inline">\(x \mapsto x^2 - 2\)</span> entre <span class="math inline">\(0\)</span> et <span class="math inline">\(2\)</span> avec <code>scipy</code>, après avoir importé une fonction de recherche de racines</p>
 <pre class="python"><code>from scipy.optimize import root_scalar as find_root</code></pre>
 <p>on peut définir la fonction qui nous intéresse, ce qui suppose de la nommer (par exemple <code>f</code>) :</p>
@@ -355,13 +355,13 @@ root.mainloop()</code></pre>
 <p>Le mot-clé <code>lambda</code> fait référence à la notation traditionnelle du <a href="https://fr.wikipedia.org/wiki/Lambda-calcul"><span class="math inline">\(\lambda\)</span>-calcul</a>.</p>
 <h3 id="fermetures">Fermetures</h3>
 <blockquote>
-<p>Dans un langage de programmation, une <strong>fermeture</strong> ou <strong>clôture</strong> (🇺🇸 : <strong>closure</strong>) est une fonction accompagnée de son environnement lexical.</p>
+<p>Dans un langage de programmation, une <strong>fermeture</strong> ou <strong>clôture</strong> (🇺🇸 : <strong>closure</strong>) est une fonction accompagnée de son <strong>environnement lexical</strong>.</p>
 <p>L’environnement lexical d’une fonction est l’ensemble des variables non locales qu’elle a capturées, soit par valeur (c’est-à-dire par copie des valeurs des variables), soit par référence (c’est-à-dire par copie des adresses mémoires des variables).</p>
 <p>Une fermeture est donc créée, entre autres, lorsqu’une fonction est définie dans le corps d’une autre fonction et utilise des paramètres ou des variables locales de cette dernière.</p>
 <p>Source : <a href="https://fr.wikipedia.org/wiki/Fermeture_(informatique)">Wikipedia</a></p>
 </blockquote>
 <h3 id="décorateurs">Décorateurs</h3>
-<p>Les décorateurs sont un “sucre syntaxique” utilisant le symbole <code>@</code> et facilitant la mise en d’oeuvre d’un schéma assez courant que nous allons illustrer sur un exemple.</p>
+<p>Les <strong>décorateurs</strong> sont un “sucre syntaxique” utilisant le symbole <code>@</code> et facilitant la mise en d’oeuvre d’un schéma assez courant que nous allons illustrer sur un exemple.</p>
 <p>Imaginons que nous ayons développé une fonction <code>plus_one</code></p>
 <pre class="python"><code>def plus_one(x):
     return x + 1</code></pre>
@@ -393,15 +393,15 @@ plus_one = debug(plus_one)</code></pre>
 def plus_one(x):
     return x + 1</code></pre>
 <p>On pourra trouver cette seconde notation plus agréable et lisible !</p>
-<h4 id="exemples">Exemples</h4>
-<p>Le décorateur <code>count</code> ci-dessous peut être utilisé pour enregistrer le nombre de fois où une fonction a été invoquée (le nombre d’appels de la fonction est stocké dans l’attribut <code>count</code> de la fonction).</p>
+<h4 id="exemple">Exemple</h4>
+<p>La fonction d’ordre supérieur <code>count</code> ci-dessous peut être utilisée en conjonction avec un décorateur pour enregistrer le nombre de fois où une fonction a été invoquée (le nombre d’appels de la fonction est stocké dans l’attribut <code>count</code> de la fonction).</p>
 <pre class="python"><code>def count(f):
     def counted_f(x):
         counted_f.count += 1
         return f(x)
     counted_f.count = 0
     return counted_f</code></pre>
-<p>Par exemple, si l’on recherche à localiser l’unique zéro de la fonction <span class="math inline">\(x \mapsto x^2 - 2\)</span>, qui est <span class="math inline">\(\sqrt{2}\)</span>, on peut la définir en la décorant avec la fonction d’ordre supérieur <code>count</code> :</p>
+<p>Par exemple, si l’on recherche à localiser l’unique zéro de la fonction <span class="math inline">\(x \mapsto x^2 - 2\)</span>, qui est <span class="math inline">\(\sqrt{2}\)</span>, on peut la définir en la décorant avec <code>@count</code> :</p>
 <pre class="python"><code>@count
 def f(x):
     return x*x - 2</code></pre>
