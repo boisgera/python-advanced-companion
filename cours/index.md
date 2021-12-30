@@ -8,7 +8,7 @@ Fonctions
 ### Définitions (TODO)
 
 `def` `return`, retour réifiés (tuple), arguments positionnels ou nommés,
-arguments par défaut.
+arguments par défaut (immutabilité, `None`, etc.).
 
 ``` python
 def f(x, y, z=0):
@@ -21,7 +21,7 @@ Mentionner type hints (ex avec Typer ?).
 ### Valeurs de retour (TODO)
 
 
-### Espaces de nom (TODO: local)
+### Espaces de nom (TODO)
 
 Portée / scope
 
