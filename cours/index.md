@@ -363,7 +363,7 @@ Usage :
 [10, 10, 10]
 ```
 
-#### Exercices
+#### Exercice
 
 Implémentez votre propre version des fonctions standards `range`, `enumerate`
 et `zip` en utilisant les fonctions génératrices.
