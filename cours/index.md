@@ -319,7 +319,7 @@ Usage :
 ``` python
 def cycle(iterable):
     """
-    Yield all items from an iterable, then repeat the same output sequence indefinitely. 
+    Yield all items from an iterable, then repeat this output sequence indefinitely. 
     """
     items = list(iterable)
     if items:
