@@ -370,18 +370,122 @@ Usage :
 Implémentez votre propre version des fonctions standards `range`, `enumerate`
 et `zip` en utilisant les fonctions génératrices.
 
-Programmation fonctionnelle / d'ordre supérieur
+Programmation fonctionnelle 
 --------------------------------------------------------------------------------
 
-Définition "partielle" programmation fonctionnelle. Un trait important:
+Un des traits de la [programmation fonctionelle], un style de programmation que
+supporte (en partie) Python, est de permettre de manipuler les fonctions comme 
+des objets comme les autres, pouvant être désigné par une variable, 
+stockés dans des conteneurs, passé comme arguments à des fonctions, etc.
+Une fonction acceptant comme argument des fonctions et/ou en renvoyant
+est une fonction d'ordre supérieur.
 
-Fonctions comme "valeurs" ; lambda, decorateurs ; patterns d'usage: 
-math (ODEs, autograd), filters/maps, callbacks, etc.
+[programmation fonctionnelle]: https://fr.wikipedia.org/wiki/Programmation_fonctionnelle
 
-Définition du terme "programmation d'ordre supérieur" (que permet la programmation
-fonctionnelle).
+Les librairies mathématiques exploitent souvent avec profit ces fonctions
+d'ordre supérieures. Ainsi, la librairie de différentiation automatique
+[Autograd] définit une fonction d'ordre supérieure `grad` qui associe à 
+une fonction d'un argument réel sa dérivée :
 
+[Autograd]: https://github.com/HIPS/autograd#autograd---
 
+Sa documentation donne l'exemple suivant d'usage :
+
+``` python
+>>> # Thinly-wrapped numpy
+>>> import autograd.numpy as np 
+>>> # The only autograd function you may ever need
+>>> from autograd import grad   
+>>> # Define a function
+>>> def tanh(x):                
+...     y = np.exp(-2.0 * x)
+...     return (1.0 - y) / (1.0 + y)
+...
+>>> # Define a function
+>>> grad_tanh = grad(tanh)       
+>>> # Evaluate the gradient at x = 1.0
+>>> grad_tanh(1.0)               
+0.41997434161402603
+>>> # Compare to finite differences
+>>> (tanh(1.0001) - tanh(0.9999)) / 0.0002
+0.41997434264973155
+```
+
+Un autre usage important des fonctions d'ordre supérieur est l'exploitation 
+de **fonctions de rappels** (🇺🇸 : callbacks), notamment dans les interfaces
+graphiques.
+
+Par exemple, regardons comment est programmé l'application graphique 
+donnée comme example dans [le tutoriel de la bibliothèque Tk](http://tkdocs.com/tutorial/firstexample.html#design).
+
+![Convertisseur de pieds en mètres](images/converter.png)
+
+L'interface graphique est en partie définie par le code :
+
+``` python
+from tkinter import *
+from tkinter import ttk
+
+root = Tk()
+root.title("Feet to Meters")
+
+mainframe = ttk.Frame(root, padding="3 3 12 12")
+mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
+root.columnconfigure(0, weight=1)
+root.rowconfigure(0, weight=1)
+
+feet = StringVar()
+feet_entry = ttk.Entry(mainframe, width=7, textvariable=feet)
+feet_entry.grid(column=2, row=1, sticky=(W, E))
+
+meters = StringVar()
+ttk.Label(mainframe, textvariable=meters).grid(column=2, row=2, sticky=(W, E))
+```
+
+Retenons simplement à ce stade que `root` est la fenêtre 
+principale de l'application, `feet` le champ de texte où nous rentrons la
+valeur de la longueur en pieds et `meters` le champ de texte qui devra
+afficher la longueur équivalent en mètres.
+
+Pour que l'application se comporte comme voulu, 
+nous définissons une fonction `calculate` qui a chaque fois qu'elle
+est invoquée, lit la longueur en pied et affiche la longeur en mètres :
+
+``` python
+def calculate(*args):
+    try:
+        value = float(feet.get())
+        meters.set(int(0.3048 * value * 10000.0 + 0.5)/10000.0)
+    except ValueError:
+        pass
+```
+
+Puis nous créons un bouton qui rappelle cette fonction à chaque fois 
+qu'il est pressé :
+
+``` python
+ttk.Button(
+    mainframe, 
+    text="Calculate", 
+    command=calculate
+).grid(column=3, row=3, sticky=W)
+```
+
+Quelques labels de plus dans l'interface graphique, un peu de positionnement, 
+et nous sommes prếts à lancer la boucle d'exécution du code !
+
+``` python
+ttk.Label(mainframe, text="feet").grid(column=3, row=1, sticky=W)
+ttk.Label(mainframe, text="is equivalent to").grid(column=1, row=2, sticky=E)
+ttk.Label(mainframe, text="meters").grid(column=3, row=2, sticky=W)
+
+for child in mainframe.winfo_children(): 
+    child.grid_configure(padx=5, pady=5)
+
+feet_entry.focus()
+
+root.mainloop()
+```
 
 ### Fonctions lambda (ou anonymes)
 

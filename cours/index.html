@@ -56,7 +56,7 @@
 <li><a href="#instances">Instances</a></li>
 </ul></li>
 <li><a href="#fonctions-génératrices">Fonctions génératrices</a></li>
-<li><a href="#programmation-fonctionnelle-dordre-supérieur">Programmation fonctionnelle / d’ordre supérieur</a>
+<li><a href="#programmation-fonctionnelle">Programmation fonctionnelle</a>
 <ul>
 <li><a href="#fonctions-lambda-ou-anonymes">Fonctions lambda (ou anonymes)</a></li>
 <li><a href="#fermetures-de-fonctions">Fermetures (de fonctions)</a></li>
@@ -262,10 +262,76 @@ A B C D A B C D A B C D</code></pre>
 [10, 10, 10]</code></pre>
 <h4 id="exercices">Exercices</h4>
 <p>Implémentez votre propre version des fonctions standards <code>range</code>, <code>enumerate</code> et <code>zip</code> en utilisant les fonctions génératrices.</p>
-<h2 id="programmation-fonctionnelle-dordre-supérieur">Programmation fonctionnelle / d’ordre supérieur</h2>
-<p>Définition “partielle” programmation fonctionnelle. Un trait important:</p>
-<p>Fonctions comme “valeurs” ; lambda, decorateurs ; patterns d’usage: math (ODEs, autograd), filters/maps, callbacks, etc.</p>
-<p>Définition du terme “programmation d’ordre supérieur” (que permet la programmation fonctionnelle).</p>
+<h2 id="programmation-fonctionnelle">Programmation fonctionnelle</h2>
+<p>Un des traits de la [programmation fonctionelle], un style de programmation que supporte (en partie) Python, est de permettre de manipuler les fonctions comme des objets comme les autres, pouvant être désigné par une variable, stockés dans des conteneurs, passé comme arguments à des fonctions, etc. Une fonction acceptant comme argument des fonctions et/ou en renvoyant est une fonction d’ordre supérieur.</p>
+<p>Les librairies mathématiques exploitent souvent avec profit ces fonctions d’ordre supérieures. Ainsi, la librairie de différentiation automatique <a href="https://github.com/HIPS/autograd#autograd---">Autograd</a> définit une fonction d’ordre supérieure <code>grad</code> qui associe à une fonction d’un argument réel sa dérivée :</p>
+<p>Sa documentation donne l’exemple suivant d’usage :</p>
+<pre class="python"><code>&gt;&gt;&gt; # Thinly-wrapped numpy
+&gt;&gt;&gt; import autograd.numpy as np 
+&gt;&gt;&gt; # The only autograd function you may ever need
+&gt;&gt;&gt; from autograd import grad   
+&gt;&gt;&gt; # Define a function
+&gt;&gt;&gt; def tanh(x):                
+...     y = np.exp(-2.0 * x)
+...     return (1.0 - y) / (1.0 + y)
+...
+&gt;&gt;&gt; # Define a function
+&gt;&gt;&gt; grad_tanh = grad(tanh)       
+&gt;&gt;&gt; # Evaluate the gradient at x = 1.0
+&gt;&gt;&gt; grad_tanh(1.0)               
+0.41997434161402603
+&gt;&gt;&gt; # Compare to finite differences
+&gt;&gt;&gt; (tanh(1.0001) - tanh(0.9999)) / 0.0002
+0.41997434264973155</code></pre>
+<p>Un autre usage important des fonctions d’ordre supérieur est l’exploitation de <strong>fonctions de rappels</strong> (🇺🇸 : callbacks), notamment dans les interfaces graphiques.</p>
+<p>Par exemple, regardons comment est programmé l’application graphique donnée comme example dans <a href="http://tkdocs.com/tutorial/firstexample.html#design">le tutoriel de la bibliothèque Tk</a>.</p>
+<figure>
+<img src="images/converter.png" alt="Convertisseur de pieds en mètres" /><figcaption aria-hidden="true">Convertisseur de pieds en mètres</figcaption>
+</figure>
+<p>L’interface graphique est en partie définie par le code :</p>
+<pre class="python"><code>from tkinter import *
+from tkinter import ttk
+
+root = Tk()
+root.title(&quot;Feet to Meters&quot;)
+
+mainframe = ttk.Frame(root, padding=&quot;3 3 12 12&quot;)
+mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
+root.columnconfigure(0, weight=1)
+root.rowconfigure(0, weight=1)
+
+feet = StringVar()
+feet_entry = ttk.Entry(mainframe, width=7, textvariable=feet)
+feet_entry.grid(column=2, row=1, sticky=(W, E))
+
+meters = StringVar()
+ttk.Label(mainframe, textvariable=meters).grid(column=2, row=2, sticky=(W, E))</code></pre>
+<p>Retenons simplement à ce stade que <code>root</code> est la fenêtre principale de l’application, <code>feet</code> le champ de texte où nous rentrons la valeur de la longueur en pieds et <code>meters</code> le champ de texte qui devra afficher la longueur équivalent en mètres.</p>
+<p>Pour que l’application se comporte comme voulu, nous définissons une fonction <code>calculate</code> qui a chaque fois qu’elle est invoquée, lit la longueur en pied et affiche la longeur en mètres :</p>
+<pre class="python"><code>def calculate(*args):
+    try:
+        value = float(feet.get())
+        meters.set(int(0.3048 * value * 10000.0 + 0.5)/10000.0)
+    except ValueError:
+        pass</code></pre>
+<p>Puis nous créons un bouton qui rappelle cette fonction à chaque fois qu’il est pressé :</p>
+<pre class="python"><code>ttk.Button(
+    mainframe, 
+    text=&quot;Calculate&quot;, 
+    command=calculate
+).grid(column=3, row=3, sticky=W)</code></pre>
+<p>Quelques labels de plus dans l’interface graphique, un peu de positionnement, et nous sommes prếts à lancer la boucle d’exécution du code !</p>
+<pre class="python"><code>ttk.Label(mainframe, text=&quot;feet&quot;).grid(column=3, row=1, sticky=W)
+ttk.Label(mainframe, text=&quot;is equivalent to&quot;).grid(column=1, row=2, sticky=E)
+ttk.Label(mainframe, text=&quot;meters&quot;).grid(column=3, row=2, sticky=W)
+
+for child in mainframe.winfo_children(): 
+    child.grid_configure(padx=5, pady=5)
+
+feet_entry.focus()
+
+root.mainloop()</code></pre>
+<pre class="python"><code>root.mainloop()</code></pre>
 <h3 id="fonctions-lambda-ou-anonymes">Fonctions lambda (ou anonymes)</h3>
 <p>Les fonctions lambda en Python sont une construction qui n’augmente pas l’expressivité du langage – on ne peut rien faire avec des fonctions lambda qu’on ne pouvait déjà faire avec les fonctions classiques – mais permet dans certains cas d’obtenir un code plus concis.</p>
 <p>Ainsi, pour trouver numériquement le zéro de la fonction <span class="math inline">\(x \mapsto x^2 - 2\)</span> entre <span class="math inline">\(0\)</span> et <span class="math inline">\(2\)</span> avec <code>scipy</code>, après avoir importé une fonction de recherche de racines</p>
