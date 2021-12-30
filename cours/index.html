@@ -81,7 +81,7 @@
 <p>(implicites)</p>
 <p>globals / locals (builtin module, read-only, etc.)</p>
 <h2 id="invocables">Invocables</h2>
-<p>On qualifie d’invocable (ou appelable ; 🇺🇸 : callable) tout objet se comportant comme une fonction, c’est-à-dire pouvant être appelé (invoqué) avec la même syntaxe queles fonctions.</p>
+<p>On qualifie d’invocable (ou appelable ; 🇺🇸 : callable) tout objet se comportant comme une fonction, c’est-à-dire pouvant être appelé (invoqué) avec la même syntaxe que les fonctions.</p>
 <p>Ainsi, l’entier <code>0</code> n’est pas invocable :</p>
 <pre class="python"><code>&gt;&gt;&gt; zero = 0
 &gt;&gt;&gt; zero()
@@ -128,7 +128,7 @@ True</code></pre>
 <p>Pourtant, ce n’est pas une function, mais un type :</p>
 <pre class="python"><code>&gt;&gt;&gt; type(int)
 &lt;class &#39;type&#39;&gt;
-&gt;&gt;&gt; type(int) is type
+&gt;&gt;&gt; type(int) is type  # 🤯
 True
 &gt;&gt;&gt; isinstance(int, types.FunctionType)
 False</code></pre>
@@ -148,10 +148,10 @@ True
 &gt;&gt;&gt; isinstance(transmogriphier, Transmogrifier)
 True</code></pre>
 <h3 id="méthodes">Méthodes</h3>
-<p>Un <a href="https://calvinandhobbes.fandom.com/wiki/Transmogrifier">transmogriphieur</a> peut transformer son utilisateur en ce qu’il souhaite (par défaut, un tigre 🐯 ; mais on n’a pas spécifié sa taille !).</p>
-<figure>
-<img src="https://static.wikia.nocookie.net/candh/images/6/60/Tigercalvin.png/revision/latest?cb=20111208210956" alt="Calvin transformé en tigre" /><figcaption aria-hidden="true"><a href="https://calvinandhobbes.fandom.com/wiki/Calvin_in_Tiger_Form_(Transmogrifier_alter_ego)">Calvin transformé en tigre</a></figcaption>
-</figure>
+<p>Un <a href="https://calvinandhobbes.fandom.com/wiki/Transmogrifier">transmogriphieur</a> peut transformer son utilisateur en ce qu’il souhaite (par défaut, un tigre 🐯 ; <a href="https://static.wikia.nocookie.net/candh/images/6/60/Tigercalvin.png/revision/latest?cb=20111208210956">mais on n’a pas spécifié sa taille</a> !).</p>
+<!-- not rendered on Github
+![[Calvin transformé en tigre](https://calvinandhobbes.fandom.com/wiki/Calvin_in_Tiger_Form_(Transmogrifier_alter_ego))](https://static.wikia.nocookie.net/candh/images/6/60/Tigercalvin.png/revision/latest?cb=20111208210956)
+-->
 <pre class="python"><code>class Transmogriphier:
     def __init__(self, turn_into=&quot;tiger&quot;):
         self.turn_into = turn_into
