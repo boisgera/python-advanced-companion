@@ -14,14 +14,17 @@ pre:not(fuckcss) {
   padding: 1em;
 }
 
-figure {
+figure:not(fuckcss) {
   width: 100%;
   display: inline-block;
+  margin: 1em 0em 1em 0em;
 }
 
 img {
+  max-width: 100%;
   display: block; 
   margin: auto;
+  text-align: center;
 }
 
 figcaption {

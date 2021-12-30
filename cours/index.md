@@ -168,11 +168,9 @@ True
 
 Un [transmogriphieur](https://calvinandhobbes.fandom.com/wiki/Transmogrifier) 
 peut transformer son utilisateur en ce qu'il souhaite (par défaut, un tigre 🐯 ;
-[mais on n'a pas spécifié sa taille](https://static.wikia.nocookie.net/candh/images/6/60/Tigercalvin.png/revision/latest?cb=20111208210956) !).
+mais on n'a pas spécifié sa taille !).
 
-<!-- not rendered on Github
-![[Calvin transformé en tigre](https://calvinandhobbes.fandom.com/wiki/Calvin_in_Tiger_Form_(Transmogrifier_alter_ego))](https://static.wikia.nocookie.net/candh/images/6/60/Tigercalvin.png/revision/latest?cb=20111208210956)
--->
+![[Calvin transformé en tigre](https://calvinandhobbes.fandom.com/wiki/Calvin_in_Tiger_Form_(Transmogrifier_alter_ego))](https://www.nicepng.com/png/full/198-1980373_calvin-and-hobbes-png-hd-calvin-and-hobbes.png)
 
 ``` python
 class Transmogriphier:
@@ -534,7 +532,11 @@ au moyen d'une fonction lambda :
            root: 1.4142135623731364
 ```
 
-Le mot-clé `lambda` fait référence à la notation traditionnelle du [$\lambda$-calcul](https://fr.wikipedia.org/wiki/Lambda-calcul).
+Le mot-clé `lambda` fait référence à la notation traditionnelle du 
+[$\lambda$-calcul](https://fr.wikipedia.org/wiki/Lambda-calcul) ; 
+on y désignerait la fonction $x \mapsto x^2+1$ par la notation 
+$(\lambda x.x^2+1)$.
+
 
 
 ### Fermetures
