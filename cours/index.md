@@ -40,7 +40,7 @@ Invocables
 
 On qualifie d'invocable (ou appelable ; 🇺🇸 : callable) tout objet se 
 comportant comme une fonction, 
-c'est-à-dire pouvant être appelé (invoqué) avec la même syntaxe queles fonctions.
+c'est-à-dire pouvant être appelé (invoqué) avec la même syntaxe que les fonctions.
 
 Ainsi, l'entier `0` n'est pas invocable :
 
