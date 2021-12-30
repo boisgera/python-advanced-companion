@@ -46,7 +46,7 @@ les fonctions.
 
 Ainsi, l'entier `0` n'est pas invocable :
 
-``` pycon
+``` python
 >>> zero = 0
 >>> zero()
 TypeError: 'int' object is not callable
@@ -54,7 +54,7 @@ TypeError: 'int' object is not callable
 
 La fonction sans argument qui renvoie `0` est invocable :
 
-``` pycon
+``` python
 >>> def zero_fun():
 ...     return 0
 >>> zero_fun()
@@ -63,7 +63,7 @@ La fonction sans argument qui renvoie `0` est invocable :
 
 ce qui n'est pas une surprise puisque c'est une fonction !
 
-``` pycon
+``` python
 >>> type(zero_fun)
 <class 'function'>
 >>> import types
@@ -73,14 +73,14 @@ True
 
 L'objet `int` est également invocable :
 
-``` pycon
+``` python
 >>> int()
 0
 ```
 
 Pourtant, ce n'est pas une function, mais un type (c'est-à-dire une classe) :
 
-``` pycon
+``` python
 >>> type(int)
 <class 'type'>
 >>> type(int) is type
@@ -91,7 +91,7 @@ False
 
 L'invocabilité des objets Python peut être testée avec la fonction `callable` :
 
-``` pycon
+``` python
 >>> callable(zero)
 False
 >>> callable(zero_fun)
@@ -104,13 +104,13 @@ Notons que ce test permet de dire si un objet est invocable, mais pas si
 on peut l'invoquer sans arguments (ni combien d'arguments sont nécessaires,
 de quel type, etc.). Ainsi :
 
-``` pycon
+``` python
 >>> callable(hash)
 True
 ```
 
 Mais
-``` pycon
+``` python
 >>> hash()
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
@@ -118,7 +118,7 @@ TypeError: hash() takes exactly one argument (0 given)
 ```
 
 Toutefois
-``` pycon
+``` python
 >>> hash(2**100)
 549755813888
 ```
@@ -144,12 +144,15 @@ Fonctions génératrices
 
 Une fonction est génératrice si sa définition utilise le mot-clé `yield`.
 
-Appeler une fonction génératrice n'exécute pas son code immédiatement,
-mais fournit comme valeur de retour un itérateur. Demander le premier élément
-de cet itérateur exécute la fonction jusqu'à atteindre le premier 
-`yield`; la fonction pause alors son exécution et renvoie la valeur 
-fournie au `yield`. Demander le second objet reprend le fil de l'exécution
-à ce point, jusqu'à atteindre le second `yield`, etc.
+  - Appeler une fonction génératrice n'exécute pas son code immédiatement,
+    mais fournit comme valeur de retour un itérateur. 
+    
+  - Accéder au premier élément de cet itérateur exécute la fonction jusqu'à 
+    atteindre le premier `yield` ; la fonction renvoie alors la valeur fournie 
+    au `yield`, puis pause son exécution.  
+    
+  - Accéder au second élément de cet itérateur reprend le fil de l'exécution 
+    à ce point, jusqu'à atteindre le second `yield`, etc.
 
 Ainsi, avec 
 
@@ -162,7 +165,7 @@ def one_two_three():
 
 on obtient
 
-``` pycon
+``` python
 >>> for i in one_two_three():
 ...     print(i)
 1
@@ -172,94 +175,282 @@ on obtient
 
 et
 
-``` pycon
+``` python
 >>> list(one_two_three())
 [1, 2, 3]
 ```
 
-#### Exemples ([itertools])
+#### Exemples (source: [itertools])
 
 [itertools]: https://docs.python.org/3/library/itertools.html#module-itertools
 
+
 ``` python
 def count(start=0, step=1):
+    """
+    Generate the sequence start, start + step, start + 2*step, ...
+    """
     value = start
     while True:
         yield value
         value += step
 ```
 
-``` pycon
->>> odd_numbers = count(1, 2)
+``` python
+>>> odd_numbers = count(start=1, step=2)
 >>> for number in odd_numbers:
-...     print(number, sep=" ")
 ...     if number >= 20:
 ...         break
-1 3 5 7 9 11 13 15 17 19 21
+...     else:
+...         print(number, sep=" ")
+1 3 5 7 9 11 13 15 17 19
 ```
 
 ``` python
 def cycle(iterable):
-    saved = []
-    for element in iterable:
-        yield element
-        saved.append(element)
-    while saved:
-        for element in saved:
-              yield element
+    """
+    Yield all items from an iterable, then repeat the same output sequence indefinitely. 
+    """
+    items = list(iterable)
+    if items:
+        for item in items:
+            yield item
 ```
 
-
+``` python
+>>> for i, item in enumerate(cycle("ABCD")):
+...     if i >= 12:
+...         break
+...     else:
+...         print(item, sep=" ")
+A B C D A B C D A B C D
+```
 
 ``` python
-def repeat(object, times=None):
-    if times is None:
+def repeat(object, n=None):
+    """
+    Yield object an object n times (or indefinitely if n is None).
+    """
+    if n is None:
         while True:
             yield object
     else:
-        for i in range(times):
+        for i in range(n):
             yield object
 ```
 
-``` pycon
+``` python
 >>> list(repeat(10, 3))
 [10, 10, 10]
 ```
 
-**TODO:**
+#### Exercices
 
-  - expliquer analogie "return multiples" et flux d'exécution plus complexe
-    qu'une fonction classique
+Implémentez votre propre version des fonctions standards `range`, `enumerate`
+et `zip` en utilisant les fonctions génératrices.
 
-  - arguments
-
-  - code entre yields
-
-  - exemple de flux d'exécution "complexes"
-
-  - qq uses cases: émulation fonctionnalités itertools (AVANT: range), etc.
-
-  - valeur de retours
-
-
-
-Higher-order Programming
+Programmation fonctionnelle / d'ordre supérieur
 --------------------------------------------------------------------------------
 
 Fonctions comme "valeurs" ; lambda, decorateurs ; patterns d'usage: 
 math (ODEs, autograd), filters/maps, callbacks, etc.
 
-### Usages
+Définition du terme "programmation d'ordre supérieur".
+
+
+
+### Fonctions lambda (ou anonymes)
+
+Les fonctions lambda en Python sont une construction qui n'augmente pas
+l'expressivité du langage -- on ne peut rien faire avec des fonctions
+lambda qu'on ne pouvait déjà faire avec les fonctions classiques -- 
+mais permet dans certains cas d'obtenir un code plus concis.
+
+Ainsi, pour trouver numériquement le zéro de la fonction $x \mapsto x^2 - 2$ 
+entre $0$ et $2$ avec `scipy`, après avoir importé une fonction de recherche 
+de racines
+
+``` python
+>>> from scipy.optimize import root_scalar as find_root
+```
+
+on peut définir la fonction qui nous intéresse, ce qui suppose de la nommer
+(par exemple `f`) :
+
+``` python
+>>> def f(x):
+...     return x*x - 2
+```
+
+puis appeler la routine de recherche de zéros de `scipy`
+
+``` python
+>>> find_root(f, bracket=[0, 2])
+      converged: True
+           flag: 'converged'
+ function_calls: 9
+     iterations: 8
+           root: 1.4142135623731364
+```
+
+Mais on peut aussi passer l'étape préalable de définition et de nommage de 
+la function, et faire cet opération à la volée, dans l'appel à `find_root`,
+au moyen d'une fonction lambda :
+
+``` python
+>>> find_root(lambda x: x*x-2, bracket=[0, 2])
+      converged: True
+           flag: 'converged'
+ function_calls: 9
+     iterations: 8
+           root: 1.4142135623731364
+```
+
+Le mot-clé `lambda` fait référence à la notation traditionnelle du [$\lambda$-calcul](https://fr.wikipedia.org/wiki/Lambda-calcul).
+
+
+### Fermetures (de fonctions)
+
+
+
+> Dans un langage de programmation, une fermeture ou clôture 
+> (🇺🇸 : *closure*) est une fonction accompagnée de son environnement lexical.  
+>
+> L'environnement lexical d'une fonction est l'ensemble des variables non locales 
+> qu'elle a capturées, soit par valeur (c'est-à-dire par copie des valeurs des variables), 
+> soit par référence (c'est-à-dire par copie des adresses mémoires des variables).   
+>
+> Une fermeture est donc créée, entre autres, lorsqu'une fonction est définie 
+> dans le corps d'une autre fonction et utilise des paramètres ou des variables 
+> locales de cette dernière.
+> 
+> Source : [Wikipedia](https://fr.wikipedia.org/wiki/Fermeture_(informatique))
 
 ### Décorateurs
 
-### Lambda
+Les décorateurs sont un "sucre syntaxique" utilisant le symbole `@`
+et facilitant la mise en d'oeuvre d'un schéma assez courant 
+que nous allons illustrer sur un exemple.
 
-### Closures
+Imaginons que nous ayons développé une fonction `plus_one` 
 
-
---------------------------------------------------------------------------------
-
-``` pycon
-test ligatures: -> ==
+``` python
+def plus_one(x):
+    return x + 1
 ```
+
+mais qu'en la testant dans un programme, nous trouvons son comportement mystérieux. 
+Pour comprendre ce qui se passe, nous modifions sa définition pour afficher 
+ses arguments et les valeurs qu'elle renvoie à chacun de ses appels.
+
+``` python
+def plus_one(x):
+    print("input:", x)
+    y = x + 1
+    print("output:", y)
+    return y
+```
+
+avec la ferme intention de retirer ce code supplémentaire une fois le mystère 
+éclairci.
+
+Ce procédé n'est toutefois pas très satisfaisant. Plutôt que de modifier
+le code de `plus_one`, nous pouvons développer une fonction 
+`debug` qui prendra la fonction `plus_one` comme argument
+et renverra une nouvelle fonction qui fonctionne comme `plus_one` à ceci
+près qu'elle affiche les arguments et la valeur de sortie :
+
+``` python
+def debug(f):
+    def f_debug(x):
+        print("input:", x)
+        y = f(x)
+        print("output:", y)
+        return y
+    return f_debug
+```
+
+Pour tester le code en situation réelle, il nous suffit alors de remplacer
+la fonction `plus_one` classique par cette nouvelle fonction
+
+``` python
+plus_one = debug(plus_one)
+```
+
+puis d'effacer uniquement cette ligne supplémentaire une fois le mystère éclairci.
+
+Il s'avère que le code
+
+``` python
+def plus_one(x):
+    return x + 1
+
+plus_one = debug(plus_one)
+```
+
+est équivalent à la construction suivante utilisant les décorateurs :
+
+``` python
+@debug
+def plus_one(x):
+    return x + 1
+```
+
+On pourra trouver cette seconde notation plus agréable et lisible !
+
+#### Exemples
+
+Le décorateur `count` ci-dessous peut être utilisé pour enregistrer le nombre
+de fois où une fonction a été invoquée (le nombre d'appels de la fonction
+est stocké dans l'attribut `count` de la fonction).
+
+``` python
+def count(f):
+    def counted_f(x):
+        counted_f.count += 1
+        return f(x)
+    counted_f.count = 0
+    return counted_f
+```
+
+Par exemple, si l'on recherche à localiser l'unique zéro de la fonction 
+$x \mapsto x^2 - 2$, qui est $\sqrt{2}$, on peut la définir en la décorant 
+avec la fonction d'ordre supérieur `count` :
+
+``` python
+@count
+def f(x):
+    return x*x - 2
+```
+
+Puis procéder par itérations successives pour produire une estimation de $\sqrt{2}$ :
+
+``` python
+>>> f(0)
+-2
+>>> f(1)
+-1
+>>> f(2)
+2
+>>> f(1.5)
+0.25
+>>> f(1.4)
+-0.04000000000000026
+>>> f(1.45)
+0.10250000000000004
+>>> f(1.43)
+0.04489999999999972
+>>> f(1.42)
+0.01639999999999997
+>>> f(1.41)
+-0.011900000000000244
+```
+
+Et constater à posteriori combien d'appels de la fonction `f` ont été nécessaires :
+
+``` python
+>>> f.count
+9
+```
+
+
