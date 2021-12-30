@@ -184,7 +184,6 @@ et
 
 [itertools]: https://docs.python.org/3/library/itertools.html#module-itertools
 
-
 ``` python
 def count(start=0, step=1):
     """
@@ -196,6 +195,8 @@ def count(start=0, step=1):
         value += step
 ```
 
+Usage :
+
 ``` python
 >>> odd_numbers = count(start=1, step=2)
 >>> for number in odd_numbers:
@@ -205,6 +206,8 @@ def count(start=0, step=1):
 ...         print(number, sep=" ")
 1 3 5 7 9 11 13 15 17 19
 ```
+
+--------------------------------------------------------------------------------
 
 ``` python
 def cycle(iterable):
@@ -217,6 +220,8 @@ def cycle(iterable):
             yield item
 ```
 
+Usage :
+
 ``` python
 >>> for i, item in enumerate(cycle("ABCD")):
 ...     if i >= 12:
@@ -225,6 +230,8 @@ def cycle(iterable):
 ...         print(item, sep=" ")
 A B C D A B C D A B C D
 ```
+
+--------------------------------------------------------------------------------
 
 ``` python
 def repeat(object, n=None):
@@ -239,6 +246,8 @@ def repeat(object, n=None):
             yield object
 ```
 
+Usage :
+
 ``` python
 >>> list(repeat(10, 3))
 [10, 10, 10]
@@ -252,10 +261,13 @@ et `zip` en utilisant les fonctions génératrices.
 Programmation fonctionnelle / d'ordre supérieur
 --------------------------------------------------------------------------------
 
+Définition "partielle" programmation fonctionnelle. Un trait important:
+
 Fonctions comme "valeurs" ; lambda, decorateurs ; patterns d'usage: 
 math (ODEs, autograd), filters/maps, callbacks, etc.
 
-Définition du terme "programmation d'ordre supérieur".
+Définition du terme "programmation d'ordre supérieur" (que permet la programmation
+fonctionnelle).
 
 
 
