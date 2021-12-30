@@ -48,6 +48,13 @@
 
 [📓 Notebook élaboré en cours](notebooks/06-Objets%20et%20Classes.ipynb)
 
+## Fonctions
+
+[📖 Notes](https://boisgera.github.io/python-advanced-companion/cours/) (🏗️ travail en cours)
+
+--------------------------------------------------------------------------------
+
 ## Projet
 
 [📒 Sujet du projet](https://github.com/boisgera/python-advanced-eval#notebooks-jupyter)
+
