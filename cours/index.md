@@ -168,7 +168,7 @@ True
 
 Un [transmogriphieur](https://calvinandhobbes.fandom.com/wiki/Transmogrifier) 
 peut transformer son utilisateur en ce qu'il souhaite (par défaut, un tigre 🐯 ;
-mais on n'a pas spécifié sa taille !).
+mais on n'a pas spécifié la taille du tigre ! 😉).
 
 ![[Calvin transformé en tigre](https://calvinandhobbes.fandom.com/wiki/Calvin_in_Tiger_Form_(Transmogrifier_alter_ego))](https://www.nicepng.com/png/full/198-1980373_calvin-and-hobbes-png-hd-calvin-and-hobbes.png)
 
