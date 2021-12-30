@@ -129,7 +129,7 @@ Pourtant, ce n'est pas une function, mais un type :
 ``` python
 >>> type(int)
 <class 'type'>
->>> type(int) is type
+>>> type(int) is type  # 🤯
 True
 >>> isinstance(int, types.FunctionType)
 False
