@@ -60,6 +60,7 @@
 <ul>
 <li><a href="#lambda">Lambda</a></li>
 <li><a href="#fermetures">Fermetures</a></li>
+<li><a href="#décorateurs">Décorateurs</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -368,7 +369,7 @@ root.mainloop()</code></pre>
             print(i)
         actions.append(printer)
     return actions</code></pre>
-<p>s’attend probablement à générer une liste de 3 actions qui afficheront respectivement 0, 1 et 2. Mais comme le <code>i</code> utilisé par la fonction <code>printer</code> est capturé par référence, sa valeur effective est obtenue uniquement au moment de l’appel <code>print(i)</code>. Hors à ce moment-là, la boucle <code>for</code> a déjà été exécutée, donc <code>i</code> vaut <code>2</code>. Par conséquent, on obtient en fait :</p>
+<p>s’attend probablement à générer une liste de 3 actions qui afficheront respectivement 0, 1 et 2 lorsqu’elles seront appelées. Mais comme le <code>i</code> utilisé par la fonction <code>printer</code> est capturé par référence, sa valeur effective est déterminée uniquement au moment de l’appel <code>print(i)</code>. Hors à ce moment-là, la boucle <code>for</code> a déjà été exécutée, donc <code>i</code> vaut <code>2</code>. Par conséquent, on obtient en fait :</p>
 <pre class="python"><code>&gt;&gt;&gt; for action in make_actions():
 ...     action()
 2
@@ -387,20 +388,11 @@ root.mainloop()</code></pre>
 ...     action()
 0
 1
-2
-
-
-
-### Décorateurs
-
-Les **décorateurs** sont un &quot;sucre syntaxique&quot; utilisant le symbole `@`
-et facilitant la mise en d&#39;oeuvre d&#39;un schéma assez courant 
-que nous allons illustrer sur un exemple.
-
-Imaginons que nous ayons développé une fonction `plus_one` 
-
-``` python
-def plus_one(x):
+2</code></pre>
+<h3 id="décorateurs">Décorateurs</h3>
+<p>Les <strong>décorateurs</strong> sont un “sucre syntaxique” utilisant le symbole <code>@</code> et facilitant la mise en d’oeuvre d’un schéma assez courant que nous allons illustrer sur un exemple.</p>
+<p>Imaginons que nous ayons développé une fonction <code>plus_one</code></p>
+<pre class="python"><code>def plus_one(x):
     return x + 1</code></pre>
 <p>mais qu’en la testant dans un programme, nous trouvons son comportement mystérieux. Pour comprendre ce qui se passe, nous modifions sa définition pour afficher ses arguments et les valeurs qu’elle renvoie à chaque fois qu’elle est appelée.</p>
 <pre class="python"><code>def plus_one(x):

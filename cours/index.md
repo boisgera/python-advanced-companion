@@ -568,8 +568,9 @@ def make_actions():
 ```
 
 s'attend probablement à générer une liste de 3 actions qui afficheront
-respectivement 0, 1 et 2. Mais comme le `i` utilisé par la fonction 
-`printer` est capturé par référence, sa valeur effective est obtenue
+respectivement 0, 1 et 2 lorsqu'elles seront appelées. 
+Mais comme le `i` utilisé par la fonction 
+`printer` est capturé par référence, sa valeur effective est déterminée
 uniquement au moment de l'appel `print(i)`. Hors à ce moment-là, la boucle
 `for` a déjà été exécutée, donc `i` vaut `2`. Par conséquent, on obtient
 en fait :
@@ -604,7 +605,7 @@ on obtient comme souhaité
 0
 1
 2
-
+```
 
 
 ### Décorateurs
