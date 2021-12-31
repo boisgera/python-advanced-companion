@@ -45,9 +45,9 @@
 <ul>
 <li><a href="#fonctions">Fonctions</a>
 <ul>
-<li><a href="#définitions-todo">Définitions (TODO)</a></li>
+<li><a href="#aperçu">Aperçu</a></li>
 <li><a href="#valeurs-de-retour-todo">Valeurs de retour (TODO)</a></li>
-<li><a href="#espaces-de-nom-todo-local">Espaces de nom (TODO: local)</a></li>
+<li><a href="#espaces-de-nom-todo">Espaces de nom (TODO)</a></li>
 </ul></li>
 <li><a href="#invocables">Invocables</a>
 <ul>
@@ -65,14 +65,30 @@
 </ul>
 </nav>
 <h2 id="fonctions">Fonctions</h2>
-<h3 id="définitions-todo">Définitions (TODO)</h3>
-<p><code>def</code> <code>return</code>, retour réifiés (tuple), arguments positionnels ou nommés, arguments par défaut.</p>
+<h3 id="aperçu">Aperçu</h3>
+<pre class="python"><code>def fibonacci(n, start=(0, 1)):
+    &quot;Return a list of n Fibonnaci numbers.&quot;
+    result = []
+    a, b = start
+    while len(result) &lt;= n:
+        result.append(a)
+        a, b = b, a+b
+    return result</code></pre>
+<p><code>def</code>, arguments, valeurs par défaut, arguments optionnels, signature, <code>return</code></p>
+<pre class="python"><code>&gt;&gt;&gt; numbers = fibonacci(10)
+&gt;&gt;&gt; numbers
+[0, 1, 1, 2, 3, 5, 8]
+&gt;&gt;&gt; numbers = fibonacci(20, start=(5,8))
+&gt;&gt;&gt; numbers
+[5, 8, 13]</code></pre>
+<p>invocation (appel), arguments optionnels, argument spécifiés par position ou par nom.</p>
+<p><strong>TODO</strong> <code>def</code> <code>return</code>, retour réifiés (tuple), arguments positionnels ou nommés, arguments par défaut (immutabilité, <code>None</code>, etc.).</p>
 <pre class="python"><code>def f(x, y, z=0):
     print(&quot;Please !&quot;)
     return 42</code></pre>
 <p>Mentionner type hints (ex avec Typer ?).</p>
 <h3 id="valeurs-de-retour-todo">Valeurs de retour (TODO)</h3>
-<h3 id="espaces-de-nom-todo-local">Espaces de nom (TODO: local)</h3>
+<h3 id="espaces-de-nom-todo">Espaces de nom (TODO)</h3>
 <p>Portée / scope</p>
 <p>🇺🇸 → Namespace</p>
 <p>(implicites)</p>
@@ -230,7 +246,7 @@ True</code></pre>
 <hr />
 <pre class="python"><code>def cycle(iterable):
     &quot;&quot;&quot;
-    Yield all items from an iterable, then repeat the same output sequence indefinitely. 
+    Yield all items from an iterable, then repeat this output sequence indefinitely. 
     &quot;&quot;&quot;
     items = list(iterable)
     if items:
@@ -257,8 +273,11 @@ A B C D A B C D A B C D</code></pre>
 <p>Usage :</p>
 <pre class="python"><code>&gt;&gt;&gt; list(repeat(10, 3))
 [10, 10, 10]</code></pre>
-<h4 id="exercice">Exercice</h4>
-<p>Implémentez votre propre version des fonctions standards <code>range</code>, <code>enumerate</code> et <code>zip</code> en utilisant les fonctions génératrices.</p>
+<h4 id="exercices">Exercices</h4>
+<ul>
+<li><p>Implémentez votre propre version des fonctions standards <code>range</code>, <code>enumerate</code> et <code>zip</code> en utilisant les fonctions génératrices.</p></li>
+<li><p>Revoyez la définition de la fonction <code>fibonacci</code> pour en faire une fonction génératrice, qui renvoie les nombres de Fibonnaci sous forme d’itérateur plutôt que de liste. Faites en sorte que lorsque l’argument <code>n</code> n’est pas fournie, l’itérateur parcoure l’intégralité de la suite.</p></li>
+</ul>
 <h2 id="programmation-fonctionnelle">Programmation fonctionnelle</h2>
 <p>Un des traits de la <a href="https://fr.wikipedia.org/wiki/Programmation_fonctionnelle"><strong>programmation fonctionelle</strong></a>, un style de programmation que supporte (en partie) Python, est de permettre de manipuler les fonctions comme des objets comme les autres, pouvant être désignés par des variables, stockés dans des conteneurs, passés comme arguments à d’autres fonctions, etc. Une fonction acceptant comme argument des fonctions et/ou en renvoyant est une <strong>fonction d’ordre supérieur</strong> (🇺🇸 : <strong>higher-order function</strong>).</p>
 <p>Les librairies mathématiques exploitent souvent avec profit ces fonctions d’ordre supérieures. Ainsi, la librairie de différentiation automatique <a href="https://github.com/HIPS/autograd#autograd---">Autograd</a> définit une fonction d’ordre supérieur <code>grad</code> qui associe à une fonction d’un argument réel sa dérivée :</p>

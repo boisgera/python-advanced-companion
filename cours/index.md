@@ -5,8 +5,35 @@ title: Fonctions
 Fonctions
 --------------------------------------------------------------------------------
 
-### Définitions (TODO)
+### Aperçu
 
+``` python
+def fibonacci(n, start=(0, 1)):
+    "Return a list of n Fibonnaci numbers."
+    result = []
+    a, b = start
+    while len(result) <= n:
+        result.append(a)
+        a, b = b, a+b
+    return result
+```
+
+`def`, arguments, valeurs par défaut, arguments optionnels, signature, `return`
+
+``` python
+>>> numbers = fibonacci(10)
+>>> numbers
+[0, 1, 1, 2, 3, 5, 8]
+>>> numbers = fibonacci(20, start=(5,8))
+>>> numbers
+[5, 8, 13]
+```
+
+invocation (appel), arguments optionnels, argument spécifiés par position ou
+par nom.
+
+
+**TODO**
 `def` `return`, retour réifiés (tuple), arguments positionnels ou nommés,
 arguments par défaut (immutabilité, `None`, etc.).
 
@@ -360,10 +387,16 @@ Usage :
 [10, 10, 10]
 ```
 
-#### Exercice
+#### Exercices
 
-Implémentez votre propre version des fonctions standards `range`, `enumerate`
+  - Implémentez votre propre version des fonctions standards `range`, `enumerate`
 et `zip` en utilisant les fonctions génératrices.
+
+  - Revoyez la définition de la fonction `fibonacci` pour en faire une fonction
+    génératrice, qui renvoie les nombres de Fibonnaci sous forme d'itérateur
+    plutôt que de liste. Faites en sorte que lorsque l'argument `n` n'est
+    pas fournie, l'itérateur parcoure l'intégralité de la suite.
+
 
 Programmation fonctionnelle 
 --------------------------------------------------------------------------------
