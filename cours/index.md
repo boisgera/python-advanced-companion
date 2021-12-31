@@ -511,11 +511,9 @@ Sa documentation donne l'exemple suivant d'usage :
 ...     y = np.exp(-2.0 * x)
 ...     return (1.0 - y) / (1.0 + y)
 ...
->>> grad_tanh = grad(tanh)  # Obtain its derivative      
->>> grad_tanh(1.0)  # Evaluate the derivative at x = 1.0              
+>>> grad_tanh = grad(tanh)  # grad_tanh is the derivative of tanh   
+>>> grad_tanh(1.0)          # we evaluate it at x = 1.0              
 0.41997434161402603
->>> (tanh(1.0001) - tanh(0.9999)) / 0.0002  # Compare to finite differences
-0.41997434264973155
 ```
 
 Un autre usage important des fonctions d'ordre supérieur est l'exploitation 
