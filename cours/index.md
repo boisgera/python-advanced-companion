@@ -511,8 +511,8 @@ Sa documentation donne l'exemple suivant d'usage :
 ...     y = np.exp(-2.0 * x)
 ...     return (1.0 - y) / (1.0 + y)
 ...
->>> grad_tanh = grad(tanh)  # grad_tanh is the derivative of tanh   
->>> grad_tanh(1.0)          # we evaluate it at x = 1.0              
+>>> d_tanh = grad(tanh)  # d_tanh is the derivative of tanh   
+>>> d_tanh(1.0)          # we evaluate it at x = 1.0              
 0.41997434161402603
 ```
 
