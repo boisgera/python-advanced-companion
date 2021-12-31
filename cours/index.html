@@ -354,11 +354,9 @@ A B C D A B C D A B C D</code></pre>
 ...     y = np.exp(-2.0 * x)
 ...     return (1.0 - y) / (1.0 + y)
 ...
-&gt;&gt;&gt; grad_tanh = grad(tanh)  # Obtain its derivative      
-&gt;&gt;&gt; grad_tanh(1.0)  # Evaluate the derivative at x = 1.0              
-0.41997434161402603
-&gt;&gt;&gt; (tanh(1.0001) - tanh(0.9999)) / 0.0002  # Compare to finite differences
-0.41997434264973155</code></pre>
+&gt;&gt;&gt; grad_tanh = grad(tanh)  # grad_tanh is the derivative of tanh   
+&gt;&gt;&gt; grad_tanh(1.0)          # we evaluate it at x = 1.0              
+0.41997434161402603</code></pre>
 <p>Un autre usage important des fonctions d’ordre supérieur est l’exploitation de <strong>fonctions de rappels</strong> (🇺🇸 : <strong>callbacks</strong>), notamment dans les interfaces graphiques.</p>
 <p>Par exemple, regardons comment est programmé l’application graphique donnée comme example dans <a href="http://tkdocs.com/tutorial/firstexample.html#design">le tutoriel de la bibliothèque Tk</a> :</p>
 <figure>
