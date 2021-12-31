@@ -348,22 +348,16 @@ A B C D A B C D A B C D</code></pre>
 <p>Un des traits de la <a href="https://fr.wikipedia.org/wiki/Programmation_fonctionnelle"><strong>programmation fonctionelle</strong></a>, un style de programmation que supporte (en partie) Python, est de permettre de manipuler les fonctions comme des objets comme les autres, pouvant être désignés par des variables, stockés dans des conteneurs, passés comme arguments à d’autres fonctions, etc. Une fonction acceptant comme argument des fonctions et/ou en renvoyant est une <strong>fonction d’ordre supérieur</strong> (🇺🇸 : <strong>higher-order function</strong>).</p>
 <p>Les librairies mathématiques exploitent souvent avec profit ces fonctions d’ordre supérieures. Ainsi, la librairie de différentiation automatique <a href="https://github.com/HIPS/autograd#autograd---">Autograd</a> définit une fonction d’ordre supérieur <code>grad</code> qui associe à une fonction d’un argument réel sa dérivée :</p>
 <p>Sa documentation donne l’exemple suivant d’usage :</p>
-<pre class="python"><code>&gt;&gt;&gt; # Thinly-wrapped numpy
-&gt;&gt;&gt; import autograd.numpy as np 
-&gt;&gt;&gt; # The only autograd function you may ever need
+<pre class="python"><code>&gt;&gt;&gt; import autograd.numpy as np 
 &gt;&gt;&gt; from autograd import grad   
-&gt;&gt;&gt; # Define a function
 &gt;&gt;&gt; def tanh(x):                
 ...     y = np.exp(-2.0 * x)
 ...     return (1.0 - y) / (1.0 + y)
 ...
-&gt;&gt;&gt; # Obtain its gradient function
-&gt;&gt;&gt; grad_tanh = grad(tanh)       
-&gt;&gt;&gt; # Evaluate the gradient at x = 1.0
-&gt;&gt;&gt; grad_tanh(1.0)               
+&gt;&gt;&gt; grad_tanh = grad(tanh)  # Obtain its derivative      
+&gt;&gt;&gt; grad_tanh(1.0)  # Evaluate the derivative at x = 1.0              
 0.41997434161402603
-&gt;&gt;&gt; # Compare to finite differences
-&gt;&gt;&gt; (tanh(1.0001) - tanh(0.9999)) / 0.0002
+&gt;&gt;&gt; (tanh(1.0001) - tanh(0.9999)) / 0.0002  # Compare to finite differences
 0.41997434264973155</code></pre>
 <p>Un autre usage important des fonctions d’ordre supérieur est l’exploitation de <strong>fonctions de rappels</strong> (🇺🇸 : <strong>callbacks</strong>), notamment dans les interfaces graphiques.</p>
 <p>Par exemple, regardons comment est programmé l’application graphique donnée comme example dans <a href="http://tkdocs.com/tutorial/firstexample.html#design">le tutoriel de la bibliothèque Tk</a> :</p>

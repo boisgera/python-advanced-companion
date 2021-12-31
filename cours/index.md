@@ -505,22 +505,16 @@ une fonction d'un argument réel sa dérivée :
 Sa documentation donne l'exemple suivant d'usage :
 
 ``` python
->>> # Thinly-wrapped numpy
 >>> import autograd.numpy as np 
->>> # The only autograd function you may ever need
 >>> from autograd import grad   
->>> # Define a function
 >>> def tanh(x):                
 ...     y = np.exp(-2.0 * x)
 ...     return (1.0 - y) / (1.0 + y)
 ...
->>> # Obtain its gradient function
->>> grad_tanh = grad(tanh)       
->>> # Evaluate the gradient at x = 1.0
->>> grad_tanh(1.0)               
+>>> grad_tanh = grad(tanh)  # Obtain its derivative      
+>>> grad_tanh(1.0)  # Evaluate the derivative at x = 1.0              
 0.41997434161402603
->>> # Compare to finite differences
->>> (tanh(1.0001) - tanh(0.9999)) / 0.0002
+>>> (tanh(1.0001) - tanh(0.9999)) / 0.0002  # Compare to finite differences
 0.41997434264973155
 ```
 
