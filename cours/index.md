@@ -5,7 +5,7 @@ title: Fonctions
 Fonctions
 --------------------------------------------------------------------------------
 
-### Aperçu
+### Aperçu (**TODO**)
 
 ``` python
 def fibonacci(n, start=(0, 1)):
@@ -45,18 +45,103 @@ def f(x, y, z=0):
 
 Mentionner type hints (ex avec Typer ?).
 
-### Valeurs de retour (TODO)
 
 
-### Espaces de nom (TODO)
+### Espaces de noms et portées
 
-Portée / scope
+La [**portée**](https://fr.wikipedia.org/wiki/Port%C3%A9e_(informatique))
+(🇺🇸 : **scope**) d'une variable au sein d'un programme détermine la manière
+dont elle est associé à une valeur. Au niveau supérieur 
+(d'un fichier, d'un module, de l'interpréteur Python, etc.), 
+les variables sont **globales**. Le lien entre le nom de la variable et
+la valeur qu'elle désigne est décrit par le dictionnaire `globals()` :
+c'est l'**espace de nom** (🇺🇸 : **namespace**) associé aux variables globales.
 
-🇺🇸 → Namespace 
+``` python
+>>> import math
+>>> message = "Hello world"
+>>> def answer():
+...    return 42
+...
+>>> globs = globals()
+>>> globs["math"] is math
+True
+>>> globs["message"] is message
+True
+>>> globs["answer"] is answer
+True
+```
 
-(implicites)
+Au sein des fonctions, il y a en général des variables **locales**
+à la fonction. C'est en particulier le cas des paramètres de la fonction,
+et -- en l'absence d'instruction contraire -- des variables qui y sont 
+assignées. Dans le corps de cette fonction, l'espace de noms associé
+peut être obtenu en invoquant `locals()`.
 
-globals / locals (builtin module ?, read-only, etc.)
+``` python
+>>> x = 1
+>>> def f(y):
+...     z = 3
+...     locs = locals()
+...     print("x" in locs)
+...     print("y" in locs)
+...     print("z" in locs)
+... 
+>>> f(2)
+False
+True
+True
+```
+
+Il est donc possible pour une variable locale de cacher (🇺🇸 : **shadow**) une
+variable globale :
+
+``` python
+>>> a = 1
+>>> def f():
+...     a = 2  # assigned => local
+...     print(a)
+...
+>>> a
+1
+>>> f()
+2
+>>> a # in the global scope => the value remains unchanged
+1
+```
+
+En l'absence d'un tel assignement, au sein d'une fonction, les variables
+globales restent accessibles, mais donc en lecture seule :
+
+``` python
+>>> a = 1
+>>> def f():
+...     print(a)
+...
+>>> f()
+1
+```
+
+Si l'on souhaite assigner une nouvelle valeur à une variable globale dans
+le corps d'une fonction, il est nécessaire d'y déclarer la variable comme 
+globale :
+
+``` python
+>>> a = 1
+>>> def f():
+...     global a
+...     a = 2
+...
+>>> print(a)
+1
+>>> f()
+>>> print(a)
+2
+```
+
+Il existe également une portée **intégrée** (🇺🇸 : **built-in**) et en cas
+de fonctions **emboitées** (🇺🇸 : **nested**), le concept de portée externe ;
+cf par exemple [la description de la règle LEGB](https://realpython.com/python-scope-legb-rule/).
 
 
 Invocables

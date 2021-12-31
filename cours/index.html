@@ -60,9 +60,8 @@
 <ul>
 <li><a href="#fonctions">Fonctions</a>
 <ul>
-<li><a href="#aperçu">Aperçu</a></li>
-<li><a href="#valeurs-de-retour-todo">Valeurs de retour (TODO)</a></li>
-<li><a href="#espaces-de-nom-todo">Espaces de nom (TODO)</a></li>
+<li><a href="#aperçu-todo">Aperçu (<strong>TODO</strong>)</a></li>
+<li><a href="#espaces-de-noms-et-portées">Espaces de noms et portées</a></li>
 </ul></li>
 <li><a href="#invocables">Invocables</a>
 <ul>
@@ -80,7 +79,7 @@
 </ul>
 </nav>
 <h2 id="fonctions">Fonctions</h2>
-<h3 id="aperçu">Aperçu</h3>
+<h3 id="aperçu-todo">Aperçu (<strong>TODO</strong>)</h3>
 <pre class="python"><code>def fibonacci(n, start=(0, 1)):
     &quot;Return a list of n Fibonnaci numbers.&quot;
     result = []
@@ -102,12 +101,64 @@
     print(&quot;Please !&quot;)
     return 42</code></pre>
 <p>Mentionner type hints (ex avec Typer ?).</p>
-<h3 id="valeurs-de-retour-todo">Valeurs de retour (TODO)</h3>
-<h3 id="espaces-de-nom-todo">Espaces de nom (TODO)</h3>
-<p>Portée / scope</p>
-<p>🇺🇸 → Namespace</p>
-<p>(implicites)</p>
-<p>globals / locals (builtin module ?, read-only, etc.)</p>
+<h3 id="espaces-de-noms-et-portées">Espaces de noms et portées</h3>
+<p>La <a href="https://fr.wikipedia.org/wiki/Port%C3%A9e_(informatique)"><strong>portée</strong></a> (🇺🇸 : <strong>scope</strong>) d’une variable au sein d’un programme détermine la manière dont elle est associé à une valeur. Au niveau supérieur (d’un fichier, d’un module, de l’interpréteur Python, etc.), les variables sont <strong>globales</strong>. Le lien entre le nom de la variable et la valeur qu’elle désigne est décrit par le dictionnaire <code>globals()</code> : c’est l’<strong>espace de nom</strong> (🇺🇸 : <strong>namespace</strong>) associé aux variables globales.</p>
+<pre class="python"><code>&gt;&gt;&gt; import math
+&gt;&gt;&gt; message = &quot;Hello world&quot;
+&gt;&gt;&gt; def answer():
+...    return 42
+...
+&gt;&gt;&gt; globs = globals()
+&gt;&gt;&gt; globs[&quot;math&quot;] is math
+True
+&gt;&gt;&gt; globs[&quot;message&quot;] is message
+True
+&gt;&gt;&gt; globs[&quot;answer&quot;] is answer
+True</code></pre>
+<p>Au sein des fonctions, il y a en général des variables <strong>locales</strong> à la fonction. C’est en particulier le cas des paramètres de la fonction, et – en l’absence d’instruction contraire – des variables qui y sont assignées. Dans le corps de cette fonction, l’espace de noms associé peut être obtenu en invoquant <code>locals()</code>.</p>
+<pre class="python"><code>&gt;&gt;&gt; x = 1
+&gt;&gt;&gt; def f(y):
+...     z = 3
+...     locs = locals()
+...     print(&quot;x&quot; in locs)
+...     print(&quot;y&quot; in locs)
+...     print(&quot;z&quot; in locs)
+... 
+&gt;&gt;&gt; f(2)
+False
+True
+True</code></pre>
+<p>Il est donc possible pour une variable locale de cacher (🇺🇸 : <strong>shadow</strong>) une variable globale :</p>
+<pre class="python"><code>&gt;&gt;&gt; a = 1
+&gt;&gt;&gt; def f():
+...     a = 2  # assigned =&gt; local
+...     print(a)
+...
+&gt;&gt;&gt; a
+1
+&gt;&gt;&gt; f()
+2
+&gt;&gt;&gt; a # in the global scope =&gt; the value remains unchanged
+1</code></pre>
+<p>En l’absence d’un tel assignement, au sein d’une fonction, les variables globales restent accessibles, mais donc en lecture seule :</p>
+<pre class="python"><code>&gt;&gt;&gt; a = 1
+&gt;&gt;&gt; def f():
+...     print(a)
+...
+&gt;&gt;&gt; f()
+1</code></pre>
+<p>Si l’on souhaite assigner une nouvelle valeur à une variable globale dans le corps d’une fonction, il est nécessaire d’y déclarer la variable comme globale :</p>
+<pre class="python"><code>&gt;&gt;&gt; a = 1
+&gt;&gt;&gt; def f():
+...     global a
+...     a = 2
+...
+&gt;&gt;&gt; print(a)
+1
+&gt;&gt;&gt; f()
+&gt;&gt;&gt; print(a)
+2</code></pre>
+<p>Il existe également une portée <strong>intégrée</strong> (🇺🇸 : <strong>built-in</strong>) et en cas de fonctions <strong>emboitées</strong> (🇺🇸 : <strong>nested</strong>), le concept de portée externe ; cf par exemple <a href="https://realpython.com/python-scope-legb-rule/">la description de la règle LEGB</a>.</p>
 <h2 id="invocables">Invocables</h2>
 <p>On qualifie d’<strong>invocable</strong> (ou <strong>appelable</strong> ; 🇺🇸 : <strong>callable</strong>) tout objet se comportant comme une fonction, c’est-à-dire pouvant être appelé (invoqué) avec la même syntaxe que les fonctions.</p>
 <p>Ainsi, l’entier <code>0</code> n’est pas invocable :</p>
