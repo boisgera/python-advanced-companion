@@ -1,30 +1,5 @@
----
-jupyter:
-  jupytext:
-    cell_metadata_filter: all,-hidden,-heading_collapsed,-run_control,-trusted
-    encoding: '# -*- coding: utf-8 -*-'
-    notebook_metadata_filter: all, -jupytext.text_representation.jupytext_version,
-      -jupytext.text_representation.format_version, -language_info.version, -language_info.codemirror_mode.version,
-      -language_info.codemirror_mode, -language_info.file_extension, -language_info.mimetype,
-      -toc
-    text_representation:
-      extension: .md
-      format_name: markdown
-  kernelspec:
-    display_name: Python 3 (ipykernel)
-    language: python
-    name: python3
-  language_info:
-    name: python
-    nbconvert_exporter: python
-    pygments_lexer: ipython3
-  nbhosting:
-    title: 'jeu: le flappybird'
----
 
-<!-- #region tags=["level_intermediate"] -->
 # Le flappy bird
-<!-- #endregion -->
 
 Ce second exemple - pour les rapides - va nous permettre de nous confronter à un cas plus compliqué de jeu vidéo:
 - l'espace de jeu n'est plus "discret": on n'avance plus case après case mais "continuement" à une vitesse donnée
