@@ -51,6 +51,51 @@
           }
       });    
   </script>
+  <script>
+
+      function filterConsole(text) {
+          let lines = text.split("\n");
+
+          console.log(lines);
+
+          let pythonConsole = lines && lines[0].startsWith(">>>");
+          if (!pythonConsole) {
+              return text + "\n\n";
+          } else {
+              let newLines = [];
+              for (let line of lines) {
+                  if (line.startsWith(">>> ") || line.startsWith("... ")) {
+                      newLines.push(line.slice(4));
+                  } else if (line.startsWith("...")){
+                      newLines.push(line.slice(3));
+                  }
+
+              }
+              return newLines.join("\n") + "\n";
+          }
+
+      }
+
+      document.addEventListener("DOMContentLoaded", (event) => {
+          let codeBlocks = document.querySelectorAll("pre.python")
+          for (let codeBlock of codeBlocks) {
+              codeBlock.setAttribute("style", "position: relative");
+
+              let icon = document.createElement("img");
+              icon.setAttribute("src", "icons/copy.svg");
+              icon.addEventListener('click', (event) => {
+                  let text = icon.nextElementSibling.textContent;
+                  text = filterConsole(text);
+                  // console.log(text);
+                  navigator.clipboard.writeText(text);
+              });
+
+              icon.setAttribute("style", "position: absolute; right: 1em; top: 1em;");
+
+              codeBlock.insertBefore(icon, codeBlock.firstChild);
+          }
+      });    
+  </script>
 </head>
 <body>
 <header id="title-block-header">
@@ -84,17 +129,17 @@
     &quot;Return a list of n Fibonnaci numbers.&quot;
     result = []
     a, b = start
-    while len(result) &lt;= n:
+    while len(result) &lt; n:
         result.append(a)
         a, b = b, a+b
     return result</code></pre>
 <p><code>def</code>, arguments, valeurs par défaut, arguments optionnels, signature, <code>return</code></p>
 <pre class="python"><code>&gt;&gt;&gt; numbers = fibonacci(10)
 &gt;&gt;&gt; numbers
-[0, 1, 1, 2, 3, 5, 8]
-&gt;&gt;&gt; numbers = fibonacci(20, start=(5,8))
+[0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+&gt;&gt;&gt; numbers = fibonacci(10, start=(21, 34))
 &gt;&gt;&gt; numbers
-[5, 8, 13]</code></pre>
+[21, 34, 55, 89, 144, 233, 377, 610, 987, 1597]</code></pre>
 <p>invocation (appel), arguments optionnels, argument spécifiés par position ou par nom.</p>
 <p><strong>TODO</strong> <code>def</code> <code>return</code>, retour réifiés (tuple), arguments positionnels ou nommés, arguments par défaut (immutabilité, <code>None</code>, etc.).</p>
 <pre class="python"><code>def f(x, y, z=0):
@@ -164,10 +209,13 @@ True</code></pre>
 <p>Ainsi, l’entier <code>0</code> n’est pas invocable :</p>
 <pre class="python"><code>&gt;&gt;&gt; zero = 0
 &gt;&gt;&gt; zero()
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
 TypeError: &#39;int&#39; object is not callable</code></pre>
 <p>mais la fonction sans argument qui renvoie <code>0</code> est invocable :</p>
 <pre class="python"><code>&gt;&gt;&gt; def zero_fun():
 ...     return 0
+...
 &gt;&gt;&gt; zero_fun()
 0</code></pre>
 <p>ce qui n’est pas une surprise puisque c’est une fonction !</p>
@@ -221,55 +269,55 @@ True</code></pre>
 <p>Les classes que vous définissez sont également invocables :</p>
 <pre class="python"><code>class Transmogrifier:
     pass</code></pre>
-<pre class="python"><code>&gt;&gt;&gt; callable(Transmogriphier)
+<pre class="python"><code>&gt;&gt;&gt; callable(Transmogrifier)
 True
-&gt;&gt;&gt; transmogriphier = Transmogriphier()
-&gt;&gt;&gt; isinstance(transmogriphier, Transmogrifier)
+&gt;&gt;&gt; transmogrifier = Transmogrifier()
+&gt;&gt;&gt; isinstance(transmogrifier, Transmogrifier)
 True</code></pre>
 <h3 id="méthodes">Méthodes</h3>
 <p>Un <a href="https://calvinandhobbes.fandom.com/wiki/Transmogrifier">transmogriphieur</a> peut transformer son utilisateur en ce qu’il souhaite (par défaut, un tigre 🐯 ; mais on n’a pas spécifié la taille du tigre ! 😉).</p>
 <figure>
 <img src="https://www.nicepng.com/png/full/198-1980373_calvin-and-hobbes-png-hd-calvin-and-hobbes.png" alt="Calvin transformé en tigre" /><figcaption aria-hidden="true"><a href="https://calvinandhobbes.fandom.com/wiki/Calvin_in_Tiger_Form_(Transmogrifier_alter_ego)">Calvin transformé en tigre</a></figcaption>
 </figure>
-<pre class="python"><code>class Transmogriphier:
+<pre class="python"><code>class Transmogrifier:
     def __init__(self, turn_into=&quot;tiger&quot;):
         self.turn_into = turn_into
     def activate(self, user):
         return self.turn_into</code></pre>
-<pre class="python"><code>&gt;&gt;&gt; transmogriphier = Transmogriphier()
-&gt;&gt;&gt; transmogriphier.activate(&quot;calvin&quot;)
+<pre class="python"><code>&gt;&gt;&gt; transmogrifier = Transmogrifier()
+&gt;&gt;&gt; transmogrifier.activate(&quot;calvin&quot;)
 &#39;tiger&#39;</code></pre>
-<p>L’opération <code>transmogriphier.activate("calvin")</code> n’est pas “atomique” : elle consiste d’abord à obtenir l’attribut <code>activate</code> de l’objet <code>transmogriphier</code>, puis à l’invoquer avec l’argument <code>"calvin"</code>.</p>
-<pre class="python"><code>&gt;&gt;&gt; transmogriphy = transmogriphier.activate
-&gt;&gt;&gt; callable(transmogriphy)
+<p>L’opération <code>transmogrifier.activate("calvin")</code> n’est pas “atomique” : elle consiste d’abord à obtenir l’attribut <code>activate</code> de l’objet <code>transmogrifier</code>, puis à l’invoquer avec l’argument <code>"calvin"</code>.</p>
+<pre class="python"><code>&gt;&gt;&gt; transmogrify = transmogrifier.activate
+&gt;&gt;&gt; callable(transmogrify)
 True
-&gt;&gt;&gt; transmogriphy(&quot;calvin&quot;)
+&gt;&gt;&gt; transmogrify(&quot;calvin&quot;)
 &#39;tiger&#39;</code></pre>
-<p>Cela est possible car <code>activate</code> est une méthode (liée à l’instance <code>transmogriphier</code> de <code>Transmogriphier</code>) et est donc invocable.</p>
-<pre class="python"><code>&gt;&gt;&gt; transmogriphy
-&lt;bound method Transmogriphier.activate ...&gt;
-&gt;&gt;&gt; type(transmogriphy)
+<p>Cela est possible car <code>activate</code> est une méthode (liée à l’instance <code>transmogrifier</code> de <code>Transmogrifier</code>) et est donc invocable.</p>
+<pre class="python"><code>&gt;&gt;&gt; transmogrify
+&lt;bound method Transmogrifier.activate ...&gt;
+&gt;&gt;&gt; type(transmogrify)
 &lt;class &#39;method&#39;&gt;
 &gt;&gt;&gt; import types
-&gt;&gt;&gt; type(transmogriphy) is types.MethodType
+&gt;&gt;&gt; type(transmogrify) is types.MethodType
 True</code></pre>
 <h3 id="instances">Instances</h3>
-<p>Notons qu’à ce stade <code>Transmogriphier</code> est invocable et la méthode <code>activate</code> des transmogriphieurs également. Mais les transmogriphieurs eux-même ne le sont pas :</p>
-<pre class="python"><code>&gt;&gt;&gt; callable(transmogriphier)
+<p>Notons qu’à ce stade <code>Transmogrifier</code> est invocable et la méthode <code>activate</code> des transmogriphieurs également. Mais les transmogriphieurs eux-même ne le sont pas :</p>
+<pre class="python"><code>&gt;&gt;&gt; callable(transmogrifier)
 False</code></pre>
 <p>Si nous estimons que c’est préférable, nous pouvons faire en sorte qu’ils le deviennent. Il semble assez raisonnable de faire en sorte qu’invoquer un transmogriphieur l’active :</p>
-<pre class="python"><code>class Transmogriphier:
-    def __init__(self, turn_into=&quot;tiger&quot;)
+<pre class="python"><code>class Transmogrifier:
+    def __init__(self, turn_into=&quot;tiger&quot;):
         self.turn_into = turn_into
     def activate(self, user):
         return self.turn_into
     def __call__(self, user):
         return self.activate(user)</code></pre>
-<pre class="python"><code>&gt;&gt;&gt; transmogriphier = Transmogriphier()
-&gt;&gt;&gt; callable(transmogriphier)
+<pre class="python"><code>&gt;&gt;&gt; transmogrifier = Transmogrifier()
+&gt;&gt;&gt; callable(transmogrifier)
 True</code></pre>
 <p>Nous pouvons alors simplifier l’usage du transmogriphieur de la façon suivante :</p>
-<pre class="python"><code>&gt;&gt;&gt; transmogriphier(&quot;calvin&quot;)
+<pre class="python"><code>&gt;&gt;&gt; transmogrifier(&quot;calvin&quot;)
 &#39;tiger&#39;</code></pre>
 <h2 id="fonctions-génératrices">Fonctions génératrices</h2>
 <p>Une fonction est <strong>génératrice</strong> si sa définition utilise le mot-clé <code>yield</code>.</p>
@@ -286,6 +334,7 @@ True</code></pre>
 <p>on obtient</p>
 <pre class="python"><code>&gt;&gt;&gt; for i in one_two_three():
 ...     print(i)
+...
 1
 2
 3</code></pre>
@@ -307,15 +356,25 @@ True</code></pre>
 ...     if number &gt;= 20:
 ...         break
 ...     else:
-...         print(number, sep=&quot; &quot;)
-1 3 5 7 9 11 13 15 17 19</code></pre>
+...         print(number)
+...
+1 
+3 
+5 
+7 
+9 
+11 
+13 
+15 
+17 
+19</code></pre>
 <hr />
 <pre class="python"><code>def cycle(iterable):
     &quot;&quot;&quot;
-    Yield all items from an iterable, then repeat this output sequence indefinitely. 
+    Yield all items from an iterable, then repeat this sequence indefinitely. 
     &quot;&quot;&quot;
     items = list(iterable)
-    if items:
+    while items:
         for item in items:
             yield item</code></pre>
 <p>Usage :</p>
@@ -323,8 +382,20 @@ True</code></pre>
 ...     if i &gt;= 12:
 ...         break
 ...     else:
-...         print(item, sep=&quot; &quot;)
-A B C D A B C D A B C D</code></pre>
+...         print(item)
+...
+A 
+B 
+C 
+D 
+A 
+B 
+C 
+D 
+A 
+B 
+C 
+D</code></pre>
 <hr />
 <pre class="python"><code>def repeat(object, n=None):
     &quot;&quot;&quot;
@@ -356,7 +427,7 @@ A B C D A B C D A B C D</code></pre>
 ...
 &gt;&gt;&gt; d_tanh = grad(tanh)  # d_tanh is the derivative of tanh   
 &gt;&gt;&gt; d_tanh(1.0)          # we evaluate it at x = 1.0              
-0.41997434161402603</code></pre>
+0.419974341614026</code></pre>
 <p>Un autre usage important des fonctions d’ordre supérieur est l’exploitation de <strong>fonctions de rappels</strong> (🇺🇸 : <strong>callbacks</strong>), notamment dans les interfaces graphiques.</p>
 <p>Par exemple, regardons comment est programmé l’application graphique donnée comme example dans <a href="http://tkdocs.com/tutorial/firstexample.html#design">le tutoriel de la bibliothèque Tk</a> :</p>
 <figure>
@@ -444,7 +515,8 @@ root.mainloop()</code></pre>
 3</code></pre>
 <p>Il est également possible d’ignorer l’espace de nom global et de spécifier explicitement l’espace de nom que devra utiliser l’évaluateur :</p>
 <pre class="python"><code>&gt;&gt;&gt; namespace = {&quot;x&quot;: 3, &quot;y&quot;: 4}
-&gt;&gt;&gt; eval(&quot;x + y&quot;, namespace)</code></pre>
+&gt;&gt;&gt; eval(&quot;x + y&quot;, namespace)
+7</code></pre>
 <p>Nous aimerions disposer d’une fonction d’ordre supérieur – disons <code>fun</code> – qui associe à une expression, comme <code>"x+y"</code>, une fonction qui acceptera les arguments nommés nécessaires pour évaler l’expression – ici <code>x</code> et <code>y</code> – et renverra la valeur associée de l’expression.</p>
 <p>Avec les fermetures de fonctions, rien de plus simple :</p>
 <pre class="python"><code>def fun(expression):
@@ -486,6 +558,7 @@ root.mainloop()</code></pre>
 <p>s’attend probablement à générer une liste de 3 actions qui afficheront respectivement 0, 1 et 2 lorsqu’elles seront appelées. Mais comme le <code>i</code> utilisé par la fonction <code>printer</code> est capturé par référence, sa valeur effective est déterminée uniquement au moment de l’appel <code>print(i)</code>. Hors à ce moment-là, la boucle <code>for</code> a déjà été exécutée, donc <code>i</code> vaut <code>2</code>. Par conséquent, on obtient en fait :</p>
 <pre class="python"><code>&gt;&gt;&gt; for action in make_actions():
 ...     action()
+...
 2
 2
 2</code></pre>
@@ -500,6 +573,7 @@ root.mainloop()</code></pre>
 <p>on obtient comme souhaité</p>
 <pre class="python"><code>&gt;&gt;&gt; for action in make_actions():
 ...     action()
+...
 0
 1
 2</code></pre>

@@ -1,0 +1,45 @@
+<script>
+
+    function filterConsole(text) {
+        let lines = text.split("\n");
+
+        console.log(lines);
+
+        let pythonConsole = lines && lines[0].startsWith(">>>");
+        if (!pythonConsole) {
+            return text + "\n\n";
+        } else {
+            let newLines = [];
+            for (let line of lines) {
+                if (line.startsWith(">>> ") || line.startsWith("... ")) {
+                    newLines.push(line.slice(4));
+                } else if (line.startsWith("...")){
+                    newLines.push(line.slice(3));
+                }
+
+            }
+            return newLines.join("\n") + "\n";
+        }
+
+    }
+
+    document.addEventListener("DOMContentLoaded", (event) => {
+        let codeBlocks = document.querySelectorAll("pre.python")
+        for (let codeBlock of codeBlocks) {
+            codeBlock.setAttribute("style", "position: relative");
+
+            let icon = document.createElement("img");
+            icon.setAttribute("src", "icons/copy.svg");
+            icon.addEventListener('click', (event) => {
+                let text = icon.nextElementSibling.textContent;
+                text = filterConsole(text);
+                // console.log(text);
+                navigator.clipboard.writeText(text);
+            });
+
+            icon.setAttribute("style", "position: absolute; right: 1em; top: 1em;");
+
+            codeBlock.insertBefore(icon, codeBlock.firstChild);
+        }
+    });    
+</script>

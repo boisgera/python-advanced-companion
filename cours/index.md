@@ -12,7 +12,7 @@ def fibonacci(n, start=(0, 1)):
     "Return a list of n Fibonnaci numbers."
     result = []
     a, b = start
-    while len(result) <= n:
+    while len(result) < n:
         result.append(a)
         a, b = b, a+b
     return result
@@ -23,10 +23,10 @@ def fibonacci(n, start=(0, 1)):
 ``` python
 >>> numbers = fibonacci(10)
 >>> numbers
-[0, 1, 1, 2, 3, 5, 8]
->>> numbers = fibonacci(20, start=(5,8))
+[0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+>>> numbers = fibonacci(10, start=(21, 34))
 >>> numbers
-[5, 8, 13]
+[21, 34, 55, 89, 144, 233, 377, 610, 987, 1597]
 ```
 
 invocation (appel), arguments optionnels, argument spécifiés par position ou
@@ -156,6 +156,8 @@ Ainsi, l'entier `0` n'est pas invocable :
 ``` python
 >>> zero = 0
 >>> zero()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
 TypeError: 'int' object is not callable
 ```
 
@@ -164,6 +166,7 @@ mais la fonction sans argument qui renvoie `0` est invocable :
 ``` python
 >>> def zero_fun():
 ...     return 0
+...
 >>> zero_fun()
 0
 ```
@@ -264,10 +267,10 @@ class Transmogrifier:
 ```
 
 ``` python
->>> callable(Transmogriphier)
+>>> callable(Transmogrifier)
 True
->>> transmogriphier = Transmogriphier()
->>> isinstance(transmogriphier, Transmogrifier)
+>>> transmogrifier = Transmogrifier()
+>>> isinstance(transmogrifier, Transmogrifier)
 True
 ```
 
@@ -282,7 +285,7 @@ mais on n'a pas spécifié la taille du tigre ! 😉).
 ![[Calvin transformé en tigre](https://calvinandhobbes.fandom.com/wiki/Calvin_in_Tiger_Form_(Transmogrifier_alter_ego))](https://www.nicepng.com/png/full/198-1980373_calvin-and-hobbes-png-hd-calvin-and-hobbes.png)
 
 ``` python
-class Transmogriphier:
+class Transmogrifier:
     def __init__(self, turn_into="tiger"):
         self.turn_into = turn_into
     def activate(self, user):
@@ -290,44 +293,44 @@ class Transmogriphier:
 ```
 
 ``` python
->>> transmogriphier = Transmogriphier()
->>> transmogriphier.activate("calvin")
+>>> transmogrifier = Transmogrifier()
+>>> transmogrifier.activate("calvin")
 'tiger'
 ```
 
-L'opération `transmogriphier.activate("calvin")` n'est pas "atomique" : elle
-consiste d'abord à obtenir l'attribut `activate` de l'objet `transmogriphier`,
+L'opération `transmogrifier.activate("calvin")` n'est pas "atomique" : elle
+consiste d'abord à obtenir l'attribut `activate` de l'objet `transmogrifier`,
 puis à l'invoquer avec l'argument `"calvin"`.
 
 ``` python
->>> transmogriphy = transmogriphier.activate
->>> callable(transmogriphy)
+>>> transmogrify = transmogrifier.activate
+>>> callable(transmogrify)
 True
->>> transmogriphy("calvin")
+>>> transmogrify("calvin")
 'tiger'
 ```
 
 Cela est possible car `activate` est une méthode (liée à l'instance
-`transmogriphier` de `Transmogriphier`) et est donc invocable.
+`transmogrifier` de `Transmogrifier`) et est donc invocable.
 
 ``` python
->>> transmogriphy
-<bound method Transmogriphier.activate ...>
->>> type(transmogriphy)
+>>> transmogrify
+<bound method Transmogrifier.activate ...>
+>>> type(transmogrify)
 <class 'method'>
 >>> import types
->>> type(transmogriphy) is types.MethodType
+>>> type(transmogrify) is types.MethodType
 True
 ```
 
 ### Instances
 
-Notons qu'à ce stade `Transmogriphier` est invocable et la méthode `activate`
+Notons qu'à ce stade `Transmogrifier` est invocable et la méthode `activate`
 des transmogriphieurs également. Mais les transmogriphieurs eux-même ne le sont
 pas :
 
 ``` python
->>> callable(transmogriphier)
+>>> callable(transmogrifier)
 False
 ```
 
@@ -336,8 +339,8 @@ deviennent. Il semble assez raisonnable de faire en sorte qu'invoquer un
 transmogriphieur l'active :
 
 ``` python
-class Transmogriphier:
-    def __init__(self, turn_into="tiger")
+class Transmogrifier:
+    def __init__(self, turn_into="tiger"):
         self.turn_into = turn_into
     def activate(self, user):
         return self.turn_into
@@ -346,15 +349,15 @@ class Transmogriphier:
 ```
 
 ``` python
->>> transmogriphier = Transmogriphier()
->>> callable(transmogriphier)
+>>> transmogrifier = Transmogrifier()
+>>> callable(transmogrifier)
 True
 ```
 
 Nous pouvons alors simplifier l'usage du transmogriphieur de la façon suivante :
 
 ``` python
->>> transmogriphier("calvin")
+>>> transmogrifier("calvin")
 'tiger'
 ```
 
@@ -387,6 +390,7 @@ on obtient
 ``` python
 >>> for i in one_two_three():
 ...     print(i)
+...
 1
 2
 3
@@ -422,8 +426,18 @@ Usage :
 ...     if number >= 20:
 ...         break
 ...     else:
-...         print(number, sep=" ")
-1 3 5 7 9 11 13 15 17 19
+...         print(number)
+...
+1 
+3 
+5 
+7 
+9 
+11 
+13 
+15 
+17 
+19
 ```
 
 --------------------------------------------------------------------------------
@@ -431,10 +445,10 @@ Usage :
 ``` python
 def cycle(iterable):
     """
-    Yield all items from an iterable, then repeat this output sequence indefinitely. 
+    Yield all items from an iterable, then repeat this sequence indefinitely. 
     """
     items = list(iterable)
-    if items:
+    while items:
         for item in items:
             yield item
 ```
@@ -446,8 +460,20 @@ Usage :
 ...     if i >= 12:
 ...         break
 ...     else:
-...         print(item, sep=" ")
-A B C D A B C D A B C D
+...         print(item)
+...
+A 
+B 
+C 
+D 
+A 
+B 
+C 
+D 
+A 
+B 
+C 
+D
 ```
 
 --------------------------------------------------------------------------------
@@ -513,7 +539,7 @@ Sa documentation donne l'exemple suivant d'usage :
 ...
 >>> d_tanh = grad(tanh)  # d_tanh is the derivative of tanh   
 >>> d_tanh(1.0)          # we evaluate it at x = 1.0              
-0.41997434161402603
+0.419974341614026
 ```
 
 Un autre usage important des fonctions d'ordre supérieur est l'exploitation 
@@ -683,6 +709,7 @@ explicitement l'espace de nom que devra utiliser l'évaluateur :
 ``` python
 >>> namespace = {"x": 3, "y": 4}
 >>> eval("x + y", namespace)
+7
 ```
 
 Nous aimerions disposer d'une fonction d'ordre supérieur -- disons `fun` --
@@ -776,6 +803,7 @@ en fait :
 ``` python
 >>> for action in make_actions():
 ...     action()
+...
 2
 2
 2
@@ -800,6 +828,7 @@ on obtient comme souhaité
 ``` python
 >>> for action in make_actions():
 ...     action()
+...
 0
 1
 2
