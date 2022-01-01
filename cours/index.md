@@ -5,7 +5,36 @@ title: Fonctions
 Fonctions
 --------------------------------------------------------------------------------
 
-### Aperçu (**TODO**)
+### Généralités
+
+Les fonctions sont définies au moyen du mot-clé `def`, suivi du nom de la
+fonction, suivi de la liste des **paramètres**
+de la fonction entre parenthèses.
+La **valeur de retour** d'une fonction est précédée du mot-clé `return`.
+
+``` python
+def fibonacci(n):
+    "Return a list of n Fibonnaci numbers."
+    result = []
+    a, b = (0, 1)
+    while len(result) < n:
+        result.append(a)
+        a, b = b, a+b
+    return result
+```
+
+Pour invoquer (ou appelle) la fonction `fibonacci` en lui passante comme
+paramètre l'argument `10` et récupérer le résultat :
+
+``` python
+>>> numbers = fibonacci(10)
+>>> numbers
+[0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+```
+
+Les paramètres  d'une fonction peuvent être accompagné d'une **valeur par
+défaut**. On peut ainsi rajouter un second paramètre `start` à la fonction
+`fibonnaci` et lui associer la valeur par défaut `(0, 1)`.
 
 ``` python
 def fibonacci(n, start=(0, 1)):
@@ -18,36 +47,97 @@ def fibonacci(n, start=(0, 1)):
     return result
 ```
 
-`def`, arguments, valeurs par défaut, arguments optionnels, signature, `return`
+Si l'on ne spécifie pas la valeur du paramètre à l'invocation, sa valeur par
+défaut est alors utilisée. Dans le cas présent, cela signifie que si l'on ne
+donne par de second argument à la fonction `fibonacci`, elle se comporte 
+comme la première version :
 
 ``` python
 >>> numbers = fibonacci(10)
 >>> numbers
 [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+```
+
+Par contre, si l'on fournit un second argument, la valeur par défaut n'est 
+pas utilisée.
+
+``` python
+>>> numbers = fibonacci(10, (21, 34))
+>>> numbers
+[21, 34, 55, 89, 144, 233, 377, 610, 987, 1597]
+```
+
+Notons que les arguments peuvent en général être **positionnels** 
+-- le paramètre auquel l'argument est affecté dépend de la position de 
+l'argument dans la liste des arguments passés à la fonction --
+où **nommés**, auquel cas l'affection au paramètre dépendra de leur nom. 
+
+Les arguments nommés sont souvent pratiques pour rendre le rôle de l'argument 
+plus clair. Ainsi ici le second argument de `fibonnaci`, nommé `start`, 
+est une paire d'entiers qui fournit les deux valeurs initiales de la suite 
+de Fibonacci. Le rôle du code est sans doute plus évident si l'on utilise un 
+argument nommé :
+
+``` python
 >>> numbers = fibonacci(10, start=(21, 34))
 >>> numbers
 [21, 34, 55, 89, 144, 233, 377, 610, 987, 1597]
 ```
 
-invocation (appel), arguments optionnels, argument spécifiés par position ou
-par nom.
-
-
-**TODO**
-`def` `return`, retour réifiés (tuple), arguments positionnels ou nommés,
-arguments par défaut (immutabilité, `None`, etc.).
+Notons que l'utilisation d'arguments nommés permet aussi de s'affranchir
+de l'ordre dans lesquels les paramètres de la fonction sont spécificiés :
 
 ``` python
-def f(x, y, z=0):
-    print("Please !")
-    return 42
+>>> numbers = fibonacci(start=(21, 34), n=10)
+>>> numbers
+[21, 34, 55, 89, 144, 233, 377, 610, 987, 1597]
 ```
 
-Mentionner type hints (ex avec Typer ?).
+### Typage statique
+
+Python est un langage typé dynamiquement, la même variable peut désigner
+un entier à un moment et une chaîne de caractères à un autre. Néanmoins,
+il est possible -- mais c'est optionnel -- d'attacher statiquement à une variable 
+une [**annotation de type**](https://docs.python.org/fr/3/library/typing.html) 
+(🇺🇸  : **type hint**). 
+
+Par exemple, si vous voulez déclarer que la fonction 
+`fibonacci` prend comme argument un entier et une paire d'entiers 
+et renvoie une liste d'entiers, vous pouvez la définir de la façon suivante :
+
+``` python
+def fibonacci(
+    n: int, 
+    start: tuple[int, int] = (0, 1)
+) -> list[int]:
+    "Return a list of n Fibonnaci numbers."
+    result : list[int] = []
+    a, b = start
+    while len(result) < n:
+        result.append(a)
+        a, b = b, a+b
+    return result
+```
+
+Cette information peut être utilisée dans votre environnement de développement
+pour vous avertir en cas d'incohérence structurelle de votre code.
+Ainsi, si vous complétez le code ci-dessus par
+
+``` python
+fibonacci("Hello!", True)
+```
+
+l'utilisation de [mypy](http://mypy-lang.org/) vous fournira :
+
+``` bash
+$ mypy fib.py
+fibonnaci.py:13: error: Argument 1 to "fibonacci" has incompatible type "str"; expected "int"
+fibonnaci.py:13: error: Argument 2 to "fibonacci" has incompatible type "bool"; expected "Tuple[int, int]"
+Found 2 errors in 1 file (checked 1 source file)
+```
 
 
-
-### Espaces de noms et portées
+### Espaces de noms
 
 La [**portée**](https://fr.wikipedia.org/wiki/Port%C3%A9e_(informatique))
 (🇺🇸 : **scope**) d'une variable au sein d'un programme détermine la manière

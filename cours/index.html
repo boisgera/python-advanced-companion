@@ -5,25 +5,20 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Fonctions</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
   <link rel="stylesheet" href="css/style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <script src="/usr/share/javascript/mathjax/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
   <!--
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet"> 
   -->
-
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet"> 
@@ -52,12 +47,12 @@
       });    
   </script>
   <script>
-
+  
       function filterConsole(text) {
           let lines = text.split("\n");
-
+  
           console.log(lines);
-
+  
           let pythonConsole = lines && lines[0].startsWith(">>>");
           if (!pythonConsole) {
               return text + "\n\n";
@@ -69,18 +64,18 @@
                   } else if (line.startsWith("...")){
                       newLines.push(line.slice(3));
                   }
-
+  
               }
               return newLines.join("\n") + "\n";
           }
-
+  
       }
-
+  
       document.addEventListener("DOMContentLoaded", (event) => {
           let codeBlocks = document.querySelectorAll("pre.python")
           for (let codeBlock of codeBlocks) {
               codeBlock.setAttribute("style", "position: relative");
-
+  
               let icon = document.createElement("img");
               icon.setAttribute("src", "icons/copy.svg");
               icon.addEventListener('click', (event) => {
@@ -89,31 +84,31 @@
                   // console.log(text);
                   navigator.clipboard.writeText(text);
               });
-
+  
               icon.setAttribute("style", 
               "position: absolute; right: 1em; top: 1em; opacity: 0.0;");
-
+  
               codeBlock.insertBefore(icon, codeBlock.firstChild);
-
+  
               codeBlock.addEventListener("mouseover", (event) => {
                   icon.style.setProperty("transition", "opacity 0.1s ease-out");
                   icon.style.setProperty("opacity", "1.0");
               });
-
+  
               codeBlock.addEventListener("mouseout", (event) => {
                   icon.style.setProperty("transition", "opacity 0.75s ease-out");
                   icon.style.setProperty("opacity", "0.0");
-
+  
               });
-
+  
               icon.addEventListener("mouseover", (event) => {
                   icon.style.setProperty("cursor", "pointer");
               });
-
+  
               icon.addEventListener("mouseout", (event) => {
                   icon.style.setProperty("cursor", "auto");
               })
-
+  
           }
       });    
   </script>
@@ -122,22 +117,20 @@
 <header id="title-block-header">
 <h1 class="title">Fonctions</h1>
 </header>
-<nav id="TOC" role="doc-toc">
+<nav id="TOC">
 <ul>
-<li><a href="#fonctions">Fonctions</a>
-<ul>
-<li><a href="#aperçu-todo">Aperçu (<strong>TODO</strong>)</a></li>
-<li><a href="#espaces-de-noms-et-portées">Espaces de noms et portées</a></li>
+<li><a href="#fonctions">Fonctions</a><ul>
+<li><a href="#généralités">Généralités</a></li>
+<li><a href="#typage-statique">Typage statique</a></li>
+<li><a href="#espaces-de-noms">Espaces de noms</a></li>
 </ul></li>
-<li><a href="#invocables">Invocables</a>
-<ul>
+<li><a href="#invocables">Invocables</a><ul>
 <li><a href="#types">Types</a></li>
 <li><a href="#méthodes">Méthodes</a></li>
 <li><a href="#instances">Instances</a></li>
 </ul></li>
 <li><a href="#fonctions-génératrices">Fonctions génératrices</a></li>
-<li><a href="#programmation-fonctionnelle">Programmation fonctionnelle</a>
-<ul>
+<li><a href="#programmation-fonctionnelle">Programmation fonctionnelle</a><ul>
 <li><a href="#lambda">Lambda</a></li>
 <li><a href="#fermetures">Fermetures</a></li>
 <li><a href="#décorateurs">Décorateurs</a></li>
@@ -145,7 +138,21 @@
 </ul>
 </nav>
 <h2 id="fonctions">Fonctions</h2>
-<h3 id="aperçu-todo">Aperçu (<strong>TODO</strong>)</h3>
+<h3 id="généralités">Généralités</h3>
+<p>Les fonctions sont définies au moyen du mot-clé <code>def</code>, suivi du nom de la fonction, suivi de la liste des <strong>paramètres</strong> de la fonction entre parenthèses. La <strong>valeur de retour</strong> d’une fonction est précédée du mot-clé <code>return</code>.</p>
+<pre class="python"><code>def fibonacci(n):
+    &quot;Return a list of n Fibonnaci numbers.&quot;
+    result = []
+    a, b = (0, 1)
+    while len(result) &lt; n:
+        result.append(a)
+        a, b = b, a+b
+    return result</code></pre>
+<p>Pour invoquer (ou appelle) la fonction <code>fibonacci</code> en lui passante comme paramètre l’argument <code>10</code> et récupérer le résultat :</p>
+<pre class="python"><code>&gt;&gt;&gt; numbers = fibonacci(10)
+&gt;&gt;&gt; numbers
+[0, 1, 1, 2, 3, 5, 8, 13, 21, 34]</code></pre>
+<p>Les paramètres d’une fonction peuvent être accompagné d’une <strong>valeur par défaut</strong>. On peut ainsi rajouter un second paramètre <code>start</code> à la fonction <code>fibonnaci</code> et lui associer la valeur par défaut <code>(0, 1)</code>.</p>
 <pre class="python"><code>def fibonacci(n, start=(0, 1)):
     &quot;Return a list of n Fibonnaci numbers.&quot;
     result = []
@@ -154,20 +161,45 @@
         result.append(a)
         a, b = b, a+b
     return result</code></pre>
-<p><code>def</code>, arguments, valeurs par défaut, arguments optionnels, signature, <code>return</code></p>
+<p>Si l’on ne spécifie pas la valeur du paramètre à l’invocation, sa valeur par défaut est alors utilisée. Dans le cas présent, cela signifie que si l’on ne donne par de second argument à la fonction <code>fibonacci</code>, elle se comporte comme la première version :</p>
 <pre class="python"><code>&gt;&gt;&gt; numbers = fibonacci(10)
 &gt;&gt;&gt; numbers
-[0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
-&gt;&gt;&gt; numbers = fibonacci(10, start=(21, 34))
+[0, 1, 1, 2, 3, 5, 8, 13, 21, 34]</code></pre>
+<p>Par contre, si l’on fournit un second argument, la valeur par défaut n’est pas utilisée.</p>
+<pre class="python"><code>&gt;&gt;&gt; numbers = fibonacci(10, (21, 34))
 &gt;&gt;&gt; numbers
 [21, 34, 55, 89, 144, 233, 377, 610, 987, 1597]</code></pre>
-<p>invocation (appel), arguments optionnels, argument spécifiés par position ou par nom.</p>
-<p><strong>TODO</strong> <code>def</code> <code>return</code>, retour réifiés (tuple), arguments positionnels ou nommés, arguments par défaut (immutabilité, <code>None</code>, etc.).</p>
-<pre class="python"><code>def f(x, y, z=0):
-    print(&quot;Please !&quot;)
-    return 42</code></pre>
-<p>Mentionner type hints (ex avec Typer ?).</p>
-<h3 id="espaces-de-noms-et-portées">Espaces de noms et portées</h3>
+<p>Notons que les arguments peuvent en général être <strong>positionnels</strong> – le paramètre auquel l’argument est affecté dépend de la position de l’argument dans la liste des arguments passés à la fonction – où <strong>nommés</strong>, auquel cas l’affection au paramètre dépendra de leur nom.</p>
+<p>Les arguments nommés sont souvent pratiques pour rendre le rôle de l’argument plus clair. Ainsi ici le second argument de <code>fibonnaci</code>, nommé <code>start</code>, est une paire d’entiers qui fournit les deux valeurs initiales de la suite de Fibonacci. Le rôle du code est sans doute plus évident si l’on utilise un argument nommé :</p>
+<pre class="python"><code>&gt;&gt;&gt; numbers = fibonacci(10, start=(21, 34))
+&gt;&gt;&gt; numbers
+[21, 34, 55, 89, 144, 233, 377, 610, 987, 1597]</code></pre>
+<p>Notons que l’utilisation d’arguments nommés permet aussi de s’affranchir de l’ordre dans lesquels les paramètres de la fonction sont spécificiés :</p>
+<pre class="python"><code>&gt;&gt;&gt; numbers = fibonacci(start=(21, 34), n=10)
+&gt;&gt;&gt; numbers
+[21, 34, 55, 89, 144, 233, 377, 610, 987, 1597]</code></pre>
+<h3 id="typage-statique">Typage statique</h3>
+<p>Python est un langage typé dynamiquement, la même variable peut désigner un entier à un moment et une chaîne de caractères à un autre. Néanmoins, il est possible – mais c’est optionnel – d’attacher statiquement à une variable une <a href="https://docs.python.org/fr/3/library/typing.html"><strong>annotation de type</strong></a> (🇺🇸 : <strong>type hint</strong>).</p>
+<p>Par exemple, si vous voulez déclarer que la fonction <code>fibonacci</code> prend comme argument un entier et une paire d’entiers et renvoie une liste d’entiers, vous pouvez la définir de la façon suivante :</p>
+<pre class="python"><code>def fibonacci(
+    n: int, 
+    start: tuple[int, int] = (0, 1)
+) -&gt; list[int]:
+    &quot;Return a list of n Fibonnaci numbers.&quot;
+    result : list[int] = []
+    a, b = start
+    while len(result) &lt; n:
+        result.append(a)
+        a, b = b, a+b
+    return result</code></pre>
+<p>Cette information peut être utilisée dans votre environnement de développement pour vous avertir en cas d’incohérence structurelle de votre code. Ainsi, si vous complétez le code ci-dessus par</p>
+<pre class="python"><code>fibonacci(&quot;Hello!&quot;, True)</code></pre>
+<p>l’utilisation de <a href="http://mypy-lang.org/">mypy</a> vous fournira :</p>
+<pre class="bash"><code>$ mypy fib.py
+fibonnaci.py:13: error: Argument 1 to &quot;fibonacci&quot; has incompatible type &quot;str&quot;; expected &quot;int&quot;
+fibonnaci.py:13: error: Argument 2 to &quot;fibonacci&quot; has incompatible type &quot;bool&quot;; expected &quot;Tuple[int, int]&quot;
+Found 2 errors in 1 file (checked 1 source file)</code></pre>
+<h3 id="espaces-de-noms">Espaces de noms</h3>
 <p>La <a href="https://fr.wikipedia.org/wiki/Port%C3%A9e_(informatique)"><strong>portée</strong></a> (🇺🇸 : <strong>scope</strong>) d’une variable au sein d’un programme détermine la manière dont elle est associé à une valeur. Au niveau supérieur (d’un fichier, d’un module, de l’interpréteur Python, etc.), les variables sont <strong>globales</strong>. Le lien entre le nom de la variable et la valeur qu’elle désigne est décrit par le dictionnaire <code>globals()</code> : c’est l’<strong>espace de nom</strong> (🇺🇸 : <strong>namespace</strong>) associé aux variables globales.</p>
 <pre class="python"><code>&gt;&gt;&gt; import math
 &gt;&gt;&gt; message = &quot;Hello world&quot;
@@ -298,7 +330,7 @@ True</code></pre>
 <h3 id="méthodes">Méthodes</h3>
 <p>Un <a href="https://calvinandhobbes.fandom.com/wiki/Transmogrifier">transmogriphieur</a> peut transformer son utilisateur en ce qu’il souhaite (par défaut, un tigre 🐯 ; mais on n’a pas spécifié la taille du tigre ! 😉).</p>
 <figure>
-<img src="https://www.nicepng.com/png/full/198-1980373_calvin-and-hobbes-png-hd-calvin-and-hobbes.png" alt="Calvin transformé en tigre" /><figcaption aria-hidden="true"><a href="https://calvinandhobbes.fandom.com/wiki/Calvin_in_Tiger_Form_(Transmogrifier_alter_ego)">Calvin transformé en tigre</a></figcaption>
+<img src="https://www.nicepng.com/png/full/198-1980373_calvin-and-hobbes-png-hd-calvin-and-hobbes.png" alt="Calvin transformé en tigre" /><figcaption><a href="https://calvinandhobbes.fandom.com/wiki/Calvin_in_Tiger_Form_(Transmogrifier_alter_ego)">Calvin transformé en tigre</a></figcaption>
 </figure>
 <pre class="python"><code>class Transmogrifier:
     def __init__(self, turn_into=&quot;tiger&quot;):
@@ -452,7 +484,7 @@ D</code></pre>
 <p>Un autre usage important des fonctions d’ordre supérieur est l’exploitation de <strong>fonctions de rappels</strong> (🇺🇸 : <strong>callbacks</strong>), notamment dans les interfaces graphiques.</p>
 <p>Par exemple, regardons comment est programmé l’application graphique donnée comme example dans <a href="http://tkdocs.com/tutorial/firstexample.html#design">le tutoriel de la bibliothèque Tk</a> :</p>
 <figure>
-<img src="images/converter.png" alt="Convertisseur de pieds en mètres" /><figcaption aria-hidden="true">Convertisseur de pieds en mètres</figcaption>
+<img src="images/converter.png" alt="Convertisseur de pieds en mètres" /><figcaption>Convertisseur de pieds en mètres</figcaption>
 </figure>
 <p>L’interface graphique est en partie définie par le code :</p>
 <pre class="python"><code>from tkinter import *
