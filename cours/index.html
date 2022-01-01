@@ -98,12 +98,20 @@
               codeBlock.addEventListener("mouseover", (event) => {
                   icon.style.setProperty("transition", "opacity 0.1s ease-out");
                   icon.style.setProperty("opacity", "1.0");
-              })
+              });
 
               codeBlock.addEventListener("mouseout", (event) => {
                   icon.style.setProperty("transition", "opacity 0.75s ease-out");
                   icon.style.setProperty("opacity", "0.0");
 
+              });
+
+              icon.addEventListener("mouseover", (event) => {
+                  icon.style.setProperty("cursor", "pointer");
+              });
+
+              icon.addEventListener("mouseout", (event) => {
+                  icon.style.setProperty("cursor", "auto");
               })
 
           }
