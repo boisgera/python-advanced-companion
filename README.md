@@ -8,11 +8,11 @@
 
 🎮 [Documentation pygame](https://www.pygame.org/docs/)
 
- 1. 🐍 [Le snake](tps/games/README-snake.html)
+ 1. 🐍 [Le snake](tps/games/README-snake.md)
 
     [📄 Solution](tps/games/solutions/snake.py)
 
- 2. 🐦 [Flappy bird](tps/games/README-flappybird.html)
+ 2. 🐦 [Flappy bird](tps/games/README-flappybird.md)
 
 ## Types de données
 
