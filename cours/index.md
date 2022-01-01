@@ -68,9 +68,10 @@ pas utilisée.
 ```
 
 Notons que les arguments peuvent en général être **positionnels** 
+(🇺🇸  : **positional arguments**)
 -- le paramètre auquel l'argument est affecté dépend de la position de 
 l'argument dans la liste des arguments passés à la fonction --
-où **nommés**, auquel cas l'affection au paramètre dépendra de leur nom. 
+où **nommés** (🇺🇸  : **keyword arguments**), auquel cas l'affection au paramètre dépendra de leur nom. 
 
 Les arguments nommés sont souvent pratiques pour rendre le rôle de l'argument 
 plus clair. Ainsi ici le second argument de `fibonnaci`, nommé `start`, 
@@ -91,6 +92,57 @@ de l'ordre dans lesquels les paramètres de la fonction sont spécificiés :
 >>> numbers = fibonacci(start=(21, 34), n=10)
 >>> numbers
 [21, 34, 55, 89, 144, 233, 377, 610, 987, 1597]
+```
+
+### Arguments : `*` et `**`
+
+Il est possible de stocker des valeurs dans un n-uplet, liste, ou plus généralement objet itérable), 
+puis de les spécifier comme arguments positionnels dans l'appel à une fonction.
+Par exemple :
+
+``` python
+>>> args = (10, (21, 34))
+>>> fibonacci(*args)
+[21, 34, 55, 89, 144, 233, 377, 610, 987, 1597]
+```
+
+Un mécanisme similaire existe avec les dictionnaires et les arguments
+nommés :
+
+``` python
+>>> kwargs = {"n": 10, "start": (21, 34)}
+>>> fibonacci(**kwargs)
+[21, 34, 55, 89, 144, 233, 377, 610, 987, 1597]
+```
+
+Il est possible d'hybrider les deux approches :
+
+``` python
+>>> args = (10,)
+>>> kwargs = {"start": (21, 34)}
+>>> fibonacci(*args, **kwargs)
+[21, 34, 55, 89, 144, 233, 377, 610, 987, 1597]
+```
+
+Il y a également une forme de symmétrie dans le mécanisme, qui peut être
+utilisé pour définir une fonction admettant un nombre arbitraire 
+d'arguments positionnels et/ou nommés. Par exemple, avec
+
+``` python
+def f(*args, **kwargs):
+    print(f"args = {args!r}")
+    print(f"kwargs = {kwargs!r}")
+```
+
+on a :
+
+``` python
+>>> f(1, "Hello!")
+args = (1, 'Hello!')
+kwargs = {}
+>>> f(fast=True, verbose=False)
+args = ()
+kwargs = {'fast': True, 'verbose': False}
 ```
 
 ### Typage statique
