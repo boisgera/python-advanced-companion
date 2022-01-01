@@ -90,9 +90,22 @@
                   navigator.clipboard.writeText(text);
               });
 
-              icon.setAttribute("style", "position: absolute; right: 1em; top: 1em;");
+              icon.setAttribute("style", 
+              "position: absolute; right: 1em; top: 1em; opacity: 0.0;");
 
               codeBlock.insertBefore(icon, codeBlock.firstChild);
+
+              codeBlock.addEventListener("mouseover", (event) => {
+                  icon.style.setProperty("transition", "opacity 0.1s ease-out");
+                  icon.style.setProperty("opacity", "1.0");
+              })
+
+              codeBlock.addEventListener("mouseout", (event) => {
+                  icon.style.setProperty("transition", "opacity 0.75s ease-out");
+                  icon.style.setProperty("opacity", "0.0");
+
+              })
+
           }
       });    
   </script>
