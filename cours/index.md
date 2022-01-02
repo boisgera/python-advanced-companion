@@ -23,8 +23,8 @@ def fibonacci(n):
     return result
 ```
 
-Pour appeler la fonction `fibonacci` en lui passante comme
-paramètre l'argument `10` et récupérer le résultat :
+Pour appeler la fonction `fibonacci` en lui passant comme
+paramètre l'**argument** `10` et récupérer le résultat :
 
 ``` python
 >>> numbers = fibonacci(10)
