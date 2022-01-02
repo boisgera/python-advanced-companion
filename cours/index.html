@@ -182,7 +182,7 @@
 <pre class="python"><code>&gt;&gt;&gt; numbers = fibonacci(10, (21, 34))
 &gt;&gt;&gt; numbers
 [21, 34, 55, 89, 144, 233, 377, 610, 987, 1597]</code></pre>
-<p>Notons que les arguments peuvent en général être <strong>positionnels</strong> (🇺🇸 : <strong>positional arguments</strong>) – le paramètre auquel l’argument est affecté dépend de la position de l’argument dans la liste des arguments passés à la fonction – où <strong>nommés</strong> (🇺🇸 : <strong>keyword arguments</strong>), auquel cas l’affection au paramètre dépendra de leur nom.</p>
+<p>Notons que les arguments peuvent en général être <strong>positionnels</strong> (🇺🇸 : <strong>positional arguments</strong>) – le paramètre auquel l’argument est affecté dépend de la position de l’argument dans la liste des arguments passés à la fonction – où <strong>nommés</strong> (🇺🇸 : <strong>keyword arguments</strong>), auquel cas l’argument est affecté au paramètre du même nom.</p>
 <p>Les arguments nommés sont souvent pratiques pour rendre le rôle de l’argument plus clair. Ainsi ici le second argument de <code>fibonnaci</code>, nommé <code>start</code>, est une paire d’entiers qui fournit les deux valeurs initiales de la suite de Fibonacci. Le rôle du code est sans doute plus évident si l’on utilise un argument nommé :</p>
 <pre class="python"><code>&gt;&gt;&gt; numbers = fibonacci(10, start=(21, 34))
 &gt;&gt;&gt; numbers
@@ -192,7 +192,7 @@
 &gt;&gt;&gt; numbers
 [21, 34, 55, 89, 144, 233, 377, 610, 987, 1597]</code></pre>
 <h3 id="arguments-et">Arguments : <code>*</code> et <code>**</code></h3>
-<p>Il est possible de stocker des valeurs dans un n-uplet, liste, ou plus généralement objet itérable), puis de les spécifier comme arguments positionnels dans l’appel à une fonction. Par exemple :</p>
+<p>Il est possible de stocker des valeurs dans un n-uplet<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, puis de les utiliser comme arguments positionnels dans l’appel à une fonction. Par exemple :</p>
 <pre class="python"><code>&gt;&gt;&gt; args = (10, (21, 34))
 &gt;&gt;&gt; fibonacci(*args)
 [21, 34, 55, 89, 144, 233, 377, 610, 987, 1597]</code></pre>
@@ -205,11 +205,11 @@
 &gt;&gt;&gt; kwargs = {&quot;start&quot;: (21, 34)}
 &gt;&gt;&gt; fibonacci(*args, **kwargs)
 [21, 34, 55, 89, 144, 233, 377, 610, 987, 1597]</code></pre>
-<p>Il y a également une forme de symmétrie dans le mécanisme, qui peut être utilisé pour définir une fonction admettant un nombre arbitraire d’arguments positionnels et/ou nommés. Par exemple, avec</p>
+<p>Il y a également une forme de symétrie dans ce mécanisme, qui peut être utilisé pour définir une fonction admettant un nombre arbitraire d’arguments positionnels et/ou nommés. Par exemple, avec :</p>
 <pre class="python"><code>def f(*args, **kwargs):
     print(f&quot;args = {args!r}&quot;)
     print(f&quot;kwargs = {kwargs!r}&quot;)</code></pre>
-<p>on a :</p>
+<p>on obtient :</p>
 <pre class="python"><code>&gt;&gt;&gt; f(1, &quot;Hello!&quot;)
 args = (1, &#39;Hello!&#39;)
 kwargs = {}
@@ -217,7 +217,7 @@ kwargs = {}
 args = ()
 kwargs = {&#39;fast&#39;: True, &#39;verbose&#39;: False}</code></pre>
 <h3 id="typage-statique">Typage statique</h3>
-<p>Python est un langage typé dynamiquement, la même variable peut désigner un entier à un moment et une chaîne de caractères à un autre. Néanmoins, il est possible – mais c’est optionnel – d’attacher statiquement à une variable une <a href="https://docs.python.org/fr/3/library/typing.html"><strong>annotation de type</strong></a> (🇺🇸 : <strong>type hint</strong>).</p>
+<p>Python est un langage typé dynamiquement ; la même variable peut désigner un entier à un moment et une chaîne de caractères à un autre. Néanmoins, il est possible – mais c’est optionnel – d’attacher statiquement à une variable une <a href="https://docs.python.org/fr/3/library/typing.html"><strong>annotation de type</strong></a> (🇺🇸 : <strong>type hint</strong>).</p>
 <p>Par exemple, si vous voulez déclarer que la fonction <code>fibonacci</code> prend comme argument un entier et une paire d’entiers et renvoie une liste d’entiers, vous pouvez la définir de la façon suivante :</p>
 <pre class="python"><code>def fibonacci(
     n: int, 
@@ -230,7 +230,7 @@ kwargs = {&#39;fast&#39;: True, &#39;verbose&#39;: False}</code></pre>
         result.append(a)
         a, b = b, a+b
     return result</code></pre>
-<p>Cette information peut être utilisée dans votre environnement de développement pour vous avertir en cas d’incohérence structurelle de votre code. Ainsi, si vous complétez le code ci-dessus par</p>
+<p>Cette information peut être utilisée pendant le développement pour détecter d’éventuelles incohérences structurelles de votre code. Ainsi, si vous complétez le code ci-dessus par :</p>
 <pre class="python"><code>fibonacci(&quot;Hello!&quot;, True)</code></pre>
 <p>l’utilisation de <a href="http://mypy-lang.org/">mypy</a> vous fournira :</p>
 <pre class="bash"><code>$ mypy fib.py
@@ -735,5 +735,11 @@ def f(x):
 <p>Et constater à posteriori combien d’appels de la fonction <code>f</code> ont été nécessaires :</p>
 <pre class="python"><code>&gt;&gt;&gt; f.count
 9</code></pre>
+<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>ou plus généralement un objet itérable.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 </body>
 </html>

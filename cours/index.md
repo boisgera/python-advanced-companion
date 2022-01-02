@@ -70,7 +70,7 @@ Notons que les arguments peuvent en général être **positionnels**
 (🇺🇸  : **positional arguments**)
 -- le paramètre auquel l'argument est affecté dépend de la position de 
 l'argument dans la liste des arguments passés à la fonction --
-où **nommés** (🇺🇸  : **keyword arguments**), auquel cas l'argument sera
+où **nommés** (🇺🇸  : **keyword arguments**), auquel cas l'argument est
 affecté au paramètre du même nom. 
 
 Les arguments nommés sont souvent pratiques pour rendre le rôle de l'argument 
@@ -96,9 +96,12 @@ de l'ordre dans lesquels les paramètres de la fonction sont spécificiés :
 
 ### Arguments : `*` et `**`
 
-Il est possible de stocker des valeurs dans un n-uplet, liste, ou plus généralement objet itérable), 
-puis de les spécifier comme arguments positionnels dans l'appel à une fonction.
+Il est possible de stocker des valeurs dans un n-uplet[^gen],
+puis de les utiliser comme arguments positionnels dans l'appel à une fonction.
 Par exemple :
+
+[^gen]: ou plus généralement un objet itérable. 
+
 
 ``` python
 >>> args = (10, (21, 34))
@@ -124,9 +127,9 @@ Il est possible d'hybrider les deux approches :
 [21, 34, 55, 89, 144, 233, 377, 610, 987, 1597]
 ```
 
-Il y a également une forme de symmétrie dans le mécanisme, qui peut être
+Il y a également une forme de symétrie dans ce mécanisme, qui peut être
 utilisé pour définir une fonction admettant un nombre arbitraire 
-d'arguments positionnels et/ou nommés. Par exemple, avec
+d'arguments positionnels et/ou nommés. Par exemple, avec :
 
 ``` python
 def f(*args, **kwargs):
@@ -134,7 +137,7 @@ def f(*args, **kwargs):
     print(f"kwargs = {kwargs!r}")
 ```
 
-on a :
+on obtient :
 
 ``` python
 >>> f(1, "Hello!")
@@ -147,7 +150,7 @@ kwargs = {'fast': True, 'verbose': False}
 
 ### Typage statique
 
-Python est un langage typé dynamiquement, la même variable peut désigner
+Python est un langage typé dynamiquement ; la même variable peut désigner
 un entier à un moment et une chaîne de caractères à un autre. Néanmoins,
 il est possible -- mais c'est optionnel -- d'attacher statiquement à une variable 
 une [**annotation de type**](https://docs.python.org/fr/3/library/typing.html) 
@@ -171,9 +174,9 @@ def fibonacci(
     return result
 ```
 
-Cette information peut être utilisée dans votre environnement de développement
-pour vous avertir en cas d'incohérence structurelle de votre code.
-Ainsi, si vous complétez le code ci-dessus par
+Cette information peut être utilisée pendant le développement
+pour détecter d'éventuelles incohérences structurelles de votre code.
+Ainsi, si vous complétez le code ci-dessus par :
 
 ``` python
 fibonacci("Hello!", True)
@@ -248,7 +251,7 @@ variable globale :
 1
 >>> f()
 2
->>> a # in the global scope => the value remains unchanged
+>>> a  # in the global scope => the value remains unchanged
 1
 ```
 
