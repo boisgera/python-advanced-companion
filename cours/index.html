@@ -274,16 +274,16 @@ True</code></pre>
 1
 &gt;&gt;&gt; f()
 2
-&gt;&gt;&gt; a # in the global scope =&gt; the value remains unchanged
+&gt;&gt;&gt; a  # in the global scope =&gt; the value remains unchanged
 1</code></pre>
-<p>En l’absence d’un tel assignement, au sein d’une fonction, les variables globales restent accessibles, mais donc en lecture seule :</p>
+<p>En l’absence d’une telle affectation, au sein d’une fonction, les variables globales restent accessibles, mais donc en lecture seule :</p>
 <pre class="python"><code>&gt;&gt;&gt; a = 1
 &gt;&gt;&gt; def f():
 ...     print(a)
 ...
 &gt;&gt;&gt; f()
 1</code></pre>
-<p>Si l’on souhaite assigner une nouvelle valeur à une variable globale dans le corps d’une fonction, il est nécessaire d’y déclarer la variable comme globale :</p>
+<p>Si l’on souhaite affecter une nouvelle valeur à une variable globale dans le corps d’une fonction, il est nécessaire d’y déclarer la variable comme globale :</p>
 <pre class="python"><code>&gt;&gt;&gt; a = 1
 &gt;&gt;&gt; def f():
 ...     global a
@@ -323,12 +323,12 @@ True</code></pre>
 <p>Notons que ce test permet de dire si un objet est invocable, mais pas si on peut l’invoquer sans arguments (ni combien d’arguments sont nécessaires, de quel type, etc.). Ainsi :</p>
 <pre class="python"><code>&gt;&gt;&gt; callable(hash)
 True</code></pre>
-<p>Mais</p>
+<p>Mais :</p>
 <pre class="python"><code>&gt;&gt;&gt; hash()
 Traceback (most recent call last):
   File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
 TypeError: hash() takes exactly one argument (0 given)</code></pre>
-<p>Toutefois</p>
+<p>Toutefois :</p>
 <pre class="python"><code>&gt;&gt;&gt; hash(2**100)
 549755813888</code></pre>
 <p>Pour en savoir plus sur les arguments attendus, il faudra se reporter à la documentation de l’objet considéré.</p>
@@ -366,9 +366,9 @@ True
 &gt;&gt;&gt; isinstance(transmogrifier, Transmogrifier)
 True</code></pre>
 <h3 id="méthodes">Méthodes</h3>
-<p>Un <a href="https://calvinandhobbes.fandom.com/wiki/Transmogrifier">transmogriphieur</a> peut transformer son utilisateur en ce qu’il souhaite (par défaut, un tigre 🐯 ; mais on n’a pas spécifié la taille du tigre ! 😉).</p>
+<p>Un <a href="https://calvinandhobbes.fandom.com/wiki/Transmogrifier">transmogrifieur</a> peut transformer son utilisateur en ce qu’il souhaite (par défaut, un tigre 🐯 ; mais on n’a pas spécifié la taille du tigre ! 😉).</p>
 <figure>
-<img src="https://www.nicepng.com/png/full/198-1980373_calvin-and-hobbes-png-hd-calvin-and-hobbes.png" alt="Calvin transformé en tigre" /><figcaption aria-hidden="true"><a href="https://calvinandhobbes.fandom.com/wiki/Calvin_in_Tiger_Form_(Transmogrifier_alter_ego)">Calvin transformé en tigre</a></figcaption>
+<img src="https://www.nicepng.com/png/full/198-1980373_calvin-and-hobbes-png-hd-calvin-and-hobbes.png" alt="Calvin (à droite) transformé en tigre" /><figcaption aria-hidden="true"><a href="https://calvinandhobbes.fandom.com/wiki/Calvin_in_Tiger_Form_(Transmogrifier_alter_ego)">Calvin (à droite) transformé en tigre</a></figcaption>
 </figure>
 <pre class="python"><code>class Transmogrifier:
     def __init__(self, turn_into=&quot;tiger&quot;):
@@ -393,10 +393,10 @@ True
 &gt;&gt;&gt; type(transmogrify) is types.MethodType
 True</code></pre>
 <h3 id="instances">Instances</h3>
-<p>Notons qu’à ce stade <code>Transmogrifier</code> est invocable et la méthode <code>activate</code> des transmogriphieurs également. Mais les transmogriphieurs eux-même ne le sont pas :</p>
+<p>Notons qu’à ce stade <code>Transmogrifier</code> est invocable et la méthode <code>activate</code> des transmogrifieurs également. Mais les transmogrifieurs eux-mêmes ne le sont pas :</p>
 <pre class="python"><code>&gt;&gt;&gt; callable(transmogrifier)
 False</code></pre>
-<p>Si nous estimons que c’est préférable, nous pouvons faire en sorte qu’ils le deviennent. Il semble assez raisonnable de faire en sorte qu’invoquer un transmogriphieur l’active :</p>
+<p>Si nous estimons que c’est préférable, nous pouvons faire en sorte qu’ils le deviennent. Il semble assez raisonnable de faire en sorte qu’invoquer un transmogrifieur l’active :</p>
 <pre class="python"><code>class Transmogrifier:
     def __init__(self, turn_into=&quot;tiger&quot;):
         self.turn_into = turn_into
@@ -407,7 +407,7 @@ False</code></pre>
 <pre class="python"><code>&gt;&gt;&gt; transmogrifier = Transmogrifier()
 &gt;&gt;&gt; callable(transmogrifier)
 True</code></pre>
-<p>Nous pouvons alors simplifier l’usage du transmogriphieur de la façon suivante :</p>
+<p>Nous pouvons alors simplifier l’usage du transmogrifieur de la façon suivante :</p>
 <pre class="python"><code>&gt;&gt;&gt; transmogrifier(&quot;calvin&quot;)
 &#39;tiger&#39;</code></pre>
 <h2 id="fonctions-génératrices">Fonctions génératrices</h2>
@@ -504,7 +504,7 @@ D</code></pre>
 <h4 id="exercices">Exercices</h4>
 <ul>
 <li><p>Implémentez votre propre version des fonctions standards <code>range</code>, <code>enumerate</code> et <code>zip</code> en utilisant les fonctions génératrices.</p></li>
-<li><p>Revoyez la définition de la fonction <code>fibonacci</code> pour en faire une fonction génératrice, qui renvoie les nombres de Fibonnaci sous forme d’itérateur plutôt que de liste. Faites en sorte que lorsque l’argument <code>n</code> n’est pas fournie, l’itérateur parcoure l’intégralité de la suite.</p></li>
+<li><p>Revoyez la définition de la fonction <code>fibonacci</code> pour en faire une fonction génératrice, qui renvoie les nombres de Fibonnaci sous forme d’itérateur plutôt que de liste. Faites en sorte que lorsque l’argument <code>n</code> n’est pas fourni, l’itérateur parcoure l’intégralité de la suite.</p></li>
 </ul>
 <h2 id="programmation-fonctionnelle">Programmation fonctionnelle</h2>
 <p>Un des traits de la <a href="https://fr.wikipedia.org/wiki/Programmation_fonctionnelle"><strong>programmation fonctionelle</strong></a>, un style de programmation que supporte (en partie) Python, est de permettre de manipuler les fonctions comme des objets comme les autres, pouvant être désignés par des variables, stockés dans des conteneurs, passés comme arguments à d’autres fonctions, etc. Une fonction acceptant comme argument des fonctions et/ou en renvoyant est une <strong>fonction d’ordre supérieur</strong> (🇺🇸 : <strong>higher-order function</strong>).</p>

@@ -255,7 +255,7 @@ variable globale :
 1
 ```
 
-En l'absence d'un tel assignement, au sein d'une fonction, les variables
+En l'absence d'une telle affectation, au sein d'une fonction, les variables
 globales restent accessibles, mais donc en lecture seule :
 
 ``` python
@@ -267,7 +267,7 @@ globales restent accessibles, mais donc en lecture seule :
 1
 ```
 
-Si l'on souhaite assigner une nouvelle valeur à une variable globale dans
+Si l'on souhaite affecter une nouvelle valeur à une variable globale dans
 le corps d'une fonction, il est nécessaire d'y déclarer la variable comme 
 globale :
 
@@ -343,7 +343,8 @@ de quel type, etc.). Ainsi :
 True
 ```
 
-Mais
+Mais :
+
 ``` python
 >>> hash()
 Traceback (most recent call last):
@@ -351,7 +352,8 @@ Traceback (most recent call last):
 TypeError: hash() takes exactly one argument (0 given)
 ```
 
-Toutefois
+Toutefois :
+
 ``` python
 >>> hash(2**100)
 549755813888
@@ -423,11 +425,11 @@ True
 
 
 
-Un [transmogriphieur](https://calvinandhobbes.fandom.com/wiki/Transmogrifier) 
+Un [transmogrifieur](https://calvinandhobbes.fandom.com/wiki/Transmogrifier) 
 peut transformer son utilisateur en ce qu'il souhaite (par défaut, un tigre 🐯 ;
 mais on n'a pas spécifié la taille du tigre ! 😉).
 
-![[Calvin transformé en tigre](https://calvinandhobbes.fandom.com/wiki/Calvin_in_Tiger_Form_(Transmogrifier_alter_ego))](https://www.nicepng.com/png/full/198-1980373_calvin-and-hobbes-png-hd-calvin-and-hobbes.png)
+![[Calvin (à droite) transformé en tigre](https://calvinandhobbes.fandom.com/wiki/Calvin_in_Tiger_Form_(Transmogrifier_alter_ego))](https://www.nicepng.com/png/full/198-1980373_calvin-and-hobbes-png-hd-calvin-and-hobbes.png)
 
 ``` python
 class Transmogrifier:
@@ -471,7 +473,7 @@ True
 ### Instances
 
 Notons qu'à ce stade `Transmogrifier` est invocable et la méthode `activate`
-des transmogriphieurs également. Mais les transmogriphieurs eux-même ne le sont
+des transmogrifieurs également. Mais les transmogrifieurs eux-mêmes ne le sont
 pas :
 
 ``` python
@@ -481,7 +483,7 @@ False
 
 Si nous estimons que c'est préférable, nous pouvons faire en sorte qu'ils le
 deviennent. Il semble assez raisonnable de faire en sorte qu'invoquer un
-transmogriphieur l'active :
+transmogrifieur l'active :
 
 ``` python
 class Transmogrifier:
@@ -499,7 +501,7 @@ class Transmogrifier:
 True
 ```
 
-Nous pouvons alors simplifier l'usage du transmogriphieur de la façon suivante :
+Nous pouvons alors simplifier l'usage du transmogrifieur de la façon suivante :
 
 ``` python
 >>> transmogrifier("calvin")
@@ -651,7 +653,7 @@ et `zip` en utilisant les fonctions génératrices.
   - Revoyez la définition de la fonction `fibonacci` pour en faire une fonction
     génératrice, qui renvoie les nombres de Fibonnaci sous forme d'itérateur
     plutôt que de liste. Faites en sorte que lorsque l'argument `n` n'est
-    pas fournie, l'itérateur parcoure l'intégralité de la suite.
+    pas fourni, l'itérateur parcoure l'intégralité de la suite.
 
 
 Programmation fonctionnelle 
