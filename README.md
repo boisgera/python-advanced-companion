@@ -50,7 +50,7 @@
 
 ## Fonctions
 
-[📖 Notes](https://boisgera.github.io/python-advanced-companion/cours/) (🏗️ travail en cours)
+[📖 Notes](https://boisgera.github.io/python-advanced-companion/cours/)
 
 --------------------------------------------------------------------------------
 
