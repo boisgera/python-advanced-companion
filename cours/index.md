@@ -8,8 +8,7 @@ Fonctions
 ### Généralités
 
 Les fonctions sont définies au moyen du mot-clé `def`, suivi du nom de la
-fonction, suivi de la liste des **paramètres**
-de la fonction entre parenthèses.
+fonction, suivi de la liste de leurs **paramètres** entre parenthèses.
 La **valeur de retour** d'une fonction est précédée du mot-clé `return`.
 
 ``` python
@@ -71,7 +70,8 @@ Notons que les arguments peuvent en général être **positionnels**
 (🇺🇸  : **positional arguments**)
 -- le paramètre auquel l'argument est affecté dépend de la position de 
 l'argument dans la liste des arguments passés à la fonction --
-où **nommés** (🇺🇸  : **keyword arguments**), auquel cas l'affection au paramètre dépendra de leur nom. 
+où **nommés** (🇺🇸  : **keyword arguments**), auquel cas l'argument sera
+affecté au paramètre du même nom. 
 
 Les arguments nommés sont souvent pratiques pour rendre le rôle de l'argument 
 plus clair. Ainsi ici le second argument de `fibonnaci`, nommé `start`, 
