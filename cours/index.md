@@ -23,7 +23,7 @@ def fibonacci(n):
     return result
 ```
 
-Pour invoquer (ou appelle) la fonction `fibonacci` en lui passante comme
+Pour appeler la fonction `fibonacci` en lui passante comme
 paramètre l'argument `10` et récupérer le résultat :
 
 ``` python
