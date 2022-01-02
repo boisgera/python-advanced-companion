@@ -508,7 +508,7 @@ D</code></pre>
 </ul>
 <h2 id="programmation-fonctionnelle">Programmation fonctionnelle</h2>
 <p>Un des traits de la <a href="https://fr.wikipedia.org/wiki/Programmation_fonctionnelle"><strong>programmation fonctionelle</strong></a>, un style de programmation que supporte (en partie) Python, est de permettre de manipuler les fonctions comme des objets comme les autres, pouvant être désignés par des variables, stockés dans des conteneurs, passés comme arguments à d’autres fonctions, etc. Une fonction acceptant comme argument des fonctions et/ou en renvoyant est une <strong>fonction d’ordre supérieur</strong> (🇺🇸 : <strong>higher-order function</strong>).</p>
-<p>Les librairies mathématiques exploitent souvent avec profit ces fonctions d’ordre supérieures. Ainsi, la librairie de différentiation automatique <a href="https://github.com/HIPS/autograd#autograd---">Autograd</a> définit une fonction d’ordre supérieur <code>grad</code> qui associe à une fonction d’un argument réel sa dérivée :</p>
+<p>Les librairies mathématiques exploitent souvent avec profit ces fonctions d’ordre supérieures. Ainsi, la librairie de différentiation automatique <a href="https://github.com/HIPS/autograd#autograd---">Autograd</a> définit une fonction d’ordre supérieur <code>grad</code> qui associe à une fonction d’un argument réel sa dérivée.</p>
 <p>Sa documentation donne l’exemple suivant d’usage :</p>
 <pre class="python"><code>&gt;&gt;&gt; import autograd.numpy as np 
 &gt;&gt;&gt; from autograd import grad   
@@ -520,7 +520,7 @@ D</code></pre>
 &gt;&gt;&gt; d_tanh(1.0)          # we evaluate it at x = 1.0              
 0.419974341614026</code></pre>
 <p>Un autre usage important des fonctions d’ordre supérieur est l’exploitation de <strong>fonctions de rappels</strong> (🇺🇸 : <strong>callbacks</strong>), notamment dans les interfaces graphiques.</p>
-<p>Par exemple, regardons comment est programmé l’application graphique donnée comme example dans <a href="http://tkdocs.com/tutorial/firstexample.html#design">le tutoriel de la bibliothèque Tk</a> :</p>
+<p>Par exemple, regardons comment est programmée l’application graphique donnée comme example dans <a href="http://tkdocs.com/tutorial/firstexample.html#design">le tutoriel de la bibliothèque Tk</a> :</p>
 <figure>
 <img src="images/converter.png" alt="Convertisseur de pieds en mètres" /><figcaption aria-hidden="true">Convertisseur de pieds en mètres</figcaption>
 </figure>
@@ -542,12 +542,13 @@ feet_entry.grid(column=2, row=1, sticky=(W, E))
 
 meters = StringVar()
 ttk.Label(mainframe, textvariable=meters).grid(column=2, row=2, sticky=(W, E))</code></pre>
-<p>Retenons simplement à ce stade que <code>root</code> est la fenêtre principale de l’application, <code>feet</code> le champ de texte où nous rentrons la valeur de la longueur en pieds et <code>meters</code> le champ de texte qui devra afficher la longueur équivalent en mètres.</p>
+<p>Retenons simplement à ce stade que <code>root</code> est la fenêtre principale de l’application, <code>feet</code> le champ de texte où nous rentrons la valeur de la longueur en pieds et <code>meters</code> le champ de texte qui devra afficher la longueur équivalent en mètres lorsque l’on cliquesur le bouton.</p>
 <p>Pour que l’application se comporte comme voulu, nous définissons une fonction <code>calculate</code> qui a chaque fois qu’elle est invoquée, lit la longueur en pied et écrit la longeur en mètres :</p>
 <pre class="python"><code>def calculate(*args):
     try:
         value = float(feet.get())
-        meters.set(int(0.3048 * value * 10000.0 + 0.5)/10000.0)
+        meters_value = int(0.3048 * value * 1e4 + 0.5) / 1e4
+        meters.set(meters_value)
     except ValueError:
         pass</code></pre>
 <p>Puis nous créons un bouton qui <strong>rappelle</strong> cette fonction (de rappel) à chaque fois qu’il est pressé :</p>
@@ -569,12 +570,12 @@ feet_entry.focus()
 root.mainloop()</code></pre>
 <h3 id="lambda">Lambda</h3>
 <p>Les <strong>fonctions lambda</strong> en Python sont une construction qui n’augmente pas l’expressivité du langage – on ne peut rien faire avec des fonctions lambda qu’on ne pouvait déjà faire avec les fonctions classiques – mais permet dans certains cas d’obtenir un code plus concis.</p>
-<p>Ainsi, pour trouver numériquement le zéro de la fonction <span class="math inline">\(x \mapsto x^2 - 2\)</span> entre <span class="math inline">\(0\)</span> et <span class="math inline">\(2\)</span> avec <code>scipy</code>, après avoir importé une fonction de recherche de racines</p>
+<p>Ainsi, pour trouver numériquement le zéro de la fonction <span class="math inline">\(x \mapsto x^2 - 2\)</span> entre <span class="math inline">\(0\)</span> et <span class="math inline">\(2\)</span> avec <code>scipy</code>, après avoir importé une fonction de recherche de racines :</p>
 <pre class="python"><code>from scipy.optimize import root_scalar as find_root</code></pre>
 <p>on peut définir la fonction qui nous intéresse, ce qui suppose de la nommer (par exemple <code>f</code>) :</p>
 <pre class="python"><code>def f(x):
     return x*x - 2</code></pre>
-<p>puis appeler la routine de recherche de zéros de <code>scipy</code></p>
+<p>puis appeler la routine de recherche de zéros de <code>scipy</code> :</p>
 <pre class="python"><code>&gt;&gt;&gt; find_root(f, bracket=[0, 2])
       converged: True
            flag: &#39;converged&#39;
@@ -599,7 +600,7 @@ root.mainloop()</code></pre>
 </blockquote>
 <p>Essayons de donner un exemple concret illustrant cette définition.</p>
 <h4 id="evaluateur-dexpression">Evaluateur d’expression</h4>
-<p>La fonction standard <code>eval</code> permet de calculer la valeur d’expressions représentées par des chaînes de caractères. Ainsi :</p>
+<p>La fonction intégrée <code>eval</code> permet de calculer la valeur d’expressions représentées par des chaînes de caractères. Ainsi :</p>
 <pre class="python"><code>&gt;&gt;&gt; x = 1 
 &gt;&gt;&gt; y = 2
 &gt;&gt;&gt; eval(&quot;x + y&quot;)
@@ -638,7 +639,7 @@ root.mainloop()</code></pre>
 5</code></pre>
 <hr />
 <p>Il est bon de savoir que les variables non-locales sont capturées par référence en Python, et non par valeur, ce qui peut dans certains cas rendre votre vie … intéressante ! 😂</p>
-<p>Par exemple, le programmeur ayant écrit</p>
+<p>Par exemple, le programmeur ayant écrit :</p>
 <pre class="python"><code>def make_actions():
     actions = []
     for i in range(3):
@@ -661,7 +662,7 @@ root.mainloop()</code></pre>
             print(i)
         actions.append(printer)
     return actions</code></pre>
-<p>on obtient comme souhaité</p>
+<p>on obtient comme souhaité :</p>
 <pre class="python"><code>&gt;&gt;&gt; for action in make_actions():
 ...     action()
 ...
@@ -696,20 +697,20 @@ root.mainloop()</code></pre>
     return x + 1
 
 plus_one = debug(plus_one)</code></pre>
-<p>est équivalent à la construction suivante utilisant les décorateurs :</p>
+<p>est équivalent à la construction suivante utilisant le décorateur <code>@debug</code> :</p>
 <pre class="python"><code>@debug
 def plus_one(x):
     return x + 1</code></pre>
 <p>On pourra trouver cette seconde notation plus agréable et lisible !</p>
 <h4 id="exemple">Exemple</h4>
-<p>La fonction d’ordre supérieur <code>count</code> ci-dessous peut être utilisée en conjonction avec un décorateur pour enregistrer le nombre de fois où une fonction a été invoquée (le nombre d’appels de la fonction est stocké dans l’attribut <code>count</code> de la fonction).</p>
+<p>La fonction d’ordre supérieur <code>count</code> ci-dessous peut être utilisée sous forme de décorateur pour enregistrer le nombre de fois où une fonction a été invoquée (le nombre d’appels de la fonction est stocké dans l’attribut <code>count</code> de la fonction) :</p>
 <pre class="python"><code>def count(f):
     def counted_f(x):
         counted_f.count += 1
         return f(x)
     counted_f.count = 0
     return counted_f</code></pre>
-<p>Par exemple, si l’on recherche à localiser l’unique zéro de la fonction <span class="math inline">\(x \mapsto x^2 - 2\)</span>, qui est <span class="math inline">\(\sqrt{2}\)</span>, on peut la définir en la décorant avec <code>@count</code> :</p>
+<p>Par exemple, si l’on recherche à localiser la racine positive de la fonction <span class="math inline">\(x \mapsto x^2 - 2\)</span>, qui est <span class="math inline">\(\sqrt{2}\)</span>, on peut la définir en la décorant avec <code>@count</code> :</p>
 <pre class="python"><code>@count
 def f(x):
     return x*x - 2</code></pre>

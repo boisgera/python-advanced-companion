@@ -671,7 +671,7 @@ est une **fonction d'ordre supérieur** (🇺🇸 : **higher-order function**).
 Les librairies mathématiques exploitent souvent avec profit ces fonctions
 d'ordre supérieures. Ainsi, la librairie de différentiation automatique
 [Autograd] définit une fonction d'ordre supérieur `grad` qui associe à 
-une fonction d'un argument réel sa dérivée :
+une fonction d'un argument réel sa dérivée.
 
 [Autograd]: https://github.com/HIPS/autograd#autograd---
 
@@ -693,7 +693,7 @@ Un autre usage important des fonctions d'ordre supérieur est l'exploitation
 de **fonctions de rappels** (🇺🇸 : **callbacks**), notamment dans les interfaces
 graphiques.
 
-Par exemple, regardons comment est programmé l'application graphique 
+Par exemple, regardons comment est programmée l'application graphique 
 donnée comme example dans [le tutoriel de la bibliothèque Tk](http://tkdocs.com/tutorial/firstexample.html#design) :
 
 ![Convertisseur de pieds en mètres](images/converter.png)
@@ -723,7 +723,7 @@ ttk.Label(mainframe, textvariable=meters).grid(column=2, row=2, sticky=(W, E))
 Retenons simplement à ce stade que `root` est la fenêtre 
 principale de l'application, `feet` le champ de texte où nous rentrons la
 valeur de la longueur en pieds et `meters` le champ de texte qui devra
-afficher la longueur équivalent en mètres.
+afficher la longueur équivalent en mètres lorsque l'on cliquesur le bouton.
 
 Pour que l'application se comporte comme voulu, 
 nous définissons une fonction `calculate` qui a chaque fois qu'elle
@@ -733,7 +733,8 @@ est invoquée, lit la longueur en pied et écrit la longeur en mètres :
 def calculate(*args):
     try:
         value = float(feet.get())
-        meters.set(int(0.3048 * value * 10000.0 + 0.5)/10000.0)
+        meters_value = int(0.3048 * value * 1e4 + 0.5) / 1e4
+        meters.set(meters_value)
     except ValueError:
         pass
 ```
@@ -774,7 +775,7 @@ mais permet dans certains cas d'obtenir un code plus concis.
 
 Ainsi, pour trouver numériquement le zéro de la fonction $x \mapsto x^2 - 2$ 
 entre $0$ et $2$ avec `scipy`, après avoir importé une fonction de recherche 
-de racines
+de racines :
 
 ``` python
 from scipy.optimize import root_scalar as find_root
@@ -788,7 +789,7 @@ def f(x):
     return x*x - 2
 ```
 
-puis appeler la routine de recherche de zéros de `scipy`
+puis appeler la routine de recherche de zéros de `scipy` :
 
 ``` python
 >>> find_root(f, bracket=[0, 2])
@@ -840,7 +841,7 @@ Essayons de donner un exemple concret illustrant cette définition.
 
 #### Evaluateur d'expression
 
-La fonction standard `eval` permet de calculer la valeur d'expressions
+La fonction intégrée `eval` permet de calculer la valeur d'expressions
 représentées par des chaînes de caractères. Ainsi :
 
 ``` python
@@ -927,7 +928,7 @@ Il est bon de savoir que les variables non-locales sont capturées par référen
 en Python, et non par valeur, ce qui peut dans certains cas rendre votre vie 
 ... intéressante ! 😂
 
-Par exemple, le programmeur ayant écrit
+Par exemple, le programmeur ayant écrit :
 
 ``` python
 def make_actions():
@@ -970,7 +971,7 @@ def make_actions():
     return actions
 ```
 
-on obtient comme souhaité
+on obtient comme souhaité :
 
 ``` python
 >>> for action in make_actions():
@@ -1044,7 +1045,7 @@ def plus_one(x):
 plus_one = debug(plus_one)
 ```
 
-est équivalent à la construction suivante utilisant les décorateurs :
+est équivalent à la construction suivante utilisant le décorateur `@debug` :
 
 ``` python
 @debug
@@ -1057,9 +1058,9 @@ On pourra trouver cette seconde notation plus agréable et lisible !
 #### Exemple
 
 La fonction d'ordre supérieur `count` ci-dessous peut être utilisée 
-en conjonction avec un décorateur pour enregistrer le nombre de fois
- où une fonction a été invoquée (le nombre d'appels de la fonction
-est stocké dans l'attribut `count` de la fonction).
+sous forme de décorateur pour enregistrer le nombre de fois
+où une fonction a été invoquée (le nombre d'appels de la fonction
+est stocké dans l'attribut `count` de la fonction) :
 
 ``` python
 def count(f):
@@ -1070,7 +1071,7 @@ def count(f):
     return counted_f
 ```
 
-Par exemple, si l'on recherche à localiser l'unique zéro de la fonction 
+Par exemple, si l'on recherche à localiser la racine positive de la fonction 
 $x \mapsto x^2 - 2$, qui est $\sqrt{2}$, on peut la définir en la décorant 
 avec `@count` :
 
