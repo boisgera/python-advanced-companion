@@ -26,40 +26,44 @@
     document.addEventListener("DOMContentLoaded", (event) => {
         let codeBlocks = document.querySelectorAll("pre.python")
         for (let codeBlock of codeBlocks) {
-            codeBlock.setAttribute("style", "position: relative");
 
+            let button = document.createElement("button")
             let icon = document.createElement("img");
+            button.appendChild(icon)
+            codeBlock.insertBefore(button, codeBlock.firstChild);
+
             icon.setAttribute("src", "icons/copy.svg");
-            icon.addEventListener('click', (event) => {
-                let text = icon.nextElementSibling.textContent;
+            icon.setAttribute("style", "opacity: 0.7;")
+            button.addEventListener('click', (event) => {
+                let text = button.nextElementSibling.textContent;
                 text = filterConsole(text);
-                // console.log(text);
                 navigator.clipboard.writeText(text);
             });
 
-            icon.setAttribute("style", 
+            codeBlock.setAttribute("style", "position: relative");
+            button.setAttribute("style", 
             "position: absolute; right: 1em; top: 1em; opacity: 0.0;");
 
-            codeBlock.insertBefore(icon, codeBlock.firstChild);
-
             codeBlock.addEventListener("mouseover", (event) => {
-                icon.style.setProperty("transition", "opacity 0.1s ease-out");
-                icon.style.setProperty("opacity", "1.0");
+                button.style.setProperty("transition", "opacity 0.1s ease-out");
+                button.style.setProperty("opacity", "1.0");
             });
 
             codeBlock.addEventListener("mouseout", (event) => {
-                icon.style.setProperty("transition", "opacity 0.75s ease-out");
-                icon.style.setProperty("opacity", "0.0");
+                button.style.setProperty("transition", "opacity 0.75s ease-out");
+                button.style.setProperty("opacity", "0.0");
 
             });
 
-            icon.addEventListener("mouseover", (event) => {
+            /*
+            button.addEventListener("mouseover", (event) => {
                 icon.style.setProperty("cursor", "pointer");
             });
 
             icon.addEventListener("mouseout", (event) => {
                 icon.style.setProperty("cursor", "auto");
             })
+            */
 
         }
     });    
