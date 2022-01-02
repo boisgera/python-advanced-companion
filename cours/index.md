@@ -49,7 +49,7 @@ def fibonacci(n, start=(0, 1)):
 
 Si l'on ne spécifie pas la valeur du paramètre à l'invocation, sa valeur par
 défaut est alors utilisée. Dans le cas présent, cela signifie que si l'on ne
-donne par de second argument à la fonction `fibonacci`, elle se comporte 
+donne pas de second argument à la fonction `fibonacci`, elle se comporte 
 comme la première version :
 
 ``` python
