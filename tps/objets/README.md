@@ -165,7 +165,7 @@ snake_game.start()
 
 Développer la classe `Game` en conséquence.
 
-🤖 Intelligence Artificielle
+🤖 Pilote automatique
 --------------------------------------------------------------------------------
 
 On souhaite faciliter la vie du joueur: lorsque celui-ci ne presse aucune touche
