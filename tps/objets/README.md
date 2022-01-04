@@ -82,20 +82,6 @@ et de la position des fruits (à remettre à jour le cas échéant).
 Adapter la boucle générale du programme  [🐍 snake.py](../games/solutions/snake.py) 
 pour intégrer les développements de la classe `Snake`. Vérifier en y jouant que le comportement du jeu reste identique.
 
-🧱 Constantes
---------------------------------------------------------------------------------
-
-🧹 **Nettoyage de printemps !** 
-Déplacer la définition des constantes du programme 
-(`W, H, X, ...`) dans un fichier à part, `constants.py`,
-puis les importer dans `snake.py` avec :
-
-``` python
-from constants import *
-```
-
-📄 Solution : [constants.py](../games/solutions/constants.py)
-
 
 🗃️ Etat du jeu
 --------------------------------------------------------------------------------
@@ -118,6 +104,21 @@ Pourquoi ?
 
 Quelle autre type de fonctionnalité pourrait être prise en charge par la classe
 `State` ?
+
+🧱 Constantes
+--------------------------------------------------------------------------------
+
+🧹 **Nettoyage de printemps !** 
+Déplacer la définition des constantes du programme 
+(`W, H, X, ...`) dans un fichier à part, `constants.py`,
+puis les importer dans `snake.py` avec :
+
+``` python
+from constants import *
+```
+
+📄 Solution : [constants.py](../games/solutions/constants.py)
+
 
 ⚙️ Moteur de jeu
 --------------------------------------------------------------------------------
