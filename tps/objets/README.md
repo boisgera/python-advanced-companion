@@ -132,7 +132,7 @@ la récupération des évènements, etc.
 
 On souhaite pouvoir exploiter cette classe générique en définissant une
 classe `SnakeGame` qui en dérive et qui régit le jeu du serpent. 
-`SnakeGame` sera définie de la façon suivante (fichier complet : 📄 [snake.py](../games/solutions/snake.py) :
+`SnakeGame` sera définie de la façon suivante (fichier complet : 📄 [snake.py](../games/solutions/snake.py)) :
 
 ``` python
 from game import Game
