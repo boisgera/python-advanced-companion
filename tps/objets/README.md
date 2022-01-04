@@ -165,7 +165,7 @@ snake_game.start()
 
 Développer la classe `Game` en conséquence.
 
-🧠 Intelligence Artificielle
+🤖 Intelligence Artificielle
 --------------------------------------------------------------------------------
 
 On souhaite faciliter la vie du joueur: lorsque celui-ci ne presse aucune touche
@@ -173,10 +173,14 @@ pendant une frame, votre programme devra prendre une décision à sa place pour
 le rapprocher du fruit, en évitant de créer trop de collisions (au minimum:
 en ne faisant jamais un demi-tour).
 
-Développer une classe 🤖 `AssistedSnakeGame` qui prenne en charge cette 
+Développer une classe 🤖 `AutoSnakeGame` qui prenne en charge cette 
 fonctionnalité quand on lance le jeu de la façon suivante:
 
 ``` python
-snake_game = AssistedSnakeGame(size=(X * W, Y * H), fps=FPS)
+
+
+snake_game = AutoSnakeGame(size=(X * W, Y * H), fps=FPS)
 snake_game.start()
 ```
+
+📄 Solution : [autosnake.py](../solutions/autosnake.py)
