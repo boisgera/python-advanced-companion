@@ -183,4 +183,4 @@ snake_game = AutoSnakeGame(size=(X * W, Y * H), fps=FPS)
 snake_game.start()
 ```
 
-📄 Solution : [autosnake.py](../solutions/autosnake.py)
+📄 Solution : [autosnake.py](../games/solutions/autosnake.py)
