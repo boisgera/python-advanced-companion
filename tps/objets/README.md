@@ -82,6 +82,21 @@ et de la position des fruits (à remettre à jour le cas échéant).
 Adapter la boucle générale du programme  [🐍 snake.py](../games/solutions/snake.py) 
 pour intégrer les développements de la classe `Snake`. Vérifier en y jouant que le comportement du jeu reste identique.
 
+🧱 Constantes
+--------------------------------------------------------------------------------
+
+🧹 **Nettoyage de printemps !** 
+Déplacer la définition des constantes du programme 
+(`W, H, X, ...`) dans un fichier à part, `constants.py`,
+puis les importer dans `snake.py` avec :
+
+``` python
+from constants import *
+```
+
+📄 Solution : [constants.py](../games/solutions/constants.py)
+
+
 🗃️ Etat du jeu
 --------------------------------------------------------------------------------
 
@@ -116,7 +131,7 @@ la récupération des évènements, etc.
 
 On souhaite pouvoir exploiter cette classe générique en définissant une
 classe `SnakeGame` qui en dérive et qui régit le jeu du serpent. 
-`SnakeGame` sera définie de la façon suivante :
+`SnakeGame` sera définie de la façon suivante 
 
 ``` python
 from game import Game
@@ -156,6 +171,7 @@ class SnakeGame(Game):
         draw_tile(self.screen, fruit_x, fruit_y, FRUIT_COLOR)
 ```
 
+
 et le jeu sera lancé par :
 
 ``` python
@@ -163,7 +179,12 @@ snake_game = SnakeGame(size=(X * W, Y * H), fps=FPS)
 snake_game.start()
 ```
 
-Développer la classe `Game` en conséquence.
+Fichier complet : 📄 [snake.py](../games/solutions/snake.py).
+
+Développer la classe `Game` en conséquence !
+
+📄 Solution : [autosnake.py](../games/solutions/game.py)
+
 
 🤖 Pilote automatique
 --------------------------------------------------------------------------------
@@ -177,7 +198,15 @@ Développer une classe 🤖 `AutoSnakeGame` qui prenne en charge cette
 fonctionnalité quand on lance le jeu de la façon suivante:
 
 ``` python
+# Third-Party Libraries
+import pygame as pg
 
+# Local Modules
+from constants import *
+from snake import state, SnakeGame
+
+class AutoSnake(Snake):
+    pass # TODO!
 
 snake_game = AutoSnakeGame(size=(X * W, Y * H), fps=FPS)
 snake_game.start()
