@@ -205,7 +205,7 @@ import pygame as pg
 from constants import *
 from snake import state, SnakeGame
 
-class AutoSnake(Snake):
+class AutoSnakeGame(SnakeGame):
     pass # TODO!
 
 snake_game = AutoSnakeGame(size=(X * W, Y * H), fps=FPS)
