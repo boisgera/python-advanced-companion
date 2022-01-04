@@ -183,7 +183,7 @@ snake_game.start()
 
 Développer la classe `Game` en conséquence !
 
-📄 Solution : [autosnake.py](../games/solutions/game.py)
+📄 Solution : [game.py](../games/solutions/game.py)
 
 
 🤖 Pilote automatique
