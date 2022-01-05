@@ -172,8 +172,7 @@ class SnakeGame(Game):
         draw_tile(self.screen, fruit_x, fruit_y, FRUIT_COLOR)
 ```
 
-
-et le jeu sera lancé par :
+Lorsque l'on invoque la commande `python snake.py`, le code suivant sera exécuté :
 
 ``` python
 snake_game = SnakeGame(size=(X * W, Y * H), fps=FPS)
