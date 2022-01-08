@@ -129,10 +129,15 @@
 <ul>
 <li><a href="#intro">Intro</a></li>
 <li><a href="#système-de-fichiers">(Système de) fichiers</a></li>
-<li><a href="#os-cli-terminal-ssh">OS, CLI, Terminal, SSH</a></li>
+<li><a href="#os-cli-terminal-ssh">OS, CLI, Terminal, SSH</a>
+<ul>
+<li><a href="#comment-invoquer-git-depuis-python">Comment invoquer <code>git</code> depuis Python ?</a></li>
+</ul></li>
 <li><a href="#web">Web</a>
 <ul>
+<li><a href="#http.server"><code>http.server</code></a></li>
 <li><a href="#webbrowser"><code>webbrowser</code></a></li>
+<li><a href="#comment-obtenir-la-position-de-la-station-spatiale-internationale">🌍 Comment obtenir la position de la station spatiale internationale ?</a></li>
 </ul></li>
 <li><a href="#formats-de-sérialization">Formats de sérialization</a></li>
 <li><a href="#gui">GUI</a></li>
@@ -150,10 +155,35 @@
 <p><code>subprocess</code> -&gt; <code>plumbum</code></p>
 <p><code>paramiko</code> ?</p>
 <p><code>e-mail</code> ? Study <a href="https://realpython.com/python-send-email/" class="uri">https://realpython.com/python-send-email/</a></p>
+<h3 id="comment-invoquer-git-depuis-python">Comment invoquer <code>git</code> depuis Python ?</h3>
 <h2 id="web">Web</h2>
+<h3 id="http.server"><code>http.server</code></h3>
+<p>📖 <a href="https://docs.python.org/3/library/http.server.html">Documentation</a></p>
+<pre class="python"><code>import http.server
+
+# Answer to all TCP traffic on port 8000:
+server_address = (&quot;&quot;, 8000)  
+Handler = http.server.SimpleHTTPRequestHandler
+
+with http.server.HTTPServer(server_address, Handler) as httpd:
+    httpd.serve_forever()</code></pre>
 <h3 id="webbrowser"><code>webbrowser</code></h3>
-<pre class="python"><code>&gt;&gt;&gt; import webbrowser
-&gt;&gt;&gt; webbrowser.open(&quot;https://www.python.org&quot;)</code></pre>
+<p>📖 <a href="https://docs.python.org/3/library/webbrowser.html">Documentation</a></p>
+<pre class="python"><code>import webbrowser
+webbrowser.open(&quot;https://www.python.org&quot;)</code></pre>
+<figure>
+<img src="images/webbrowser.png" alt="webbrowser" /><figcaption aria-hidden="true"><code>webbrowser</code></figcaption>
+</figure>
+<h3 id="comment-obtenir-la-position-de-la-station-spatiale-internationale">🌍 Comment obtenir la position de la station spatiale internationale ?</h3>
+<p>Le site <a href="http://open-notify.org/">Open Notify</a> fournit cette information en temps-réel à travers une interface Web (de type <a href="https://fr.wikipedia.org/wiki/Representational_state_transfer">REST</a>). Le package <a href="https://docs.python-requests.org/en/latest/">requests</a> permet d’exploiter le protocole associé, <a href="https://developer.mozilla.org/fr/docs/Web/HTTP">HTTP</a>.</p>
+<pre class="python"><code>&gt;&gt;&gt; import requests
+&gt;&gt;&gt; URL = &quot;http://api.open-notify.org/&quot;
+&gt;&gt;&gt; r = requests.get(f&quot;{URL}/iss-now.json&quot;)
+&gt;&gt;&gt; r.json()
+{&#39;message&#39;: &#39;success&#39;, &#39;iss_position&#39;: {&#39;longitude&#39;: &#39;41.4552&#39;, &#39;latitude&#39;: &#39;0.9816&#39;}, &#39;timestamp&#39;: 1641661775}</code></pre>
+<figure>
+<img src="images/ISS.png" alt="Position de l’ISS" /><figcaption aria-hidden="true">Position de l’ISS</figcaption>
+</figure>
 <hr />
 <ul>
 <li><p><code>http.server</code></p></li>
