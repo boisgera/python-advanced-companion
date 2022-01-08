@@ -172,8 +172,7 @@ class SnakeGame(Game):
         draw_tile(self.screen, fruit_x, fruit_y, FRUIT_COLOR)
 ```
 
-
-et le jeu sera lancé par :
+Lorsque l'on invoque la commande `python snake.py`, le code suivant sera exécuté :
 
 ``` python
 snake_game = SnakeGame(size=(X * W, Y * H), fps=FPS)
@@ -195,7 +194,7 @@ le rapprocher du fruit, en évitant de créer trop de collisions (au minimum:
 en ne faisant jamais un demi-tour).
 
 Développer une classe 🤖 `AutoSnakeGame` qui prenne en charge cette 
-fonctionnalité quand on lance le jeu de la façon suivante:
+fonctionnalité quand on lance le jeu avec la commande `python autosnake.py`.
 
 ``` python
 # Third-Party Libraries
