@@ -31,7 +31,14 @@ OS, CLI, Terminal, SSH
 Web
 --------------------------------------------------------------------------------
 
-  - `webbrowser`, 
+### `webbrowser`
+
+``` python
+>>> import webbrowser
+>>> webbrowser.open("https://www.python.org")
+```
+
+-----
 
   - `http.server`
 
