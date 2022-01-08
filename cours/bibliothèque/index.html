@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Bibliothèques</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="css/style.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <!--
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet"> 
+  -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet">
+  <script>
+      document.addEventListener("DOMContentLoaded", (event) => {
+          let h3 = document.createElement("h3");
+          h3.innerHTML = "Table des matières";
+          let toc = document.getElementById("TOC");
+          toc.prepend(h3);
+      });    
+  </script>
+  <script>
+      document.addEventListener("DOMContentLoaded", (event) => {
+          let elts = document.querySelectorAll('body > :not(header):not(nav)');
+          let headers = [...elts].filter(elt =>  
+              ["H1", "H2", "H3", "H4", "H5", "H6"].includes(elt.tagName)
+          )
+          for (let header of headers) {
+              let anchor = document.createElement("a");
+              anchor.setAttribute("href", `#${header.id}`);
+              anchor.setAttribute("style", "text-decoration: None;");
+              anchor.innerHTML = header.outerHTML;
+              header.replaceWith(anchor);
+          }
+      });    
+  </script>
+  <script>
+
+      function filterConsole(text) {
+          let lines = text.split("\n");
+
+          console.log(lines);
+
+          let pythonConsole = lines && lines[0].startsWith(">>>");
+          if (!pythonConsole) {
+              return text + "\n\n";
+          } else {
+              let newLines = [];
+              for (let line of lines) {
+                  if (line.startsWith(">>> ") || line.startsWith("... ")) {
+                      newLines.push(line.slice(4));
+                  } else if (line.startsWith("...")){
+                      newLines.push(line.slice(3));
+                  }
+
+              }
+              return newLines.join("\n") + "\n";
+          }
+
+      }
+
+      document.addEventListener("DOMContentLoaded", (event) => {
+          let codeBlocks = document.querySelectorAll("pre.python")
+          for (let codeBlock of codeBlocks) {
+
+              let button = document.createElement("button")
+              let icon = document.createElement("img");
+              button.appendChild(icon)
+              codeBlock.insertBefore(button, codeBlock.firstChild);
+
+              icon.setAttribute("src", "icons/copy.svg");
+              icon.setAttribute("style", "opacity: 0.5;")
+              button.addEventListener('click', (event) => {
+                  let text = button.nextElementSibling.textContent;
+                  text = filterConsole(text);
+                  navigator.clipboard.writeText(text);
+              });
+
+              codeBlock.setAttribute("style", "position: relative");
+              button.setAttribute("style", 
+              "position: absolute; right: 1em; top: 1em; opacity: 0.0;");
+
+              codeBlock.addEventListener("mouseover", (event) => {
+                  button.style.setProperty("transition", "opacity 0.1s ease-out");
+                  button.style.setProperty("opacity", "1.0");
+              });
+
+              codeBlock.addEventListener("mouseout", (event) => {
+                  button.style.setProperty("transition", "opacity 0.75s ease-out");
+                  button.style.setProperty("opacity", "0.0");
+              });
+
+              button.addEventListener("mouseover", (event) => {
+                  icon.style.setProperty("transition", "opacity 0.1s ease-out");
+                  icon.style.setProperty("opacity", "0.75");
+              })
+
+              button.addEventListener("mouseout", (event) => {
+                  icon.style.setProperty("transition", "opacity 0.75s ease-out");
+                  icon.style.setProperty("opacity", "0.5");
+              })
+
+
+          }
+      });    
+  </script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Bibliothèques</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#intro">Intro</a></li>
+<li><a href="#système-de-fichiers">(Système de) fichiers</a></li>
+<li><a href="#os-cli-terminal-ssh">OS, CLI, Terminal, SSH</a></li>
+<li><a href="#web">Web</a></li>
+<li><a href="#formats-de-sérialization">Formats de sérialization</a></li>
+<li><a href="#gui">GUI</a></li>
+<li><a href="#ffi">FFI</a></li>
+</ul>
+</nav>
+<h2 id="intro">Intro</h2>
+<p>Bibliothèque standard, PyPi.</p>
+<h2 id="système-de-fichiers">(Système de) fichiers</h2>
+<p><code>pathlib</code> plus ce qui peux manquer et qui est présent dans les autres libs (<code>shutil</code>, etc.)</p>
+<p><code>gzip</code> ?</p>
+<h2 id="os-cli-terminal-ssh">OS, CLI, Terminal, SSH</h2>
+<p><code>time</code>, <code>sys</code></p>
+<p><code>sys.argv</code> -&gt; <code>argparse</code> -&gt; <code>click</code> ou <code>typer</code>.</p>
+<p><code>subprocess</code> -&gt; <code>plumbum</code></p>
+<p><code>paramiko</code> ?</p>
+<p><code>e-mail</code> ? Study <a href="https://realpython.com/python-send-email/" class="uri">https://realpython.com/python-send-email/</a></p>
+<h2 id="web">Web</h2>
+<ul>
+<li><p><code>webbrowser</code>,</p></li>
+<li><p><code>http.server</code></p></li>
+<li><p><code>urllib</code> -&gt; <code>requests</code></p></li>
+<li><p>framework : <code>flask</code>, <code>django</code></p></li>
+</ul>
+<h2 id="formats-de-sérialization">Formats de sérialization</h2>
+<ul>
+<li><p><code>json</code></p></li>
+<li><p><code>xml</code> (/html) ; <code>etree</code> et <code>lxml</code></p></li>
+<li><p><code>pyyaml</code> et <code>strictyaml</code></p></li>
+</ul>
+<h2 id="gui">GUI</h2>
+<ul>
+<li><code>pyqt</code>, <code>pygtk</code>, etc.?</li>
+</ul>
+<h2 id="ffi">FFI</h2>
+<ul>
+<li><p><code>ctypes</code>, <code>cffi</code></p></li>
+<li><p><code>cython</code>.</p></li>
+</ul>
+</body>
+</html>
