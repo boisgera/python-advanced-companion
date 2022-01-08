@@ -54,6 +54,12 @@
 
 --------------------------------------------------------------------------------
 
+## *Coming Soon*
+
+[📖 Notes](https://boisgera.github.io/python-advanced-companion/cours/bibliothèque) 🏗️
+
+--------------------------------------------------------------------------------
+
 ## Projet
 
 [📒 Sujet du projet](https://github.com/boisgera/python-advanced-eval#notebooks-jupyter)
