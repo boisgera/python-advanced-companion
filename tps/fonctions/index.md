@@ -7,17 +7,19 @@ author: Sébastien Boisgérault, MINES ParisTech
 
 ## TODO
 
-function as an arg (solve_ivp)
+  - function as an arg (solve_ivp)
 
-investigate default values
+  - investigate default values
 
-use of kwargs (large option set)
+  - use of kwargs (large option set)
 
-function as a return value (dense_output)
+  - function as a return value (dense_output)
 
-function as an arg 2 (events). + Higher-order : optional level
+  - autograd jacobian
 
-function factory (modèle à compartiment)
+  - function as an arg 2 (events). + Higher-order : optional level
+
+  - function factory (modèle à compartiment)
 
 ## Introduction
 

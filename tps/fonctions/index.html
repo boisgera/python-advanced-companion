@@ -224,12 +224,15 @@
 </ul>
 </nav>
 <h2 id="todo">TODO</h2>
-<p>function as an arg (solve_ivp)</p>
-<p>investigate default values</p>
-<p>use of kwargs (large option set)</p>
-<p>function as a return value (dense_output)</p>
-<p>function as an arg 2 (events). + Higher-order : optional level</p>
-<p>function factory (modèle à compartiment)</p>
+<ul>
+<li><p>function as an arg (solve_ivp)</p></li>
+<li><p>investigate default values</p></li>
+<li><p>use of kwargs (large option set)</p></li>
+<li><p>function as a return value (dense_output)</p></li>
+<li><p>autograd jacobian</p></li>
+<li><p>function as an arg 2 (events). + Higher-order : optional level</p></li>
+<li><p>function factory (modèle à compartiment)</p></li>
+</ul>
 <h2 id="introduction">Introduction</h2>
 <p>Le modèle épidémiologique à compartiments SIR détermine l’évolution dans le temps, parmi une population supposée constante de <span class="math inline">\(N\)</span> individus, du nombre d’individus susceptibles d'être infectés <span class="math inline">\(S\)</span>, du nombre d’individus infectés <span class="math inline">\(I\)</span> et du nombre d’individus en rémission (n’ayant plus de symptômes cliniques) <span class="math inline">\(R\)</span> (cf. <a href="https://www.nature.com/articles/s41592-020-0856-2">“The SEIRS model for infectious disease dynamics”</a> pour la présentation d’un modèle plus complet).</p>
 <p>Le paramètre <span class="math inline">\(\beta&gt;0\)</span> représente le taux de contagion, <span class="math inline">\(\gamma&gt;0\)</span> le taux de guérison et <span class="math inline">\(\omega&gt;0\)</span> le taux de perte d’immunité (ces grandeurs sont homogènes à l’inverse d'un temps). On définit le nombre de reproduction de base <span class="math inline">\(R_0\)</span> par</p>
