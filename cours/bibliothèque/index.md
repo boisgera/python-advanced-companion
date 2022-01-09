@@ -29,7 +29,7 @@ OS, CLI, Terminal, SSH
 
 `e-mail` ? Study <https://realpython.com/python-send-email/>
 
-### Comment invoquer `git` depuis Python ?
+### Comment invoquer un programme en ligne de commande depuis Python ?
 
 
 
