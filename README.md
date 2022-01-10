@@ -52,11 +52,18 @@
 
 [📖 Notes](https://boisgera.github.io/python-advanced-companion/cours/fonctions)
 
+
+[🪛 TP](https://boisgera.github.io/python-advanced-companion/tps/fonctions)
+
+
+<!--
 --------------------------------------------------------------------------------
 
 ## *Coming Soon*
 
 [📖 Notes](https://boisgera.github.io/python-advanced-companion/cours/bibliothèque) 🏗️
+
+-->
 
 --------------------------------------------------------------------------------
 
