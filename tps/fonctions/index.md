@@ -486,39 +486,8 @@ def get_vars(dynamics):
 ```
 
 ``` python
-def make_fun(dynamics):
-    vars = get_vars(dynamics)
-    n = len(vars)
-    
-    def fun(t, state):
-        ns = globals().copy()
-        for var, value in zip(vars, state):
-            ns[var] = value
-        dstate = []
-        for i in range(n):
-            d = 0
-            var = vars[i]
-            for (edge, expr) in dynamics.items():
-                source, target = edge
-                if source == var:
-                    d -= eval(expr, ns)
-                if target == var:
-                    d += eval(expr, ns)
-            dstate.append(d)
-        return dstate
-        
-    return fun 
-```
-
-``` python
 def make_dstate(dynamics):
-    vars = []
-    for s, t in dynamics.keys():
-        if s not in vars:
-            vars.append(s)
-        if t not in vars:
-            vars.append(t)
-    n = len(vars)
+    vars = get_vars(dynamics)
     
     def fun(t, state):
         ns = globals().copy()
