@@ -2,6 +2,8 @@
 import sys
 
 # Third-Party
+from fastapi import FastAPI
+from typing import Optional
 import numpy as np
 from scipy.integrate import solve_ivp
 import spark
@@ -12,14 +14,13 @@ WEEK = 7
 YEAR = 365
 
 N = 100
-beta = 1 / (WEEK)
-gamma = 1 / (2 * WEEK)
-omega = 1 / YEAR
+beta = BETA = 1 / (WEEK)
+gamma = GAMMA = 1 / (2 * WEEK)
+omega = OMEGA = 1 / YEAR
 
 S0, I0 = 99.0, 1.0
 R0 = N - S0 - I0
-t_span = [0.0, 5 * YEAR]
-
+T_SPAN = [0.0, 1.0 * YEAR]
 
 def dSIR(t, SIR):
     S, I, R = SIR
@@ -28,15 +29,12 @@ def dSIR(t, SIR):
     dR = gamma * I - omega * R
     return (dS, dI, dR)
 
-
-
-
 def main(
     sparklines: bool = typer.Option(False, help="Output sparklines"),
-    beta: float = typer.Option(beta, help="Contagion rate")):
-
+    beta: float = typer.Option(BETA, help="Contagion rate")):
+   
     globals()["beta"] = beta
-    results = solve_ivp(dSIR, t_span=t_span, y0=(S0, I0, R0), dense_output=True)
+    results = solve_ivp(dSIR, t_span=T_SPAN, y0=(S0, I0, R0), dense_output=True)
     sol = results["sol"]
     t = np.arange(0, 1 * YEAR)
     S, I, R = sol(t)
@@ -47,6 +45,16 @@ def main(
         output = " ".join(f"{v:.2f}" for v in I)
         typer.echo(output)
 
+app = FastAPI()
+
+@app.get("/")
+async def root(beta: Optional[float] = BETA):
+    globals()["beta"] = beta
+    results = solve_ivp(dSIR, t_span=T_SPAN, y0=(S0, I0, R0), dense_output=True)
+    sol = results["sol"]
+    t = np.arange(0, 1 * YEAR)
+    S, I, R = sol(t)
+    return list(I)
 
 if __name__ == "__main__":
     typer.run(main)
