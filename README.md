@@ -58,7 +58,7 @@
 
 ## Interfaces (de programmation)
 
-[📖 Notes](https://boisgera.github.io/python-advanced-companion/tps/API)
+[🪛 TP](https://boisgera.github.io/python-advanced-companion/tps/API)
 
 <!--
 --------------------------------------------------------------------------------
