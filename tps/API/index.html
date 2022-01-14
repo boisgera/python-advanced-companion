@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Sebastien Boisgérault, MINES ParisTech" />
+  <title>Interfaces de programmation applicative</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="css/style.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <!--
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet"> 
+  -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet">
+  <script>
+      document.addEventListener("DOMContentLoaded", (event) => {
+          let h3 = document.createElement("h3");
+          h3.innerHTML = "Table des matières";
+          let toc = document.getElementById("TOC");
+          toc.prepend(h3);
+      });    
+  </script>
+  <script>
+      document.addEventListener("DOMContentLoaded", (event) => {
+          let elts = document.querySelectorAll('body > :not(header):not(nav)');
+          let headers = [...elts].filter(elt =>  
+              ["H1", "H2", "H3", "H4", "H5", "H6"].includes(elt.tagName)
+          )
+          for (let header of headers) {
+              let anchor = document.createElement("a");
+              anchor.setAttribute("href", `#${header.id}`);
+              anchor.setAttribute("style", "text-decoration: None;");
+              anchor.innerHTML = header.outerHTML;
+              header.replaceWith(anchor);
+          }
+      });    
+  </script>
+  <script>
+
+      function filterConsole(text) {
+          let lines = text.split("\n");
+
+          console.log(lines);
+
+          let pythonConsole = lines && lines[0].startsWith(">>>");
+          if (!pythonConsole) {
+              return text + "\n\n";
+          } else {
+              let newLines = [];
+              for (let line of lines) {
+                  if (line.startsWith(">>> ") || line.startsWith("... ")) {
+                      newLines.push(line.slice(4));
+                  } else if (line.startsWith("...")){
+                      newLines.push(line.slice(3));
+                  }
+
+              }
+              return newLines.join("\n") + "\n";
+          }
+
+      }
+
+      document.addEventListener("DOMContentLoaded", (event) => {
+          let codeBlocks = document.querySelectorAll("pre.python")
+          for (let codeBlock of codeBlocks) {
+
+              let button = document.createElement("button")
+              let icon = document.createElement("img");
+              button.appendChild(icon)
+              codeBlock.insertBefore(button, codeBlock.firstChild);
+
+              icon.setAttribute("src", "icons/copy.svg");
+              icon.setAttribute("style", "opacity: 0.5;")
+              button.addEventListener('click', (event) => {
+                  let text = button.nextElementSibling.textContent;
+                  text = filterConsole(text);
+                  navigator.clipboard.writeText(text);
+              });
+
+              codeBlock.setAttribute("style", "position: relative");
+              button.setAttribute("style", 
+              "position: absolute; right: 1em; top: 1em; opacity: 0.0;");
+
+              codeBlock.addEventListener("mouseover", (event) => {
+                  button.style.setProperty("transition", "opacity 0.1s ease-out");
+                  button.style.setProperty("opacity", "1.0");
+              });
+
+              codeBlock.addEventListener("mouseout", (event) => {
+                  button.style.setProperty("transition", "opacity 0.75s ease-out");
+                  button.style.setProperty("opacity", "0.0");
+              });
+
+              button.addEventListener("mouseover", (event) => {
+                  icon.style.setProperty("transition", "opacity 0.1s ease-out");
+                  icon.style.setProperty("opacity", "0.75");
+              })
+
+              button.addEventListener("mouseout", (event) => {
+                  icon.style.setProperty("transition", "opacity 0.75s ease-out");
+                  icon.style.setProperty("opacity", "0.5");
+              })
+
+
+          }
+      });    
+  </script>
+  <script>
+      // TODO: replace with clickable 📖, store inside (invis) the content ?
+
+      document.addEventListener("DOMContentLoaded", (event) => {
+          let collapse = document.querySelectorAll(".collapse")
+          for (let elt of collapse) {
+              let button = document.createElement("button");
+              let clone = elt.cloneNode(true);
+              clone.style.setProperty("display", "none");
+              button.appendChild(clone);
+              elt.replaceWith(button);
+
+              button.style.setProperty("height", "4.5em");
+              button.style.setProperty("width", "100%");
+
+              // button.style.setProperty("overflow", "hidden");
+
+              button.style.setProperty("position", "relative");
+              button.style.setProperty("border", "none");
+              button.style.setProperty("box-shadow", "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px")
+
+              button.style.setProperty("z-index", "10");
+              button.style.setProperty("background-color", "#f8f9fa"); // "#fff5f5");
+              
+              /*
+              button.style.setProperty("position", "absolute");
+              button.style.setProperty("top", "0px");
+              button.style.setProperty("left", "0px");
+              button.style.setProperty("bottom", "0px");
+              button.style.setProperty("right", "0px");
+              */
+
+              let icon = document.createElement("img");
+              button.appendChild(icon);
+              // button.style.setProperty("border", "none");
+              // button.style.setProperty("background", "none");
+              // button.appendChild(button);
+              icon.setAttribute("src", "icons/chevron-down.svg");
+              button.style.setProperty("display", "flex");
+              button.style.setProperty("align-items", "center");
+              button.style.setProperty("justify-content", "center");
+              // button.style.setProperty("box-shadow", "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px")
+
+              button.addEventListener('click', (event) => {
+                  button.replaceWith(elt)
+
+              });
+
+
+              button.addEventListener('mouseover', (event) => {
+                  button.style.setProperty("cursor", "pointer");
+              });
+              
+              button.addEventListener('mouseout', (event) => {
+                  button.style.setProperty("cursor", "auto");
+              });
+
+      /*
+      document.addEventListener("DOMContentLoaded", (event) => {
+          let collapse = document.querySelectorAll(".collapse")
+          for (let elt of collapse) {
+              let wrapper = document.createElement("div");
+              let clone = elt.cloneNode(true);
+              wrapper.appendChild(clone);
+              elt.replaceWith(wrapper);
+
+              wrapper.style.setProperty("height", "4.5em");
+              wrapper.style.setProperty("overflow", "hidden");
+              wrapper.style.setProperty("position", "relative");
+              wrapper.style.setProperty("box-shadow", "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px")
+
+
+              let button = document.createElement("div");
+              wrapper.appendChild(button);
+              button.style.setProperty("z-index", "10");
+              button.style.setProperty("background-color", "#f8f9fa"); // "#fff5f5");
+              button.style.setProperty("position", "absolute");
+              button.style.setProperty("top", "0px");
+              button.style.setProperty("left", "0px");
+              button.style.setProperty("bottom", "0px");
+              button.style.setProperty("right", "0px");
+              
+              let icon = document.createElement("img");
+              let button = document.createElement("button");
+              button.appendChild(icon);
+              button.style.setProperty("border", "none");
+              button.style.setProperty("background", "none");
+              button.appendChild(button);
+              icon.setAttribute("src", "icons/chevron-down.svg");
+              button.style.setProperty("display", "flex");
+              button.style.setProperty("align-items", "center");
+              button.style.setProperty("justify-content", "center");
+              button.style.setProperty("box-shadow", "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px")
+
+              button.addEventListener('click', (event) => {
+                  wrapper.replaceWith(elt)
+
+              });
+
+
+  */
+          }
+      });    
+  </script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Interfaces de programmation applicative</h1>
+<p class="author"><a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sebastien Boisgérault</a>, MINES ParisTech</p>
+<p class="date">Licence : <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#interface-en-ligne-de-commande">Interface en ligne de commande</a></li>
+<li><a href="#sparklines">Sparklines</a></li>
+</ul>
+</nav>
+<p>🇺🇸 : Application Programming Interface (API)</p>
+<p>Ce document fait suite à l’étude du 😷 <a href="https://boisgera.github.io/python-advanced-companion/tps/fonctions/">modèle épidémiologique SIR</a>.</p>
+<h2 id="interface-en-ligne-de-commande">Interface en ligne de commande</h2>
+<h4 id="ligne-de-commande">🚀 Ligne de commande</h4>
+<p>Développez un fichier <code>SIR.py</code> qui affiche l’évolution jour par jour l’évolution pendant un an de la population de personnes infectées :</p>
+<pre class="python"><code>$ python SIR.py
+1.00 1.07 1.15 1.23 1.32 1.42 1.52 1.62 1.74 1.86 1.99 2.13 2.27 2.43 2.59 2.77 2.95 3.14 3.35 3.57 3.80 4.04 4.29 4.55 4.83 5.12 5.42 5.74 6.06 6.40 6.75 7.11 7.48 7.86 8.25 8.65 9.05 9.46 9.87 10.28 10.69 11.10 11.50 11.89 12.28 12.66 13.03 13.39 13.73 14.05 14.36 14.66 14.93 15.18 15.40 15.61 15.78 15.93 16.06 16.15 16.22 16.26 16.28 16.27 16.24 16.18 16.11 16.01 15.89 15.75 15.60 15.42 15.23 15.02 14.80 14.57 14.32 14.07 13.80 13.53 13.25 12.96 12.68 12.39 12.10 11.82 11.54 11.26 10.98 10.70 10.43 10.16 9.89 9.62 9.36 9.10 8.85 8.60 8.35 8.11 7.88 7.65 7.42 7.21 6.99 6.79 6.58 6.39 6.20 6.01 5.83 5.65 5.48 5.31 5.15 4.99 4.84 4.69 4.55 4.41 4.27 4.14 4.01 3.89 3.77 3.65 3.54 3.43 3.33 3.23 3.13 3.03 2.94 2.85 2.77 2.68 2.60 2.52 2.45 2.38 2.31 2.24 2.17 2.11 2.05 1.99 1.94 1.88 1.83 1.78 1.73 1.68 1.63 1.59 1.55 1.50 1.46 1.42 1.39 1.35 1.31 1.28 1.25 1.21 1.18 1.15 1.12 1.09 1.07 1.04 1.01 0.99 0.96 0.94 0.92 0.89 0.87 0.85 0.83 0.81 0.79 0.78 0.76 0.74 0.73 0.71 0.70 0.68 0.67 0.65 0.64 0.63 0.61 0.60 0.59 0.58 0.57 0.56 0.55 0.54 0.53 0.52 0.51 0.50 0.49 0.48 0.47 0.46 0.46 0.45 0.44 0.43 0.43 0.42 0.41 0.41 0.40 0.39 0.39 0.38 0.38 0.37 0.37 0.36 0.36 0.35 0.35 0.34 0.34 0.33 0.33 0.33 0.32 0.32 0.31 0.31 0.31 0.30 0.30 0.30 0.29 0.29 0.29 0.29 0.28 0.28 0.28 0.27 0.27 0.27 0.27 0.27 0.26 0.26 0.26 0.26 0.25 0.25 0.25 0.25 0.25 0.25 0.24 0.24 0.24 0.24 0.24 0.24 0.24 0.23 0.23 0.23 0.23 0.23 0.23 0.23 0.23 0.23 0.23 0.23 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.22 0.23 0.23 0.23 0.23 0.23 0.23 0.23 0.23 0.23 0.23 0.23 0.24 0.24 0.24 0.24 0.24 0.24 0.24 0.24 0.25 0.25 0.25 0.25 0.25 0.25 0.26 0.26 0.26 0.26 0.26 0.27 0.27 0.27 0.27 0.27 0.28 0.28 0.28 0.28 0.29 0.29 0.29 0.29 0.30 0.30 0.30 0.31 0.31 0.31 0.32</code></pre>
+<h4 id="solution">Solution</h4>
+<div class="collapse">
+<pre class="python"><code>import numpy as np
+from scipy.integrate import solve_ivp
+
+WEEK = 7
+YEAR = 365
+
+N = 100
+beta = 1 / (WEEK)
+gamma = 1 / (2 * WEEK)
+omega = 1 / YEAR
+
+S0, I0 = 99.0, 1.0
+R0 = N - S0 - I0
+t_span = [0.0, 5*YEAR]
+
+def dSIR(t, SIR):
+    S, I, R = SIR
+    dS = omega * R - beta * I * S / N
+    dI = beta * I * S / N - gamma * I
+    dR = gamma * I - omega * R  
+    return (dS, dI, dR)
+
+if __name__ == &quot;__main__&quot;:
+    results = solve_ivp(
+        dSIR, 
+        t_span=t_span, 
+        y0=(S0, I0, R0), 
+        dense_output=True
+    )
+    sol = results[&quot;sol&quot;]
+    t = np.arange(0, 1*YEAR)
+    S, I, R = sol(t)
+    output = &quot; &quot;.join(f&quot;{v:.2f}&quot; for v in I)
+    print(output)</code></pre>
+</div>
+<h2 id="sparklines">Sparklines</h2>
+<p>On souhaite offrir en option un affichage “graphique” permettant d’interpréter plus facilement les résultats de la simulation. Nous allons pour ce faire utiliser des ✨ <a href="https://en.wikipedia.org/wiki/Sparkline">sparklines</a> et dans cet optique, essayer d’exploiter le projet <a href="https://github.com/boisgera/spark.py">spark</a>.</p>
+<h4 id="clone-install-test">🚀 Clone, Install, Test</h4>
+<ul>
+<li><p>Cloner le dépôt github du projet spark sur votre machine.</p></li>
+<li><p>Installer spark dans votre environnement en exécutant la commande</p>
+<pre><code>python setup.py install</code></pre>
+<p>ou</p>
+<pre><code>pip install .</code></pre>
+<p>dans le répertoire racine de ce projet.</p></li>
+<li><p>Tester les interfaces en ligne de commande et Python de cet outil.</p></li>
+</ul>
+<h4 id="forkez-le-projet">🚀 “Forkez” le projet</h4>
+<p>Spark serait plus facile à utiliser s’il acceptait directement des données sous forme de nombres flottants et pas uniquement des entiers.</p>
+<ul>
+<li><p>Forkez le projet sur GitHub.</p></li>
+<li><p>Ajoutez-lui cette fonctionnalité.</p></li>
+<li><p>Mettez à jour les fichiers <code>README.md</code> et <code>setup.py</code> en conséquence.</p></li>
+<li><p>Puis déployez cette nouvelle version de spark dans votre environnement.</p></li>
+</ul>
+<h4 id="intégration">🚀 Intégration</h4>
+<p>Faites en sorte que notre application affiche des sparklines représente l’évolution du niveau d’infection lorsque l’option <code>--sparklines</code> est sélectionnée :</p>
+<pre class="python"><code>$ python SIR.py --sparklines
+▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂▂▂▂▂▂▂▃▃▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇▇██████████████████▇▇▇▇▇▇▇▇▇▆▆▆▆▆▆▆▅▅▅▅▅▅▅▄▄▄▄▄▄▄▄▄▃▃▃▃▃▃▃▃▃▃▃▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁</code></pre>
+<h4 id="solution-1">Solution</h4>
+<div class="collapse">
+<pre class="python"><code># Python Standard Library
+import sys
+
+# Third-Party
+import numpy as np
+from scipy.integrate import solve_ivp
+import spark
+import matplotlib.pyplot as plt
+
+WEEK = 7
+YEAR = 365
+
+N = 100
+beta = 1 / (WEEK)
+gamma = 1 / (2 * WEEK)
+omega = 1 / YEAR
+
+S0, I0 = 99.0, 1.0
+R0 = N - S0 - I0
+t_span = [0.0, 5*YEAR]
+
+def dSIR(t, SIR):
+    S, I, R = SIR
+    dS = omega * R - beta * I * S / N
+    dI = beta * I * S / N - gamma * I
+    dR = gamma * I - omega * R  
+    return (dS, dI, dR)
+
+results = solve_ivp(
+    dSIR, 
+    t_span=t_span, 
+    y0=(S0, I0, R0), 
+    dense_output=True
+)
+
+sol = results[&quot;sol&quot;]
+
+t = np.arange(0, 1*YEAR)
+
+S, I, R = sol(t)
+
+if &quot;--sparklines&quot; in sys.argv[1:]:
+    spark.spark_print(I)
+else:
+    output = &quot; &quot;.join(f&quot;{v:.2f}&quot; for v in I)
+    print(output)</code></pre>
+</div>
+</body>
+</html>
