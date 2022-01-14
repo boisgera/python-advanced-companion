@@ -29,7 +29,7 @@ simulation de notre modèle épidémiologique.
 
 #### 🚀 Ligne de commande
 
-Développez un programmation Python `SIR.py` qui affiche l'évolution jour par jour 
+Développez un programme Python `SIR.py` qui affiche l'évolution jour par jour 
 et pendant un an de la population de personnes infectées :
 
 ``` bash
