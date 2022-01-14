@@ -1,7 +1,7 @@
 ---
 title: Le modèle épidémiologique SIR
 author: 
-  - "[Sebastien Boisgérault](mailto:Sebastien.Boisgerault@mines-paristech.fr), MINES ParisTech"
+  - "[Sébastien Boisgérault](mailto:Sebastien.Boisgerault@mines-paristech.fr), MINES ParisTech"
 date: "Licence : [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)"
 # author: ""
 # license: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)

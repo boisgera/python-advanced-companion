@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="author" content="Sebastien Boisgérault, MINES ParisTech" />
+  <meta name="author" content="Sébastien Boisgérault, MINES ParisTech" />
   <title>Le modèle épidémiologique SIR</title>
   <style>
     code{white-space: pre-wrap;}
@@ -230,7 +230,7 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Le modèle épidémiologique SIR</h1>
-<p class="author"><a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sebastien Boisgérault</a>, MINES ParisTech</p>
+<p class="author"><a href="mailto:Sebastien.Boisgerault@mines-paristech.fr">Sébastien Boisgérault</a>, MINES ParisTech</p>
 <p class="date">Licence : <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
 </header>
 <nav id="TOC" role="doc-toc">
@@ -491,9 +491,8 @@ dSIR_auto = make_dstate(SIR_dynamics)</code></pre>
         for var, value in zip(vars, state):
             ns[var] = value
         dstate = []
-        for i in range(n):
+        for var in vars:
             d = 0
-            var = vars[i]
             for (edge, expr) in dynamics.items():
                 source, target = edge
                 if source == var:
