@@ -7,7 +7,7 @@ date: "Licence : [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)"
 # license: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 ---
 
-🇺🇸 : Application Programming Interface (API)
+🇺🇸 : **Application Programming Interface (API)**
 
 Ce document fait suite à l'étude du 😷 [modèle épidémiologique SIR].
 
@@ -15,6 +15,9 @@ Ce document fait suite à l'étude du 😷 [modèle épidémiologique SIR].
 
 
 ## Interface en ligne de commande
+
+🇺🇸 : **Command-Line Interface (CLI)**
+
 
 #### 🚀 Ligne de commande
 
@@ -185,7 +188,7 @@ else:
 
 ::: collapse
 
-Initialement :
+Initialement pour migrer vers `typer` :
 
 ``` python
 import typer
