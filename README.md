@@ -56,6 +56,10 @@
 [🪛 TP](https://boisgera.github.io/python-advanced-companion/tps/fonctions)
 
 
+## Interfaces (de programmation)
+
+[📖 Notes](https://boisgera.github.io/python-advanced-companion/tps/API)
+
 <!--
 --------------------------------------------------------------------------------
 
