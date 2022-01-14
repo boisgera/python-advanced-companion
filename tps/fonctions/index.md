@@ -494,9 +494,8 @@ def make_dstate(dynamics):
         for var, value in zip(vars, state):
             ns[var] = value
         dstate = []
-        for i in range(n):
+        for var in vars:
             d = 0
-            var = vars[i]
             for (edge, expr) in dynamics.items():
                 source, target = edge
                 if source == var:
