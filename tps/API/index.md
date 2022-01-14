@@ -125,52 +125,16 @@ $ python SIR.py --sparklines
 ::: collapse
 
 ``` python
-# Python Standard Library
 import sys
-
-# Third-Party
-import numpy as np
-from scipy.integrate import solve_ivp
 import spark
-import matplotlib.pyplot as plt
 
-WEEK = 7
-YEAR = 365
-
-N = 100
-beta = 1 / (WEEK)
-gamma = 1 / (2 * WEEK)
-omega = 1 / YEAR
-
-S0, I0 = 99.0, 1.0
-R0 = N - S0 - I0
-t_span = [0.0, 5*YEAR]
-
-def dSIR(t, SIR):
-    S, I, R = SIR
-    dS = omega * R - beta * I * S / N
-    dI = beta * I * S / N - gamma * I
-    dR = gamma * I - omega * R  
-    return (dS, dI, dR)
-
-results = solve_ivp(
-    dSIR, 
-    t_span=t_span, 
-    y0=(S0, I0, R0), 
-    dense_output=True
-)
-
-sol = results["sol"]
-
-t = np.arange(0, 1*YEAR)
-
-S, I, R = sol(t)
+...
 
 if "--sparklines" in sys.argv[1:]:
     spark.spark_print(I)
 else:
     output = " ".join(f"{v:.2f}" for v in I)
-    print(output)
+    typer.echo(output)
 ```
 
 :::
@@ -178,3 +142,95 @@ else:
 
 [sparklines]: https://en.wikipedia.org/wiki/Sparkline 
 [spark]: https://github.com/boisgera/spark.py
+
+## Gestion des arguments
+
+#### 🚀 Plus d'options
+
+  - Etudier les fonctionnalités proposées par la bibliothèque [typer]. 
+    On pourra se contenter de lire l'[exemple minimal] de d'introduction
+    et la section consacrée aux [options avec aide].
+
+  - Réimplementez la fonctionnalité des sparklines en utilisant `typer`
+    plutôt que `sys.argv`. Vérifiez au passage que `typer` vous donne
+    "gratuitement" le support pour l'option `--help`.
+
+  - Profitez de cette migration vers `typer` pour permettre à l'utilisateur 
+    de changer la valeur du taux de contagion :
+
+    ``` bash
+    $ python SIR.py --help
+    Usage: SIR.py [OPTIONS]
+
+    Options:
+      --sparklines / --no-sparklines  Output sparklines  [default: no-sparklines]
+      --beta FLOAT                    Contagion rate  [default:
+                                      0.14285714285714285]
+      --install-completion            Install completion for the current shell.
+      --show-completion               Show completion for the current shell, to
+                                      copy it or customize the installation.
+      --help                          Show this message and exit.
+    ```
+
+    ``` bash
+    $ python SIR.py --sparklines --beta=0.8
+    ▁▂▃▅▆▇███▇▇▇▆▆▅▅▅▄▄▄▄▃▃▃▃▃▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+    ```                                                                                                 
+    ``` bash
+    $ python SIR.py --sparklines --beta=0.05
+    ███▇▇▇▇▇▇▇▆▆▆▆▆▆▆▅▅▅▅▅▅▅▅▅▄▄▄▄▄▄▄▄▄▄▄▄▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+    ```            
+
+#### Solution 
+
+::: collapse
+
+Initialement :
+
+``` python
+import typer
+
+...
+
+def main(
+  sparklines: bool = typer.Option(False, help="Output sparklines")
+):
+    if sparklines:
+        spark.spark_print(I)
+    else:
+         output = " ".join(f"{v:.2f}" for v in I)
+         typer.echo(output)
+
+if __name__ == "__main__":
+    typer.run(main)
+```
+
+puis pour supporter l'option `--beta` :
+
+``` python
+...
+
+def main(
+    sparklines: bool = typer.Option(False, help="Output sparklines"),
+    beta: float = typer.Option(beta, help="Contagion rate")
+):
+    globals()["beta"] = beta
+    results = solve_ivp(dSIR, t_span=t_span, y0=(S0, I0, R0), dense_output=True)
+    sol = results["sol"]
+    t = np.arange(0, 1 * YEAR)
+    S, I, R = sol(t)
+
+    if sparklines:
+        spark.spark_print(I)
+    else:
+        output = " ".join(f"{v:.2f}" for v in I)
+        typer.echo(output)
+
+...
+```
+
+:::
+                                                                                     
+[typer]: https://typer.tiangolo.com/
+[exemple minimal]: https://typer.tiangolo.com/#the-absolute-minimum
+[options avec aide]: https://typer.tiangolo.com/tutorial/options/help/
