@@ -57,68 +57,92 @@ sur les namespaces ?
 
 ## Exceptions
 
-``` pycon
->>> abs(-1.0)
-1.0
->>> abs("Hello!")
+### Erreurs
+
+En cas d'opération invalide, Python génère une erreur ; par exemple si vous 
+divisez $1$ par $0$, calculez $\sqrt{-1}$ ou évaluez la valeur absolue
+d'une liste vide, vous observez les messages suivants :
+
+``` python
+>>> 1.0 / 0.0
 Traceback (most recent call last):
-...
-TypeError: bad operand type for abs(): 'str'
+  File "<stdin>", line 1, in <module>
+ZeroDivisionError: float division by zero
 ```
 
-``` pycon
+``` python
 >>> import math
 >>> math.sqrt(-1)
 Traceback (most recent call last):
-...
+  File "<stdin>", line 1, in <module>
 ValueError: math domain error
 ```
 
-``` pycon
->>> int(42)
-42
->>> int(42.0)
-42
->>> int("42")
-42
->>> int("quarante-deux")
-Traceback (most recent call last):
-...
-ValueError: invalid literal for int() with base 10: 'quarante-deux'
-```
-
-``` pycon
->>> 1/2
-0.5
->>> 1/0
+``` python
+>>> abs([])
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
-ZeroDivisionError: division by zero
+TypeError: bad operand type for abs(): 'list'
 ```
 
-``` pycon
->>> import math
->>> math.sqrt(4.0)
-2.0
->>> math.sqrt(-4.0)
-Traceback (most recent call last):
-...
-ValueError: math domain error
-```
+Techniquement, Python génère une erreur en **levant une exception**.
+L'exception se manifeste en affichant : 
 
-``` pycon
+  - un **traceback** pointant vers l'origine de l'erreur :
+    
+    `File "<stdin>", line 1, in <module>`
+
+    (ici assez peu instructif il faut bien l'avouer.)
+
+  - son **type** :
+  
+    - `ZeroDivisionError`, 
+    
+    - `ValueError` et 
+    
+    - `TypeError`.
+
+  - un **message** explicatif: 
+  
+    - `"division by zero"`, 
+    
+    - `"math domain error"`, 
+
+    - `"bad operand type for abs(): 'list'"`
+
+
+#### What about NumPy? {.details .info}
+
+Les calculs erronés sont gérés différents par Python standard et NumPy. 
+Là où Python standard génère des exceptions en présence de calculs invalides, 
+NumPy permet d'utiliser des valeurs numériques spéciales telles que `inf` ($+\infty$)
+et `nan` (Not-A-Number ou $\bot$). Ainsi:
+
+``` python
 >>> import numpy as np
->>> _ = np.seterr(all="ignore")  # disable numpy warnings
->>> np.sqrt(4.0)
-2.0
->>> np.sqrt(-4.0)
+>>> _ = np.seterr(all="ignore")
+>>> np.float64(1.0) / np.float64(0.0)
+inf
+>>> np.sqrt(-1.0)
 nan
->>> np.sqrt(-4.0 + 0.0j)
-2j
 ```
 
 
-**TODO:**
+#### Misc. Sandbox.
+
+jdskdjslkd sdlj k jslkdj slkjd
+
+``` python
+>>> import numpy as np
+>>> _ = numpy.seterr(all="ignore")
+>>> np.sqrt(-1)
+nan
+>>> float64(1.0) / float64(0.0)
+inf
+```
+
+
+#### ksdsmkd
 
   - Exposer les conséquences des "erreurs" dans un script, comment elles
     affectent l'exécution. Ca affecte bien le flot d'exécution!

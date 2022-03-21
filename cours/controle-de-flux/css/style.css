@@ -5,8 +5,36 @@ html {
     color: #1a1a1a;
     background-color: #fdfdfd;
   }
-code:not(fuckcss){
-    font-family: "Fira Code", monospace;
+
+/******************************************************************************/
+/* See https://css-tricks.com/two-issues-styling-the-details-element-and-how-to-solve-them/ */
+details summary { 
+  cursor: pointer;
+}
+
+details summary > * {
+  display: inline;
+}
+
+details.info {
+  background: #e7f5ff; /* blue 0 */
+  padding: 1em;
+}
+
+details pre:not(fuckcss) {
+  background: #d0ebff;
+  padding: 1em;
+}
+
+details :not(pre) > code:not(fuckcss){
+  background: #d0ebff;
+  font-size: 90%;
+}
+
+/******************************************************************************/
+
+:not(pre) > code:not(fuckcss){
+    background: #f1f3f5;
     font-size: 90%;
 }
 
