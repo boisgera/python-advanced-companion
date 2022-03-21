@@ -8,26 +8,32 @@ html {
 
 /******************************************************************************/
 /* See https://css-tricks.com/two-issues-styling-the-details-element-and-how-to-solve-them/ */
+
+details {
+  /* background: red; */
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
 details summary { 
+  /* background: #e7f5ff; blue 0 */
   cursor: pointer;
 }
 
 details summary > * {
-  display: inline;
+  display: inline;  
 }
 
-details.info {
-  background: #e7f5ff; /* blue 0 */
+details  {
+  /* background: #e7f5ff; blue 0 */
   padding: 1em;
 }
 
 details pre:not(fuckcss) {
-  background: #d0ebff;
+  /* background: #d0ebff; */
   padding: 1em;
 }
 
 details :not(pre) > code:not(fuckcss){
-  background: #d0ebff;
+  /* background: #d0ebff; */
   font-size: 90%;
 }
 
