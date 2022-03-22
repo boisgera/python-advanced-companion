@@ -24,9 +24,25 @@ Type booléen, opérateurs logiques, conversion en booléen des types built-in
 
 ### Opérateurs logiques
 
-`and`, `or`, priorités.
+`not`, `and`, `or`, priorités (left-assoc. vs right-assoc).
 
-### Conversion
+opérateurs de comparaison
+
+`is`, `is not`, 
+
+``` python
+(a is b) == (id(a) == id(b))
+```
+
+``` python
+(a is not b) == not (a is b)
+```
+
+ordre:
+
+`==`, `!=`, `<`, etc.
+
+### Conversion automatiques / implicites
 
 **en quelque sorte fausse** (🇺🇸 *false-ish*) ou **en quelque sorte vraie** (🇺🇸 *true-ish*)
 
@@ -38,18 +54,23 @@ Type booléen, opérateurs logiques, conversion en booléen des types built-in
 False
 ```
 
+Expliquer en amont cas de `bool`, avec `is`, `True` et `False`
+
+Analyse: une seule valeur (en quelque sorte) fausse par type ;
+en quelque sortie faux ssi égal à cette valeur, sinon (en quelque sorte) vraie.
+
 | `type(x)`    | `bool(x) is False` | `bool(x) is True` |
 |--------------|--------------------|-------------------|
-| `bool`       | `x is False`       | `x is True`       |
+| `bool`       | `x == False`       | `x != False`      |
 | `int`        | `x == 0`           | `x != 0`          |
 | `float`      | `x == 0.0`         | `x != 0.0`        |
 | `complex`    | `x == 0.0j`        | `x != 0.0j`       |
 | `str`        | `x == ""`          | `x != ""`         |
 | `bytes`      | `x == b""`         | `x != b""`        |
-| `tuple`      | `len(x) == 0`      | `len(x) > 0`      |
-| `list`       | `len(x) == 0`      | `len(x) > 0`      |
-| `set`        | `len(x) == 0`      | `len(x) > 0`      |
-| `dict`       | `len(x) == 0`      | `len(x) > 0`      |
+| `tuple`      | `x == ()`          | `x != ()`         |
+| `list`       | `x == []`          | `x != []`         |
+| `set`        | `x == set()`       | `x != set()`      |
+| `dict`       | `x == {}`          | `x != {}`         |
 
 #### 🤔 Quelle est la logique de cette conversion ? {.details .info}
 
@@ -68,6 +89,16 @@ Pour tous les types standards listés ci-dessus :
     ``` python
     bool(x) == (len(x) == 0)
     ```
+
+Alternative / "valeur par défaut" du type.
+
+Singleton / `bool` et "is" ? Explication pratique / None ?
+
+#### TODO: conseils / bonnes pratiques ? {.details}
+
+du type éviter `if x is True`, `if todos == []` ou `if len(todos) > 0`.
+Dans d'autres cas, être plus explicite (ex: `xml.etree` ou `numpy`) ?
+Faire preuve de discernement.
 
 #### TODO:
 
@@ -104,6 +135,8 @@ Pour tous les types standards listés ci-dessus :
   - `for x in y`, types builtins
 
   - itérable et appels explicites (ex sur un dict)
+
+  - `for / else`
 
 ## Fonctions
 
