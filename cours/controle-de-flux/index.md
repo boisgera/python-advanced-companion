@@ -18,9 +18,66 @@ Déroulement linéaire du programme, ligne par ligne ...
 
 Exécution conditionnelle de code, "branching".
 
-## Conditions / prédicats
+## Booléens
 
-Type booléen, "test", conversion en booléen des types built-in
+Type booléen, opérateurs logiques, conversion en booléen des types built-in
+
+### Opérateurs logiques
+
+`and`, `or`, priorités.
+
+### Conversion
+
+**en quelque sorte fausse** (🇺🇸 *false-ish*) ou **en quelque sorte vraie** (🇺🇸 *true-ish*)
+
+
+
+``` python
+>>> x = None
+>>> bool(x)
+False
+```
+
+| `type(x)`    | `bool(x) is False` | `bool(x) is True` |
+|--------------|--------------------|-------------------|
+| `bool`       | `x is False`       | `x is True`       |
+| `int`        | `x == 0`           | `x != 0`          |
+| `float`      | `x == 0.0`         | `x != 0.0`        |
+| `complex`    | `x == 0.0j`        | `x != 0.0j`       |
+| `str`        | `x == ""`          | `x != ""`         |
+| `bytes`      | `x == b""`         | `x != b""`        |
+| `tuple`      | `len(x) == 0`      | `len(x) > 0`      |
+| `list`       | `len(x) == 0`      | `len(x) > 0`      |
+| `set`        | `len(x) == 0`      | `len(x) > 0`      |
+| `dict`       | `len(x) == 0`      | `len(x) > 0`      |
+
+#### 🤔 Quelle est la logique de cette conversion ? {.details .info}
+
+Pour tous les types standards listés ci-dessus : 
+
+  - Si `x` est numérique (`bool`, `int`, `float`, `complex`), 
+    il est en quelque sorte vrai si et seulement s'il est non-nul : 
+
+    ``` python
+    bool(x) == (x == 0)
+    ```
+
+  - Si `x` est un conteneur (`str`, `bytes`, `tuple`, `list`, `set`, `dict`),
+    il est en quelque sorte vrai si et seulement s'il est vide :
+
+    ``` python
+    bool(x) == (len(x) == 0)
+    ```
+
+#### TODO:
+
+  - objets, par défaut ? `True` (sinon, à setter à `None`)
+
+  - exploration autres types : files (tjs `True`), numpy arrays, xml element, etc. ?
+    Array intéressant: pas obligé d'être convertible ; mélange de warnings,
+    erreurs, et qui marche. Plus simple de ne pas se fier à la conversion
+    implicite! Utiliser `.size` est le plus souvent ce que l'on veut. Sinon,
+    utiliser `.any()` ou `.all()`.
 
 ## `If`
 
