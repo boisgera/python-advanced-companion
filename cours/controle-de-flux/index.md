@@ -219,47 +219,6 @@ False
  5. `or`
 
 
-opérateurs de comparaison
-
-`is`, `is not`, 
-
-``` python
-(a is b) == (id(a) == id(b))
-```
-
-``` python
-(a is not b) == not (a is b)
-```
-
-ordre:
-
-`==`, `!=`, `<`, etc.
-
-#### TODO: formes normales disjonctives encouragées (détail).
-
-
-#### Quizz 
-
-L'expression `x and not y or z` est interprétée comme:
-
-- [ ] `x and (not (y or z))`
-
-- [ ] `x and ((not y)) or z)`
-
-- [ ] `(x and (not y)) or z`
-
-#### ✨ Solution {.details}
-
-- [ ] `x and (not (y or z))`
-
-- [ ] `x and ((not y)) or z)`
-
-- [x] `(x and (not y)) or z`
-
-En effet `not` a une priorité plus élevée que `and` qui a une priorité
-plus élevée que `or`.
-
-
 ### Conversion explicites et automatiques / implicites
 
 ⚠️ and et or (et not ? si) ne font pas de conversion implicites, c'est plus subtil.
@@ -346,21 +305,33 @@ Faire preuve de discernement.
 
 # Boucles
 
-## `While`
+## While
 
-  - `while stuff`
+Boucle while:
 
-  - `break`, `continue`
-
-  - `while True` (?)
+``` python
+>>> numbers = [1, 2, 3]
+>>> while numbers:
+...     number = numbers.pop(0)
+...     print(number)
+...
+1
+2
+3
+```
 
 ## `For`
 
 La boucle `for`
 
 ``` python
-for item in iterable:
-    # do something
+>>> numbers = [1, 2, 3]
+>>> for number in numbers:
+...     print(number)
+...
+1
+2
+3
 ```
 
 Iterable: collection (listes, n-uplets, ensembles, dictionnaires, etc.), iterateur ou plus généralement itérable.
@@ -373,12 +344,62 @@ Ref: <https://docs.python.org/3/library/collections.abc.html#collections.abc.Siz
 
 
 
-  - `for / else`
+
+## Sortir des boucles
+
+L'exécution des boucles `while` et `for` peuvent être interrompue, soit pour
+accéder directement à l'itération suivante, avec le mot-clé `continue`, 
+soit pour interrompre définitivement la boucle, avec le mot-clé `break`.
+
+Par exemple:
+
+``` python
+>>> i = 0
+>>> while i < 6:
+...     if i % 2 == 0:  # i is even
+...         continue
+...     print(i)
+...
+1
+3
+5
+```
+
+et 
+
+``` python
+>>> i = 0
+>>> while True:
+...     if i >= 3:
+...         break
+...     print(i)
+...     i += 1
+...
+0
+1
+2
+```
+
+La même mécanique s'applique au boucles `for`. A noter la clause optionnelle
+`else` associée au boucles for, qui n'est exécutée que si aucun `break` 
+n'a eu lieu.
+
+``` python
+>>> for i in [1, 2, 3]:
+...     print(i)
+... else:
+...     print("ok")
+...
+1
+2
+3
+ok
+```
 
 ## Fonctions
 
 Impact sur le flux de contrôle principalement, et *un peu, ad minimima* 
-sur les namespaces ?
+sur les namespaces ? Bof, non. Par contre, parler de `return`
 
 
 
@@ -413,7 +434,7 @@ TypeError: bad operand type for abs(): 'list'
 ```
 
 Techniquement, Python génère une erreur en **levant une exception**.
-L'exception se manifeste en affichant : 
+En mode interactif, l'exception se manifeste par l'affichage suivant : 
 
   - un **traceback** pointant vers l'origine de l'erreur :
     
@@ -421,7 +442,7 @@ L'exception se manifeste en affichant :
 
     (ici assez peu instructif il faut bien l'avouer.)
 
-  - son **type** :
+  - un **type** d'exception :
   
     - `ZeroDivisionError`, 
     
@@ -429,7 +450,7 @@ L'exception se manifeste en affichant :
     
     - `TypeError`.
 
-  - un **message** explicatif: 
+  - un **message** explicatif : 
   
     - `"division by zero"`, 
     
@@ -437,6 +458,272 @@ L'exception se manifeste en affichant :
 
     - `"bad operand type for abs(): 'list'"`
 
+
+### Conséquence d'une exception
+
+Lorsqu'une exception est générée en mode interactif (REPL Python, notebook Jupyter,
+etc.), l'environnement gère l'exception ; 
+il vous signale qu'une exception s'est produite, mais vous pouvez continuer à
+taper des commandes.
+
+En revanche dans l'exécution classique d'un programme Python classique, 
+en l'absence de gestion spécifique de l'exception, la survenue d'une exception 
+interrompt brutalement le programme. Par exemple, l'exécution du programme Python
+
+``` python
+# file: main.py
+print("Hello")
+1 / 0
+print("world!")
+```
+
+conduit à
+
+``` bash
+$ python main.py
+Hello
+Traceback (most recent call last):
+  File "main.py", line 3, in <module>
+    1 / 0
+ZeroDivisionError: division by zero
+```
+
+La chaîne de caractères `"world!"` ne sera jamais affichée.
+
+### Gestion des exceptions
+
+🚧 **TODO** 🚧
+
+### Lever une exception
+
+On peut lever (générer) une exception au moyen du mot-clé `raise`.
+
+#### Simulation
+
+Par exemple, pour reproduire les erreurs que l'on a rencontré jusqu'à présent :
+
+``` python
+>>> # 1 / 0
+>>> raise ZeroDivisionError("float division by zero")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ZeroDivisionError: float division by zero
+```
+
+``` python
+>>> # math.sqrt(-1)
+>>> raise ValueError("math domain error")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ValueError: math domain error
+```
+
+``` python
+>>> # abs([])
+>>> raise TypeError("bad operand type for abs(): 'list'")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: bad operand type for abs(): 'list'
+```
+
+#### Un example plus réaliste
+On peut rapidemeent définir une fonction factorielle :
+
+``` python
+import math
+
+def factorial(n):
+    integers = range(1, n+1) # 1, 2, 3, ..., n (iterable)
+    return math.prod(integers)
+```
+
+qui donne le bon résultat "quand tout va bien"
+
+``` python
+>>> factorial(0)
+1
+>>> factorial(1)
+1
+>>> factorial(2)
+2
+>>> factorial(3)
+6
+>>> factorial(10)
+3628800
+>>> factorial(20)
+2432902008176640000
+```
+
+Mais en cas d'erreur sur le type de l'argument, l'erreur associée est quelque
+peu cryptique :
+
+``` python
+>>> factorial("100")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 2, in factorial
+TypeError: can only concatenate str (not "int") to str
+```
+
+Il est possible de faire mieux, par exemple avec le code suivant :
+
+``` python
+def factorial(n):
+    if not isinstance(n, int):
+        message = f"{n!r} is not an integer"
+        raise TypeError(message)
+    integers = range(1, n+1) # 1, 2, 3, ..., n (iterable)
+    return math.prod(integers)
+```
+
+On obtiendra alors l'erreur plus explicite
+
+```
+>>> factorial("100")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 4, in factorial
+TypeError: '100' is not an integer
+```
+
+Mais même ainsi nous pouvons encore avoir des surprises. 
+Ainsi, si `n` est un entier mais qu'il est strictement négatif,
+`factorial` va évaluer le `math.prod([])`, qui vaut 1.
+
+``` python
+>>> factorial(-1)
+1
+```
+
+Corrigeons ce défaut de notre implémentation !
+
+``` python
+def factorial(n):
+    if not isinstance(n, int):
+        message = f"{n!r} is not an integer."
+        raise TypeError(message)
+    if n < 0:
+        message = f"{n} < 0."
+        raise ValueError(message) 
+    integers = range(1, n+1) # 1, 2, 3, ..., n (iterable)
+    return math.prod(integers)
+```
+
+``` python
+>>> factorial(-1)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 7, in factorial
+ValueError: -1 < 0.
+```
+
+#### “It’s easier to ask forgiveness than it is to get permission.” {.details}
+
+Une citation de [Grace Hopper], qui correspond à un style de gestion des
+erreurs classique en Python. Au lieu de tester au préalable toutes les conditions
+d'erreurs possibles, ce qui peut être fastidieux, 
+on "fait ce qu'on a à faire" et on l'analyse ensuite le résultat
+et éventuellement on gère les erreurs qui en résultent. 
+Dans le cas de
+la fonction factorielle, ce style pourrait se traduire comme suit :
+
+``` python
+def factorial(n):
+    try:
+        if n < 0:
+            message = f"{n} < 0."
+            raise ValueError(message) 
+        integers = range(1, n+1) # 1, 2, 3, ..., n (iterable)
+        return math.prod(integers)
+    except TypeError:
+        message = f"{n!r} is not an integer."
+        raise TypeError(message)
+```
+
+``` python
+>>> factorial(-1)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 5, in factorial
+ValueError: -1 < 0.
+```
+
+``` python
+>>> factorial("100")
+Traceback (most recent call last):
+  File "<stdin>", line 3, in factorial
+TypeError: '<' not supported between instances of 'str' and 'int'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 11, in factorial
+TypeError: '100' is not an integer.
+```
+
+[Grace Hopper]: https://en.wikipedia.org/wiki/Grace_Hopper
+
+
+### Exceptions & contrôle de flux
+
+Il n'est peut-être pas évident que les exceptions -- a priori destinées à
+décrire des erreurs -- fournissent un puissant mécanisme de contrôle de flux.
+Et pourtant c'est bien le cas ! 
+
+A titre d'exemple, montrons comment un exception nous permet de sortir
+de plusieurs boucles imbriquées (contrairement au mot-clé `break`). 
+On peut ainsi utiliser (par exemple) l'exception `StopIteration`
+dans le code suivant :
+
+
+``` python
+>>> try:
+...     for i in range(10):
+...         for j in range(10):
+...             for k in range(10):
+...                 print(i, j, k)
+...                 if i + j + k == 7:
+...                     raise StopIteration() 
+... except StopIteration:
+...     pass
+...
+0 0 0
+0 0 1
+0 0 2
+0 0 3
+0 0 4
+0 0 5
+0 0 6
+0 0 7
+```
+
+A noter que cet usage n'est pas si exotique qu'il y paraît. 
+En effet, Python utilise lui-même (implicitement) l'exception `StopIteration` 
+dans les boucles `for` pour signaler l'épuisement d'un itérable.
+
+Ainsi le code 
+
+``` python
+for i in [1, 2, 3]:
+    print(i)
+```
+
+est équivalent à:
+
+``` python
+it = iter([1, 2, 3])
+while True:
+    try:
+        i = next(it)
+        print(i)
+    except StopIteration:
+        break
+```
+
+
+Misc. & Sandbox
+================================================================================
 
 #### What about NumPy? {.details .info}
 
@@ -454,8 +741,7 @@ inf
 nan
 ```
 
-
-#### Misc. Sandbox.
+#### skdjskd
 
 jdskdjslkd sdlj k jslkdj slkjd
 
@@ -489,6 +775,31 @@ inf
 
 Sandbox
 ================================================================================
+
+
+
+#### Quizz 
+
+L'expression `x and not y or z` est interprétée comme:
+
+- [ ] `x and (not (y or z))`
+
+- [ ] `x and ((not y)) or z)`
+
+- [ ] `(x and (not y)) or z`
+
+#### ✨ Solution {.details}
+
+- [ ] `x and (not (y or z))`
+
+- [ ] `x and ((not y)) or z)`
+
+- [x] `(x and (not y)) or z`
+
+En effet `not` a une priorité plus élevée que `and` qui a une priorité
+plus élevée que `or`.
+
+#### skjdjsdlkd
 
 TODO quizz:
 
