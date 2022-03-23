@@ -20,11 +20,204 @@ Exécution conditionnelle de code, "branching".
 
 ## Booléens
 
-Type booléen, opérateurs logiques, conversion en booléen des types built-in
+Le type booléen `bool` peut prendre deux valeurs : `False` et `True`.
 
-### Opérateurs logiques
+### Logique 
 
-`not`, `and`, `or`, priorités (left-assoc. vs right-assoc).
+Les opérateurs logiques "non" ($\neg$), "et" ($\wedge$) et "ou" ($\vee$)
+sont désignés en Python par les mot-clés `not`, `and` et `or` 
+et s'évaluent comme suit :
+
+| Symbole | Opérateur | Expression   |       | Valeur  |
+|---------|-----------|:-------------|-------|---------|
+| $\neg$ | `not` | `not False`  | $\to$ | `True`  |
+| $\neg$ | `not` | `not True`   | $\to$ | `False` |
+| $\wedge$ | `and` | `False and False` | $\to$ | `False` |
+| $\wedge$ | `and` | `False and True`  | $\to$ | `False` |
+| $\wedge$ | `and` | `True and False`  | $\to$ | `False` |
+| $\wedge$ | `and` | `True and True`   | $\to$ | `True`  |
+| $\vee$ | `or` | `False or False` | $\to$ | `False` |
+| $\vee$ | `or` | `False or True`  | $\to$ | `True` |
+| $\vee$ | `or` | `True or False`  | $\to$ | `True` |
+| $\vee$ | `or` | `True or True`   | $\to$ | `True`  |
+
+### Comparaison
+
+Les objets Python peuvent être comparés au moyen des opérateurs `==` (égal)
+et `!=` (différents).
+
+``` python
+>>> 0 == 0
+True
+>>> 0 == 1
+False
+>>> "A" == "A"
+True
+>>> "A" == "B"
+False
+>>> [1, 2, 3] == [1, 2, 3]
+True
+>>> [1, 2, 3] == [4, 5, 6]
+False
+```
+
+Si les objets sont d'un ordonnés (par exemple des entiers, des nombres
+flottants, etc.), on peut également utiliser `<` (inférieur strictement à),
+`<=` (inférieur ou égal à), `>` (supérieur strictement à) et `>=` (supérieur
+ou égal à). 
+
+L'ordre considéré dépend du type de l'objet ; par exemple pour les chaînes
+de caractère, c'est l'ordre lexicographique qui est utilisé :
+
+``` python
+>>> "ABC" < "XYZ"
+True
+```
+
+### Appartenance
+
+Les opérateurs `in` et `not in` permettent de tester l'appartenance d'un
+objet à un conteneur (une liste, une chaîne de caractères, un ensemble, etc.) :
+
+``` python
+>>> 1 in [1, 2, 3]
+True
+>>> 0 in [0, 1, 3]
+False
+>>> 1 not in [1, 2, 3]
+False
+>>> 0 not in [1, 2, 3]
+True
+```
+
+``` python
+>>> 1 in set([1, 2, 3])
+True
+>>> 0 in set()
+False
+>>> "Hello" in "Hello world!"
+True
+>>> "x" in {"x": 0.0, "y": 1.0}
+True
+```
+
+### Egalité et identité
+
+L'égalité entre objets 
+-- testée par `==` (et `!=`) -- 
+est parfois appelée **égalité structurelle**.
+Elle se distingue de ce qu'on appelle **identité** 
+-- ou **égalité référentielle** --
+et qui est testée par `is` (et `is not`).
+
+Un exemple permet de comprendre la différence ; considérons les trois listes
+`a`, `b` et `c` :
+
+``` python
+>>> a = [1, 2, 3]
+>>> b = [1, 2, 3]
+>>> c = b
+```
+
+Les listes `a` et `b` sont égales, ainsi que `b` et `c`, mais ne sont pas
+identiques, elles ne désignent pas le même objet (en mémoire) ;
+les variables `b` et `c` par contre désignent le même objet :
+
+``` python
+>>> a == b
+True
+>>> b == c
+True
+>>> a is b
+False
+>>> b is c
+True
+```
+
+En effet les variables `b` et `c` désignent le même objet (en mémoire),
+contrairement à `a` et `b`. On peut aussi s'en assurer en évaluant 
+l'**identifiant** de ces objets (un entier) avec la fonction `id` :
+
+```
+>>> id(a)
+140636096399680
+>>> id(b)
+140636098130688
+>>> id(c)
+140636098130688
+>>> id(a) == id(b)
+False
+>>> id(b) == id(c)
+True
+```
+
+Une conséquence importante de cette distinction : les modifications de la liste
+(désignée par) `b` vont impacter la liste `c` (qui est le même objet), mais
+pas la liste `a` (qui est un objet distinct) :
+
+``` python
+>>> b.append(4)
+>>> b
+[1, 2, 3, 4]
+>>> c
+[1, 2, 3, 4]
+>>> a
+[1, 2, 3]
+```
+
+#### ⚠️ `x is not y` diffère de `x is (not y)`  {.details}
+
+Bien qu'étant composé de deux mot-clés séparés par un espace, `is not` est
+un opérateur en tant que tel. L'expression `x is not y` est équivalente
+à `not (x is y)` ... mais plus lisible ! Si l'on a besoin d'utiliser
+`is` et `not` comme des opérateurs distincts, pour signifier `x is (not y)`,
+il conviendra de garder les parenthèses. Ainsi, avec
+
+``` python
+>>> x = 1
+>>> y = True
+```
+
+on a 
+
+```
+>>> x is not y
+True
+>>> x is y
+False
+>>> not (x is y)
+True
+```
+
+mais
+
+``` python
+>>> not y
+False
+>>> x is (not y)
+False
+```
+
+
+### Prédicats
+
+`any` et `all` qqpart?
+
+### Priorités
+
+📖 [Référence du langage Python / Expressions / Priorité des opérateurs][precedence]
+
+[precedence]: https://docs.python.org/3/reference/expressions.html#operator-precedence
+
+**TODO:** expliquer priorités et "group left to right" ... sauf si ça chaine ?
+(cf doc)
+
+ 1. Appel de fonction
+ 2. `in`, `not in`, `is`, `is not`, `<`, `<=`, `>`, `>=`, `!=`, `==`
+ 3. `not`
+ 4. `and`
+ 5. `or`
+
 
 opérateurs de comparaison
 
@@ -42,7 +235,34 @@ ordre:
 
 `==`, `!=`, `<`, etc.
 
-### Conversion automatiques / implicites
+#### TODO: formes normales disjonctives encouragées (détail).
+
+
+#### Quizz 
+
+L'expression `x and not y or z` est interprétée comme:
+
+- [ ] `x and (not (y or z))`
+
+- [ ] `x and ((not y)) or z)`
+
+- [ ] `(x and (not y)) or z`
+
+#### ✨ Solution {.details}
+
+- [ ] `x and (not (y or z))`
+
+- [ ] `x and ((not y)) or z)`
+
+- [x] `(x and (not y)) or z`
+
+En effet `not` a une priorité plus élevée que `and` qui a une priorité
+plus élevée que `or`.
+
+
+### Conversion explicites et automatiques / implicites
+
+⚠️ and et or (et not ? si) ne font pas de conversion implicites, c'est plus subtil.
 
 **en quelque sorte fausse** (🇺🇸 *false-ish*) ou **en quelque sorte vraie** (🇺🇸 *true-ish*)
 
@@ -58,6 +278,10 @@ Expliquer en amont cas de `bool`, avec `is`, `True` et `False`
 
 Analyse: une seule valeur (en quelque sorte) fausse par type ;
 en quelque sortie faux ssi égal à cette valeur, sinon (en quelque sorte) vraie.
+
+**🚧 TODO.** Refactorer le tableau en se basant sur cette idée d'unique valeur
+fausse (qui est d'ailleurs la valeur "par défaut", quand le constructeur n'a
+pas d'argument).
 
 | `type(x)`    | `bool(x) is False` | `bool(x) is True` |
 |--------------|--------------------|-------------------|
@@ -132,9 +356,22 @@ Faire preuve de discernement.
 
 ## `For`
 
+La boucle `for`
+
+``` python
+for item in iterable:
+    # do something
+```
+
+Iterable: collection (listes, n-uplets, ensembles, dictionnaires, etc.), iterateur ou plus généralement itérable.
+
+Ref: <https://docs.python.org/3/library/collections.abc.html#collections.abc.Sized>
+
   - `for x in y`, types builtins
 
   - itérable et appels explicites (ex sur un dict)
+
+
 
   - `for / else`
 

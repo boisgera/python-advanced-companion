@@ -12,11 +12,9 @@ function copyAttributes(source, target) {
 document.addEventListener("DOMContentLoaded", (event) => {
     let details = document.querySelectorAll("section.details")
     details.forEach((elt) => {
-        console.log("attrs:", elt.attributes)
         let details = document.createElement("details");
         details.innerHTML = elt.innerHTML;
         copyAttributes(elt, details)
-        console.log(details)
         elt.replaceWith(details);
         let header = details.querySelector("h1, h2, h3, h4")
         let summary = document.createElement("summary")

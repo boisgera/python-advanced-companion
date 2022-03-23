@@ -65,6 +65,7 @@ options = [
   "--include-in-header", "html/copy-code.html",
   "--include-in-header", "html/detailify.html",
   "--include-in-header", "html/collapse.html",
+#   "--include-in-header", "html/doctest.html",
   "-V", "lang=fr",
   "--mathjax"
 ]
