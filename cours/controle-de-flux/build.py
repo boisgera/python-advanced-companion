@@ -56,7 +56,9 @@ divify(doc, level=4)
 divify(doc, level=3)
 
 options = [
-  "--standalone", "--toc",
+  "--standalone", 
+  "--template", "pandoc-templates/template.html5",
+  "--toc",
   "--css",  "css/style.css",
   "--no-highlight",
   "--include-in-header", "html/fonts.html",

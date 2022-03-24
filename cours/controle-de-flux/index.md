@@ -1,11 +1,9 @@
 ---
-title: Contrôle de flux
+title: Flux d'exécution
 author: 
-  - "👤[Sébastien Boisgérault](mailto:Sebastien.Boisgerault@mines-paristech.fr), 
-    🏦 MINES ParisTech, Université PSL"
-date: "⚖️ Licence : [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)"
-# author: ""
-# license: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+  - "[Sébastien Boisgérault](mailto:Sebastien.Boisgerault@mines-paristech.fr)" 
+affiliation: "MINES ParisTech, Université PSL"
+license: "[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)"
 ---
 
 # Intro
