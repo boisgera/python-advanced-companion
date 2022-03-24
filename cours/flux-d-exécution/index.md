@@ -101,15 +101,46 @@ True
 
 ### Egalité et identité
 
-L'égalité entre objets 
--- testée par `==` (et `!=`) -- 
-est parfois appelée **égalité structurelle**.
-Elle se distingue de ce qu'on appelle **identité** 
--- ou **égalité référentielle** --
-et qui est testée par `is` (et `is not`).
+L'**égalité** de `x` et `y` est testée par l'opérateur `==` :
 
-Un exemple permet de comprendre la différence ; considérons les trois listes
-`a`, `b` et `c` :
+``` python
+x == y
+```
+
+Leur **identité** est testée avec le mot-clé `is` :
+
+``` python
+x is y
+```
+
+La négation de ces propriétés sont testées par `!=` et `is not` :
+
+
+``` python
+x != y
+```
+
+``` python
+x is not y
+```
+
+
+#### ℹ️ Terminologie {.details}
+L'égalité entre objets est parfois appelée **égalité structurelle**
+et l'identité entre objets **égalité référentielle**.
+
+####
+
+L'identité `x is y` signifie que les variables `x` et `y` réfèrent au même
+objet Python : les données sont à la même adresse en mémoire. Une copie
+parfaite d'un objet aura donc une identité différente de l'originale,
+alors qu'il sera considéré égal à l'original. Par contre, si deux objets
+sont identiques (au sens de : ont la même identité, sont un seul est unique
+objet), alors ils sont nécessairement égaux.
+
+####
+
+A titre d'exemple, considérons les trois listes `a`, `b` et `c` :
 
 ``` python
 >>> a = [1, 2, 3]
@@ -132,9 +163,8 @@ False
 True
 ```
 
-En effet les variables `b` et `c` désignent le même objet (en mémoire),
-contrairement à `a` et `b`. On peut aussi s'en assurer en évaluant 
-l'**identifiant** de ces objets (un entier) avec la fonction `id` :
+On peut s'assurer que les variables `b` et `c` désignent le même objet en 
+évaluant l'**identifiant** de ces objets (un entier) avec la fonction `id` :
 
 ```
 >>> id(a)
@@ -774,9 +804,7 @@ inf
 Sandbox
 ================================================================================
 
-
-
-#### Quizz 
+#### 🧩 Quizz 
 
 L'expression `x and not y or z` est interprétée comme:
 
